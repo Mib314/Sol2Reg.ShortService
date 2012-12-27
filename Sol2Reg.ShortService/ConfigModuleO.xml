@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module Name="ADAM6015_0" IP="192.168.0.151" port="502" ModuleSerie="Adam6000Type" ModuleType="Adam6015">
+		<Chanel id="0" Key="TS1" Direction="Input" ValueType="Analog" Description = "Temp. absorbeur 1"/>
+		<Chanel id="1" Key="TB1" Direction="Input" ValueType="Analog" Description = "Temp. Ballon 1 (bas)"/>
+		<Chanel id="2" Key="TB2" Direction="Input" ValueType="Analog" Description = "Temp. Ballon 2 (haut)"/>
+		<Chanel id="3" Key="TLH" Direction="Input" ValueType="Analog" Description = "Temp. ligne chaude vers les absorbeurs 1"/>
+		<Chanel id="4" Key="TLC" Direction="Input" ValueType="Analog" Description = "Temp. ligne froide des absorbeurs 1"/>
+		<Chanel id="5" Key="TBO" Direction="Input" ValueType="Analog" Description = "Temp. de l'appoint bois (momo)"/>
+		<Chanel id="6" Key="TCh" Direction="Input" ValueType="Analog" Description = "Temp. départ chauffage mural"/>
+	</Module>
+	<Module Name="ADAM60660" IP="192.168.0.150" port="502" ModuleSerie="Adam6000Type" ModuleType="Adam6066">
+		<Chanel id="0" Key="0" Direction="Input" ValueType="Digital" />
+		<Chanel id="1" Key="1" Direction="Input" ValueType="Digital" />
+		<Chanel id="2" Key="2" Direction="Input" ValueType="Digital" />
+		<Chanel id="3" Key="3" Direction="Input" ValueType="Digital" />
+		<Chanel id="4" Key="4" Direction="Input" ValueType="Digital" />
+		<Chanel id="5" Key="5" Direction="Input" ValueType="Digital" />
+		<Chanel id="6"  Key="CGH1" Direction="Output" ValueType="Digital" Description = "On / off pour le circulateur solaire"/>
+		<Chanel id="7"  Key="VST" Direction="Output" ValueType="Digital" Description = "On / off pour le la stratification (On -> ballon 2)"/>
+		<Chanel id="8"  Key="CB" Direction="Output" ValueType="Digital" Description = "On / off pour le circulateur appoint bois (Momo)"/>
+		<Chanel id="9"  Key="VMCCW" Direction="Output" ValueType="Digital" Description = "Vanne mélangeuse chauffage. Rotation CW -> plus chaud"/>
+		<Chanel id="10" Key="VMCACW" Direction="Output" ValueType="Digital" Description = "Vanne mélangeuse chauffage. Rotation ACW -> plus froid"/>
+		<Chanel id="11" Key="K" Direction="Output" ValueType="Digital" Description = "Not used"/>
+	</Module>
+</Modules>
