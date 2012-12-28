@@ -18,13 +18,20 @@ namespace ADAM6000Com
 	using System.Net.Sockets;
 	using Advantech.Adam;
 	using Advantech.Common;
-	using ModuleIO;
+	using ModuleIO.Interface;
+	using ModuleIO_Interface;
 
-	public abstract class Adam60Xx : IModuleIO
+	public abstract class Adam60Xx : IModule
 	{
+		/// <summary>
+		///     Initializes a new instance of the <see cref="Adam60Xx" /> class.
+		/// </summary>
 		protected Adam60Xx()
 		{
-			this.Port = 502;
+			this.Port = 502; // modbus TCP port is 502
+			this.AdamModbus = new AdamSocket();
+			this.AdamModbus.SetTimeout(1000, 1000, 1000); // set timeout for TCP
+			this.Chanels = new List<IChanelData>();
 		}
 
 		#region Properties
@@ -87,11 +94,6 @@ namespace ADAM6000Com
 		/// <value>The id sart for output chanel.</value>
 		public int IdSartForOutputChanel { get; internal set; }
 
-
-		/// <summary>Gets or sets the type of the module.</summary>
-		/// <value>The type of the module.</value>
-		public string ModuleType { get; set; }
-
 		/// <summary>Gets or sets the ip address.</summary>
 		/// <value>The ip address.</value>
 		public string IpAddress { get; set; }
@@ -109,10 +111,10 @@ namespace ADAM6000Com
 
 		/// <summary>Gets the chanels.</summary>
 		/// <value>The chanels.</value>
-		public IList<ChanelData> Chanels { get; internal set; }
+		public IList<IChanelData> Chanels { get; internal set; }
 		#endregion
 
-		#region IModuleIO Members
+		#region IModule Members
 		public void Start()
 		{
 			if (this.IsConnected) return;

@@ -1,17 +1,17 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\Sol2Reg.ShortService\LoadModulSetting.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\ModuleIO\LoadModulSetting.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     Sol2Reg.ShortService\LoadModulSetting.cs.
+//     ModuleIO\LoadModulSetting.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : Sol2Reg.ShortService\LoadModulSetting.cs
-//     Created            : 28.12.2012 00:13
+//     Project \ FileName : ModuleIO\LoadModulSetting.cs
+//     Created            : 28.12.2012 04:13
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ShortService
+namespace ModuleIO
 {
 	using System;
 	using System.Collections.Generic;
@@ -19,8 +19,9 @@ namespace Sol2Reg.ShortService
 	using System.Linq;
 	using System.Xml.Linq;
 	using ADAM6000Com;
-	using ModuleIO;
-	using ValueType = ModuleIO.ValueType;
+	using ModuleIO.Interface;
+	using ModuleIO_Interface;
+	using Sol2Reg.ShortService;
 
 	public class LoadModulSetting
 	{
@@ -36,7 +37,7 @@ namespace Sol2Reg.ShortService
 		private const string chanel_Id = "Id";
 		private const string chanel_Key = "Key";
 		private const string chanel_Direction = "Direction";
-		private const string chanel_ValueType = "ValueType";
+		private const string chanel_ValueType = "TypeOfValue";
 		private const string chanel_Description = "Description";
 		private const string chanel_Comment = "Comment";
 
@@ -44,11 +45,13 @@ namespace Sol2Reg.ShortService
 		private const string chanel_Offset = "Offset";
 		#endregion
 
-		public List<IModuleIO> Modules { get; set; }
+		public List<IModule> Modules { get; set; }
 
 		public void LoadConfig()
 		{
 			var doc = this.ReadFile();
+
+			var modules = new Modules();
 
 			foreach (var xModule in doc.Elements(tag_Module))
 			{
@@ -56,7 +59,6 @@ namespace Sol2Reg.ShortService
 				var moduleType = this.ReadAttribute(module_ModuleType, xModule);
 
 				var module = this.InitialiseModule(moduleSerie, moduleType);
-
 				module.Name = this.ReadAttribute(module_Name, xModule);
 				module.IpAddress = this.ReadAttribute(module_IP, xModule);
 				var i = 0;
@@ -67,10 +69,10 @@ namespace Sol2Reg.ShortService
 				{
 					var id = -1;
 					ConvertToInt(this.ReadAttribute(chanel_Id, xChanel), ref id);
-					ChanelData chanel;
+					IChanelData chanel;
 					try
 					{
-						chanel = new ChanelData(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.ReadAttribute(chanel_Direction, xChanel)), (ValueType) Enum.Parse(typeof (ValueType), this.ReadAttribute(chanel_ValueType, xChanel)));
+						chanel = new ChanelData(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
 					}
 					catch (Exception)
 					{
@@ -80,7 +82,10 @@ namespace Sol2Reg.ShortService
 					chanel.Offset = this.ReadAttribute(chanel_Offset, xChanel, 0);
 					chanel.Description = this.ReadAttribute(chanel_Description, xChanel);
 					chanel.Comment = this.ReadAttribute(chanel_Comment, xChanel);
+
+					module.Chanels.Add(chanel);
 				}
+				modules.Add(module);
 			}
 		}
 
@@ -98,29 +103,43 @@ namespace Sol2Reg.ShortService
 			return doc;
 		}
 
-		private IModuleIO InitialiseModule(string moduleSerie, string moduleType)
+		/// <summary>
+		/// Initialises the module.
+		/// </summary>
+		/// <param name="moduleSerie">The module serie.</param>
+		/// <param name="moduleType">Type of the module.</param>
+		/// <returns>The module initialized</returns>
+		/// <exception cref="System.ArgumentOutOfRangeException">If moduleSerie or moduleType not exist.</exception>
+		private IModule InitialiseModule(string moduleSerie, string moduleType)
 		{
 			switch (moduleSerie)
 			{
 				case "Adam6000Type":
-				{
-					switch (moduleType)
 					{
-						case "Adam6015":
-							return new Adam6015();
-						case "Adam6066":
-							return new Adam6066();
-						default:
-							throw new ArgumentOutOfRangeException(moduleType);
+						switch (moduleType)
+						{
+							case "Adam6015":
+								return new Adam6015();
+							case "Adam6066":
+								return new Adam6066();
+							default:
+								throw new ArgumentOutOfRangeException(moduleType);
+						}
 					}
-				}
 				default:
-				{
-					throw new ArgumentOutOfRangeException(moduleSerie);
-				}
+					{
+						throw new ArgumentOutOfRangeException(moduleSerie);
+					}
 			}
 		}
 
+		/// <summary>
+		/// Reads the attribute.
+		/// </summary>
+		/// <param name="attributName">Name of the attribut.</param>
+		/// <param name="element">The element.</param>
+		/// <param name="defaultValue">The default value.</param>
+		/// <returns>String value.</returns>
 		private string ReadAttribute(string attributName, XElement element, string defaultValue = "")
 		{
 			if (!element.HasAttributes) return string.Empty;
@@ -131,6 +150,13 @@ namespace Sol2Reg.ShortService
 			return attribut.Value;
 		}
 
+		/// <summary>
+		/// Reads the attribute.
+		/// </summary>
+		/// <param name="attributName">Name of the attribut.</param>
+		/// <param name="element">The element.</param>
+		/// <param name="defaultValue">The default value.</param>
+		/// <returns>Integer value</returns>
 		private int ReadAttribute(string attributName, XElement element, int defaultValue)
 		{
 			var i = 0;
@@ -138,6 +164,12 @@ namespace Sol2Reg.ShortService
 			return defaultValue;
 		}
 
+		/// <summary>
+		/// Converts to int.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <param name="valueToAssigne">The value to assigne.</param>
+		/// <returns>the integer value</returns>
 		private static bool ConvertToInt(string value, ref int valueToAssigne)
 		{
 			int tempValue;

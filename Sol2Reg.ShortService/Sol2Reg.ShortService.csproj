@@ -47,15 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Advantech.Adam">
-      <HintPath>..\..\ExternDlls\Adam.NET Class Library\Advantech.Adam.dll</HintPath>
-    </Reference>
-    <Reference Include="Advantech.Common">
-      <HintPath>..\..\ExternDlls\Adam.NET Class Library\Advantech.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Advantech.Protocol">
-      <HintPath>..\..\ExternDlls\Adam.NET Class Library\Advantech.Protocol.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -68,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalVariables.cs" />
-    <Compile Include="LoadModulSetting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShortServices.cs">
@@ -99,20 +89,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConfigModuleIO.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="NewFolder1\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ADAM6000Com\ADAM6000Com.csproj">
-      <Project>{5E6A9BF5-35DF-459E-9742-EDB8E1902689}</Project>
-      <Name>ADAM6000Com</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleIO\ModuleIO.csproj">
-      <Project>{554D1A8D-701B-4B6D-A679-4286850FC66E}</Project>
-      <Name>ModuleIO</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

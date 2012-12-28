@@ -1,22 +1,23 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\IModuleIO.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\ModuleIO\IModule.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\IModuleIO.cs.
+//     ModuleIO\IModule.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\IModuleIO.cs
+//     Project \ FileName : ModuleIO\IModule.cs
 //     Created            : 27.12.2012 20:43
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
+	using ModuleIO_Interface;
 
 	/// <summary>Interface to define ModuleIO</summary>
-	public interface IModuleIO
+	public interface IModule
 	{
 		#region Properties
 		/// <summary>Gets or sets the name.</summary>
@@ -63,11 +64,7 @@ namespace ModuleIO
 
 		/// <summary>Gets the chanels.</summary>
 		/// <value>The chanels. Definition and current value.</value>
-		IList<ChanelData> Chanels { get; }
-
-		/// <summary>Gets or sets the type of the module.</summary>
-		/// <value>The type of the module.</value>
-		string ModuleType { get; set; }
+		IList<IChanelData> Chanels { get; }
 		#endregion
 
 		#region Methode

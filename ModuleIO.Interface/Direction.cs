@@ -1,21 +1,21 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\ValueType.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\ModuleIO\Direction.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\ValueType.cs.
+//     ModuleIO\Direction.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\ValueType.cs
+//     Project \ FileName : ModuleIO\Direction.cs
 //     Created            : 27.12.2012 20:05
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace ModuleIO.Interface
 {
-	public enum ValueType
+	public enum Direction
 	{
-		Digital,
-		Analog
+		Input,
+		Output
 	}
 }

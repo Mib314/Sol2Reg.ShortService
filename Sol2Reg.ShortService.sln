@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegulationBasique", "Regula
 		{FF42BE5F-76E5-48BD-A590-0DABCC1901C9} = {FF42BE5F-76E5-48BD-A590-0DABCC1901C9}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleIO.Interface", "ModuleIO.Interface\ModuleIO.Interface.csproj", "{F4225537-D4C1-4632-954D-3650E223B78A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{5FB9C424-4177-48B2-A109-F4FD1E25557C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB9C424-4177-48B2-A109-F4FD1E25557C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB9C424-4177-48B2-A109-F4FD1E25557C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4225537-D4C1-4632-954D-3650E223B78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4225537-D4C1-4632-954D-3650E223B78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4225537-D4C1-4632-954D-3650E223B78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4225537-D4C1-4632-954D-3650E223B78A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

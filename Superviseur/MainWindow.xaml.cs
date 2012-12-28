@@ -18,7 +18,7 @@ namespace Superviseur
 	using ADAM6000Com;
 
 	/// <summary>Logique d'interaction pour MainWindow.xaml</summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow
 	{
 		private readonly Adam6015 adam6015;
 		private readonly Adam6066 adam6066;

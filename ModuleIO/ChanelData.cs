@@ -13,17 +13,20 @@
 
 namespace ModuleIO
 {
-	/// <summary>Define and store infoarmation about a chanel.</summary>
-	public class ChanelData
+	using ModuleIO.Interface;
+	using ModuleIO_Interface;
+
+	/// <summary>Define and store information about a chanel.</summary>
+	public class ChanelData : IChanelData
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ChanelData" /> class.
 		/// </summary>
 		/// <param name="id" >The id.</param>
 		/// <param name="direction" >The direction.</param>
-		/// <param name="valueType" >Type of the value.</param>
-		public ChanelData(int id, Direction direction, ValueType valueType)
-			: this(id, string.Format("Chanel [0]", id), direction, valueType) {}
+		/// <param name="typeOfValue" >Type of the value.</param>
+		public ChanelData(int id, Direction direction, TypeOfValue typeOfValue)
+			: this(id, string.Format("Chanel [0]", id), direction, typeOfValue) {}
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ChanelData" /> class.
@@ -31,14 +34,14 @@ namespace ModuleIO
 		/// <param name="id" >The id.</param>
 		/// <param name="key" >The key.</param>
 		/// <param name="direction" >The direction.</param>
-		/// <param name="valueType" >Type of the value.</param>
-		public ChanelData(int id, string key, Direction direction, ValueType valueType)
+		/// <param name="typeOfValue" >Type of the value.</param>
+		public ChanelData(int id, string key, Direction direction, TypeOfValue typeOfValue)
 		{
 			this.Id = id;
 			this.Key = key;
 			this.Direction = direction;
-			this.ValueType = valueType;
-			if (this.ValueType == ValueType.Digital)
+			this.TypeOfValue = typeOfValue;
+			if (this.TypeOfValue == TypeOfValue.Digital)
 			{
 				this.ValueAnalog = 0;
 				this.ValueDigital = null;
@@ -67,7 +70,7 @@ namespace ModuleIO
 
 		/// <summary>Gets the type of the value.</summary>
 		/// <value>The type of the value.</value>
-		public ValueType ValueType { get; private set; }
+		public TypeOfValue TypeOfValue { get; private set; }
 
 		/// <summary>Gets or sets the description.</summary>
 		/// <value>The description.</value>
@@ -104,7 +107,7 @@ namespace ModuleIO
 
 		public override string ToString()
 		{
-			return string.Format("{0} - {1} : dir : {2} - Value {3}", this.Id, this.Key, this.Direction, this.ValueType == ValueType.Analog ? this.ValueAnalog.ToString() : this.ValueDigital.ToString());
+			return string.Format("{0} - {1} : dir : {2} - Value {3}", this.Id, this.Key, this.Direction, this.TypeOfValue == TypeOfValue.Analog ? this.ValueAnalog.ToString() : this.ValueDigital.ToString());
 		}
 	}
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{554D1A8D-701B-4B6D-A679-4286850FC66E}</ProjectGuid>
+    <ProjectGuid>{F4225537-D4C1-4632-954D-3650E223B78A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModuleIO</RootNamespace>
-    <AssemblyName>ModuleIO</AssemblyName>
+    <RootNamespace>ModuleIO.Interface</RootNamespace>
+    <AssemblyName>ModuleIO.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,28 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChanelData.cs" />
-    <Compile Include="LoadModulSetting.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="IChanelData.cs" />
+    <Compile Include="IModuleIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ConfigModuleIO.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ADAM6000Com\ADAM6000Com.csproj">
-      <Project>{5e6a9bf5-35df-459e-9742-edb8e1902689}</Project>
-      <Name>ADAM6000Com</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModuleIO.Interface\ModuleIO.Interface.csproj">
-      <Project>{f4225537-d4c1-4632-954d-3650e223b78a}</Project>
-      <Name>ModuleIO.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sol2Reg.ShortService\Sol2Reg.ShortService.csproj">
-      <Project>{ff42be5f-76e5-48bd-a590-0dabcc1901c9}</Project>
-      <Name>Sol2Reg.ShortService</Name>
-    </ProjectReference>
+    <Compile Include="ValueType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
