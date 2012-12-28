@@ -57,6 +57,12 @@
     <Compile Include="Adam6015.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModuleIO.Interface\ModuleIO.Interface.csproj">
+      <Project>{f4225537-d4c1-4632-954d-3650e223b78a}</Project>
+      <Name>ModuleIO.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

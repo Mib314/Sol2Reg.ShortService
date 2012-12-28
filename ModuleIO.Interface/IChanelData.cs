@@ -1,6 +1,20 @@
-﻿namespace ModuleIO_Interface
+﻿// ----------------------------------------------------------------------------------
+// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IChanelData.cs" company="iLog">
+//     Copyright © iLog, 2012 . All rights reserved.
+// </copyright>
+// <summary>
+//     ModuleIO.Interface\IChanelData.cs.
+// </summary>
+// <FileInfo>
+//     Project \ FileName : ModuleIO.Interface\IChanelData.cs
+//     Created            : 28.12.2012 04:22
+// </FileInfo>
+//  ----------------------------------------------------------------------------------
+
+namespace ModuleIO.Interface
 {
-	public interface IChanelData {
+	public interface IChanelData
+	{
 		/// <summary>Gets the id.</summary>
 		/// <value>The id.</value>
 		int Id { get; }
@@ -15,7 +29,7 @@
 
 		/// <summary>Gets the type of the value.</summary>
 		/// <value>The type of the value.</value>
-		ValueType ValueType { get; }
+		TypeOfValue TypeOfValue { get; }
 
 		/// <summary>Gets or sets the description.</summary>
 		/// <value>The description.</value>

@@ -20,7 +20,6 @@ namespace ModuleIO
 	using System.Xml.Linq;
 	using ADAM6000Com;
 	using ModuleIO.Interface;
-	using ModuleIO_Interface;
 	using Sol2Reg.ShortService;
 
 	public class LoadModulSetting
@@ -72,7 +71,7 @@ namespace ModuleIO
 					IChanelData chanel;
 					try
 					{
-						chanel = new ChanelData(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
+						chanel = new ChanelData(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue) Enum.Parse(typeof (TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
 					}
 					catch (Exception)
 					{
@@ -103,42 +102,38 @@ namespace ModuleIO
 			return doc;
 		}
 
-		/// <summary>
-		/// Initialises the module.
-		/// </summary>
-		/// <param name="moduleSerie">The module serie.</param>
-		/// <param name="moduleType">Type of the module.</param>
+		/// <summary>Initialises the module.</summary>
+		/// <param name="moduleSerie" >The module serie.</param>
+		/// <param name="moduleType" >Type of the module.</param>
 		/// <returns>The module initialized</returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">If moduleSerie or moduleType not exist.</exception>
+		/// <exception cref="System.ArgumentOutOfRangeException" >If moduleSerie or moduleType not exist.</exception>
 		private IModule InitialiseModule(string moduleSerie, string moduleType)
 		{
 			switch (moduleSerie)
 			{
 				case "Adam6000Type":
+				{
+					switch (moduleType)
 					{
-						switch (moduleType)
-						{
-							case "Adam6015":
-								return new Adam6015();
-							case "Adam6066":
-								return new Adam6066();
-							default:
-								throw new ArgumentOutOfRangeException(moduleType);
-						}
+						case "Adam6015":
+							return new Adam6015();
+						case "Adam6066":
+							return new Adam6066();
+						default:
+							throw new ArgumentOutOfRangeException(moduleType);
 					}
+				}
 				default:
-					{
-						throw new ArgumentOutOfRangeException(moduleSerie);
-					}
+				{
+					throw new ArgumentOutOfRangeException(moduleSerie);
+				}
 			}
 		}
 
-		/// <summary>
-		/// Reads the attribute.
-		/// </summary>
-		/// <param name="attributName">Name of the attribut.</param>
-		/// <param name="element">The element.</param>
-		/// <param name="defaultValue">The default value.</param>
+		/// <summary>Reads the attribute.</summary>
+		/// <param name="attributName" >Name of the attribut.</param>
+		/// <param name="element" >The element.</param>
+		/// <param name="defaultValue" >The default value.</param>
 		/// <returns>String value.</returns>
 		private string ReadAttribute(string attributName, XElement element, string defaultValue = "")
 		{
@@ -150,12 +145,10 @@ namespace ModuleIO
 			return attribut.Value;
 		}
 
-		/// <summary>
-		/// Reads the attribute.
-		/// </summary>
-		/// <param name="attributName">Name of the attribut.</param>
-		/// <param name="element">The element.</param>
-		/// <param name="defaultValue">The default value.</param>
+		/// <summary>Reads the attribute.</summary>
+		/// <param name="attributName" >Name of the attribut.</param>
+		/// <param name="element" >The element.</param>
+		/// <param name="defaultValue" >The default value.</param>
 		/// <returns>Integer value</returns>
 		private int ReadAttribute(string attributName, XElement element, int defaultValue)
 		{
@@ -164,11 +157,9 @@ namespace ModuleIO
 			return defaultValue;
 		}
 
-		/// <summary>
-		/// Converts to int.
-		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="valueToAssigne">The value to assigne.</param>
+		/// <summary>Converts to int.</summary>
+		/// <param name="value" >The value.</param>
+		/// <param name="valueToAssigne" >The value to assigne.</param>
 		/// <returns>the integer value</returns>
 		private static bool ConvertToInt(string value, ref int valueToAssigne)
 		{

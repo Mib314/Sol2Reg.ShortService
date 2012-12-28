@@ -33,7 +33,6 @@ namespace ADAM6000Com
 
 			this.ChanelEnabled = new bool[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
 			this.ByRangeInput = new byte[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
-
 		}
 
 		public override void ReadData()

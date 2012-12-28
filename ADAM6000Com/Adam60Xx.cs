@@ -19,7 +19,6 @@ namespace ADAM6000Com
 	using Advantech.Adam;
 	using Advantech.Common;
 	using ModuleIO.Interface;
-	using ModuleIO_Interface;
 
 	public abstract class Adam60Xx : IModule
 	{

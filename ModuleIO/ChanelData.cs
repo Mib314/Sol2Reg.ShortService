@@ -14,7 +14,6 @@
 namespace ModuleIO
 {
 	using ModuleIO.Interface;
-	using ModuleIO_Interface;
 
 	/// <summary>Define and store information about a chanel.</summary>
 	public class ChanelData : IChanelData
@@ -56,6 +55,7 @@ namespace ModuleIO
 			this.Offset = 0;
 		}
 
+		#region IChanelData Members
 		/// <summary>Gets the id.</summary>
 		/// <value>The id.</value>
 		public int Id { get; private set; }
@@ -109,5 +109,6 @@ namespace ModuleIO
 		{
 			return string.Format("{0} - {1} : dir : {2} - Value {3}", this.Id, this.Key, this.Direction, this.TypeOfValue == TypeOfValue.Analog ? this.ValueAnalog.ToString() : this.ValueDigital.ToString());
 		}
+		#endregion
 	}
 }

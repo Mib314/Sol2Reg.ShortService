@@ -102,6 +102,10 @@
       <Project>{5e6a9bf5-35df-459e-9742-edb8e1902689}</Project>
       <Name>ADAM6000Com</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModuleIO.Interface\ModuleIO.Interface.csproj">
+      <Project>{F4225537-D4C1-4632-954D-3650E223B78A}</Project>
+      <Name>ModuleIO.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModuleIO\ModuleIO.csproj">
       <Project>{554D1A8D-701B-4B6D-A679-4286850FC66E}</Project>
       <Name>ModuleIO</Name>

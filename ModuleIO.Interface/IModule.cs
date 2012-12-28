@@ -1,20 +1,19 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\IModule.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModule.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\IModule.cs.
+//     ModuleIO.Interface\IModule.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\IModule.cs
-//     Created            : 27.12.2012 20:43
+//     Project \ FileName : ModuleIO.Interface\IModule.cs
+//     Created            : 28.12.2012 04:20
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
-	using ModuleIO_Interface;
 
 	/// <summary>Interface to define ModuleIO</summary>
 	public interface IModule

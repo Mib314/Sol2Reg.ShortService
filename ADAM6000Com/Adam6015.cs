@@ -55,7 +55,7 @@ namespace ADAM6000Com
 				{
 					// Convertit chaque chanel de la valeur brut en une valeur util
 					chanelData.ValueAnalog =
-						(AnalogInput.GetScaledValue(this.Adam6000Type, this.ByRangeInput[chanelData.Id], iData[chanelData.Id]) * chanelData.Gain) +
+						(AnalogInput.GetScaledValue(this.Adam6000Type, this.ByRangeInput[chanelData.Id], iData[chanelData.Id])*chanelData.Gain) +
 						chanelData.Offset;
 				}
 				// check if the value is not over tem range (ReadCoilStatus).

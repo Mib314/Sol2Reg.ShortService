@@ -41,9 +41,10 @@
   <ItemGroup>
     <Compile Include="Direction.cs" />
     <Compile Include="IChanelData.cs" />
-    <Compile Include="IModuleIO.cs" />
+    <Compile Include="IModule.cs" />
+    <Compile Include="IModules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueType.cs" />
+    <Compile Include="TypeOfValue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

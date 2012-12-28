@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ChanelData.cs" />
     <Compile Include="LoadModulSetting.cs" />
+    <Compile Include="Modules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
