@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿// ----------------------------------------------------------------------------------
+// <copyright file="Sol2Reg.ShortService\Superviseur\App.xaml.cs" company="iLog">
+//     Copyright © iLog, 2012 . All rights reserved.
+// </copyright>
+// <summary>
+//     Superviseur\App.xaml.cs.
+// </summary>
+// <FileInfo>
+//     Project \ FileName : Superviseur\App.xaml.cs
+//     Created            : 18.12.2012 01:30
+// </FileInfo>
+//  ----------------------------------------------------------------------------------
 
 namespace Superviseur
 {
-	/// <summary>
-	/// Logique d'interaction pour App.xaml
-	/// </summary>
-	public partial class App : Application
-	{
-	}
+	using System.Windows;
+
+	/// <summary>Logique d'interaction pour App.xaml</summary>
+	public partial class App : Application {}
 }

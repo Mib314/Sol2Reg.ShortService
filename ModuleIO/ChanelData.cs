@@ -1,14 +1,41 @@
-﻿namespace ModuleIO
+﻿// ----------------------------------------------------------------------------------
+// <copyright file="Sol2Reg.ShortService\ModuleIO\ChanelData.cs" company="iLog">
+//     Copyright © iLog, 2012 . All rights reserved.
+// </copyright>
+// <summary>
+//     ModuleIO\ChanelData.cs.
+// </summary>
+// <FileInfo>
+//     Project \ FileName : ModuleIO\ChanelData.cs
+//     Created            : 27.12.2012 20:05
+// </FileInfo>
+//  ----------------------------------------------------------------------------------
+
+namespace ModuleIO
 {
+	/// <summary>Define and store infoarmation about a chanel.</summary>
 	public class ChanelData
 	{
+		/// <summary>
+		///     Initializes a new instance of the <see cref="ChanelData" /> class.
+		/// </summary>
+		/// <param name="id" >The id.</param>
+		/// <param name="direction" >The direction.</param>
+		/// <param name="valueType" >Type of the value.</param>
 		public ChanelData(int id, Direction direction, ValueType valueType)
-			: this(id, string.Format("Chanel [0]", id), direction, valueType)
-		{ }
+			: this(id, string.Format("Chanel [0]", id), direction, valueType) {}
 
+		/// <summary>
+		///     Initializes a new instance of the <see cref="ChanelData" /> class.
+		/// </summary>
+		/// <param name="id" >The id.</param>
+		/// <param name="key" >The key.</param>
+		/// <param name="direction" >The direction.</param>
+		/// <param name="valueType" >Type of the value.</param>
 		public ChanelData(int id, string key, Direction direction, ValueType valueType)
 		{
 			this.Id = id;
+			this.Key = key;
 			this.Direction = direction;
 			this.ValueType = valueType;
 			if (this.ValueType == ValueType.Digital)
@@ -26,17 +53,58 @@
 			this.Offset = 0;
 		}
 
+		/// <summary>Gets the id.</summary>
+		/// <value>The id.</value>
 		public int Id { get; private set; }
+
+		/// <summary>Gets the key.</summary>
+		/// <value>The key.</value>
 		public string Key { get; private set; }
+
+		/// <summary>Gets the direction.</summary>
+		/// <value>The direction.</value>
 		public Direction Direction { get; private set; }
+
+		/// <summary>Gets the type of the value.</summary>
+		/// <value>The type of the value.</value>
 		public ValueType ValueType { get; private set; }
 
+		/// <summary>Gets or sets the description.</summary>
+		/// <value>The description.</value>
 		public string Description { get; set; }
-		public float? ValueAnalog { get; set; }
+
+		/// <summary>Gets or sets the value analog. Apply : (ValueAnalogBrut * Gain) + Offset</summary>
+		/// <value>The value analog.</value>
+		public float? ValueAnalog
+		{
+			get { return this.ValueAnalogBrut*this.Gain + this.Offset; }
+			set { this.ValueAnalogBrut = (value - this.Offset)/this.Gain; }
+		}
+
+		/// <summary>Gets or sets the value analog brut.</summary>
+		/// <value>The value analog brut.</value>
+		public float? ValueAnalogBrut { get; set; }
+
+		/// <summary>Gets or sets the value digital.</summary>
+		/// <value>The value digital.</value>
 		public bool? ValueDigital { get; set; }
 
+		/// <summary>Gets or sets the comment.</summary>
+		/// <value>The comment.</value>
+		public string Comment { get; set; }
+
+		/// <summary>Gets or sets the gain (only for analog value).</summary>
+		/// <value>The gain (default value = 1).</value>
 		public float Gain { get; set; }
+
+		/// <summary>Gets or sets the offset (only for analog value).</summary>
+		/// <value>The offset (default value = 0).</value>
 		public float Offset { get; set; }
 
+
+		public override string ToString()
+		{
+			return string.Format("{0} - {1} : dir : {2} - Value {3}", this.Id, this.Key, this.Direction, this.ValueType == ValueType.Analog ? this.ValueAnalog.ToString() : this.ValueDigital.ToString());
+		}
 	}
 }

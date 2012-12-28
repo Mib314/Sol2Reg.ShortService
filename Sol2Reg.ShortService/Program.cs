@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ----------------------------------------------------------------------------------
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ShortService\Program.cs" company="iLog">
+//     Copyright © iLog, 2012 . All rights reserved.
+// </copyright>
+// <summary>
+//     Sol2Reg.ShortService\Program.cs.
+// </summary>
+// <FileInfo>
+//     Project \ FileName : Sol2Reg.ShortService\Program.cs
+//     Created            : 17.12.2012 16:31
+// </FileInfo>
+//  ----------------------------------------------------------------------------------
 
 namespace Sol2Reg.ShortService
 {
-	static class Program
+	using System.ServiceProcess;
+
+	internal static class Program
 	{
-		/// <summary>
-		/// Point d'entrée principal de l'application.
-		/// </summary>
-		static void Main()
+		/// <summary>Point d'entrée principal de l'application.</summary>
+		private static void Main()
 		{
-			var servicesToRun = new ServiceBase[] 
-				{ 
-					new ShortServices() 
-				};
+			var servicesToRun = new ServiceBase[]
+								{
+									new ShortServices()
+								};
 			ServiceBase.Run(servicesToRun);
 		}
 	}
