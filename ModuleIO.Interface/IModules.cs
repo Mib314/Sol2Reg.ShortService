@@ -15,5 +15,5 @@ namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
 
-	public interface IModules : IList<IModule> {}
+	public interface IModules : IList<IModuleBase> {}
 }

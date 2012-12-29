@@ -39,12 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Direction.cs" />
+    <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="IChanelData.cs" />
-    <Compile Include="IModule.cs" />
+    <Compile Include="IModuleErrors.cs" />
+    <Compile Include="IModuleBase.cs" />
+    <Compile Include="IModuleError.cs" />
     <Compile Include="IModules.cs" />
+    <Compile Include="Enumerations\ModuleErrorCode.cs" />
+    <Compile Include="ModuleBaseBase.cs" />
+    <Compile Include="ModuleError.cs" />
+    <Compile Include="ModuleErrors.cs" />
+    <Compile Include="Simulator\ISimulatorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeOfValue.cs" />
+    <Compile Include="Enumerations\TypeOfValue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

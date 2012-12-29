@@ -16,5 +16,6 @@ namespace ModuleIO
 	using System.Collections.Generic;
 	using ModuleIO.Interface;
 
-	public class Modules : List<IModule>, IModules {}
+	/// <summary>List of module.</summary>
+	public class Modules : List<IModuleBase>, IModules {}
 }

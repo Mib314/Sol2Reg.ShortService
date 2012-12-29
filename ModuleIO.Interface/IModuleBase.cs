@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModule.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModuleBase.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\IModule.cs.
+//     ModuleIO.Interface\IModuleBase.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\IModule.cs
+//     Project \ FileName : ModuleIO.Interface\IModuleBase.cs
 //     Created            : 28.12.2012 04:20
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -16,36 +16,28 @@ namespace ModuleIO.Interface
 	using System.Collections.Generic;
 
 	/// <summary>Interface to define ModuleIO</summary>
-	public interface IModule
+	public interface IModuleBase
 	{
 		#region Properties
 		/// <summary>Gets or sets the name.</summary>
 		/// <value>The name.</value>
 		string Name { get; set; }
 
-		/// <summary>Gets the total chanel analaog in.</summary>
-		/// <value>The total chanel analaog in.</value>
-		int TotalChanelAnalaogIn { get; }
+		/// <summary>
+		/// Gets the module serie.
+		/// </summary>
+		/// <value>
+		/// The module serie.
+		/// </value>
+		string ModuleSerie { get; }
 
-		/// <summary>Gets the total chanel analaog out.</summary>
-		/// <value>The total chanel analaog out.</value>
-		int TotalChanelAnalaogOut { get; }
-
-		/// <summary>Gets the total chanel digital out.</summary>
-		/// <value>The total chanel digital out.</value>
-		int TotalChanelDigitalOut { get; }
-
-		/// <summary>Gets the total chanel digital in.</summary>
-		/// <value>The total chanel digital in.</value>
-		int TotalChanelDigitalIn { get; }
-
-		/// <summary>Gets the id sart for input chanel.</summary>
-		/// <value>The id sart for input chanel.</value>
-		int IdSartForInputChanel { get; }
-
-		/// <summary>Gets the id sart for output chanel.</summary>
-		/// <value>The id sart for output chanel.</value>
-		int IdSartForOutputChanel { get; }
+		/// <summary>
+		/// Gets the type of the module.
+		/// </summary>
+		/// <value>
+		/// The type of the module.
+		/// </value>
+		string ModuleType { get; }
 
 		/// <summary>Gets or sets the ip address.</summary>
 		/// <value>The ip address.</value>
@@ -61,12 +53,25 @@ namespace ModuleIO.Interface
 		/// </value>
 		bool IsConnected { get; }
 
+		/// <summary>Gets a value indicating whether this instance is initialized.</summary>
+		/// <value>
+		///     <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
+		/// </value>
+		bool IsInitialized { get; }
+
 		/// <summary>Gets the chanels.</summary>
 		/// <value>The chanels. Definition and current value.</value>
 		IList<IChanelData> Chanels { get; }
+
+		/// <summary>Gets the errors list.</summary>
+		/// <value>The errors.</value>
+		IModuleErrors Errors { get; }
 		#endregion
 
 		#region Methode
+		/// <summary>Initialyses the module.</summary>
+		void InitialyseModule();
+
 		/// <summary>Connect the module.</summary>
 		void Start();
 

@@ -13,14 +13,15 @@
 
 namespace ADAM6000Com
 {
-	using System.Collections.Generic;
+	using System;
 	using System.Linq;
 	using System.Net.Sockets;
 	using Advantech.Adam;
 	using Advantech.Common;
 	using ModuleIO.Interface;
+	using ModuleIO.Interface.Enumerations;
 
-	public abstract class Adam60Xx : IModule
+	public abstract class Adam60Xx : ModuleBaseBase, IAdamModule
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Adam60Xx" /> class.
@@ -30,10 +31,36 @@ namespace ADAM6000Com
 			this.Port = 502; // modbus TCP port is 502
 			this.AdamModbus = new AdamSocket();
 			this.AdamModbus.SetTimeout(1000, 1000, 1000); // set timeout for TCP
-			this.Chanels = new List<IChanelData>();
 		}
 
 		#region Properties
+		/// <summary>Gets the module serie.</summary>
+		/// <value>The module serie.</value>
+		public override string ModuleSerie
+		{
+			get { return "Adam6000Type"; }
+			protected set { }
+		}
+
+		/// <summary>Gets the type of the module.</summary>
+		/// <value>The type of the module.</value>
+		public override string ModuleType
+		{
+			get { return this.Adam6000Type.ToString(); }
+			protected set { }
+		}
+
+		/// <summary>Gets a value indicating whether this instance is connected.</summary>
+		/// <value>
+		///     <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+		/// </value>
+		public override sealed bool IsConnected
+		{
+			get { return this.AdamModbus.Connected; }
+			protected set { }
+		}
+
+
 		/// <summary>Gets or sets the adam modbus.</summary>
 		/// <value>The adam modbus.</value>
 		internal AdamSocket AdamModbus { get; set; }
@@ -65,10 +92,6 @@ namespace ADAM6000Com
 			get { return this.AdamModbus.LastError; }
 		}
 
-		/// <summary>Gets or sets the name.</summary>
-		/// <value>The name.</value>
-		public string Name { get; set; }
-
 		/// <summary>Gets the total chanel analaog in.</summary>
 		/// <value>The total chanel analaog in.</value>
 		public int TotalChanelAnalaogIn { get; internal set; }
@@ -92,34 +115,14 @@ namespace ADAM6000Com
 		/// <summary>Gets the id sart for output chanel.</summary>
 		/// <value>The id sart for output chanel.</value>
 		public int IdSartForOutputChanel { get; internal set; }
-
-		/// <summary>Gets or sets the ip address.</summary>
-		/// <value>The ip address.</value>
-		public string IpAddress { get; set; }
-
-		public int Port { get; set; }
-
-		/// <summary>Gets a value indicating whether this instance is connected.</summary>
-		/// <value>
-		///     <c>true</c> if this instance is connected; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsConnected
-		{
-			get { return this.AdamModbus.Connected; }
-		}
-
-		/// <summary>Gets the chanels.</summary>
-		/// <value>The chanels.</value>
-		public IList<IChanelData> Chanels { get; internal set; }
 		#endregion
 
-		#region IModule Members
-		public void Start()
+		public override void Start()
 		{
 			if (this.IsConnected) return;
-			if (this.LastError != ErrorCode.No_Error) this.AdamModbus.Disconnect();
-
+			var lastError = this.AdamModbus.LastError;
 			if (this.AdamModbus.Connect(this.IpAddress, ProtocolType.Tcp, this.Port)) this.Count = 0; // reset the reading counter
+			else base.AddModuleError((ModuleErrorCode) this.AdamModbus.LastError);
 			try
 			{
 				if (this.TotalChanelAnalaogIn > 0)
@@ -128,34 +131,36 @@ namespace ADAM6000Com
 					{
 						byte byRange;
 						if (this.AdamModbus.AnalogInput().GetInputRange(chanelData.Id, out byRange)) this.ByRangeInput[chanelData.Id] = byRange;
+						else this.AddModuleError(chanelData, (ModuleErrorCode) this.AdamModbus.LastError);
 					}
 				}
 			}
-			catch {}
+			catch
+			{
+				this.AddModuleError(ModuleErrorCode.Module_StartChanel_Error);
+			}
 		}
 
-		public void Closing()
+		public override void Closing()
 		{
 			if (this.IsConnected) this.AdamModbus.Disconnect(); // disconnect slave
 		}
 
-		/// <summary>Read data from ADAM module to the chanels list.</summary>
-		public abstract void ReadData();
-
-		/// <summary>Write new info to the chanel list and change the value to the ADAM module</summary>
-		/// <param name="chanelId" >Chanel Id.</param>
-		/// <param name="digitalValue" >Digital value (true/false).</param>
-		/// <param name="anamlogValue" >Analog value.</param>
-		public abstract void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null);
-		#endregion
-
-		internal void InitialyseModule()
+		public override void InitialyseModule()
 		{
 			// Trouve le nombre de canals Analog et Digital en Input et Output.
 			this.TotalChanelAnalaogIn = AnalogInput.GetChannelTotal(this.Adam6000Type);
 			this.TotalChanelAnalaogOut = AnalogOutput.GetChannelTotal(this.Adam6000Type);
 			this.TotalChanelDigitalIn = DigitalInput.GetChannelTotal(this.Adam6000Type);
 			this.TotalChanelDigitalOut = DigitalOutput.GetChannelTotal(this.Adam6000Type);
+
+			this.IsInitialized = true;
+		}
+
+		internal void CheckIfModuleIsAwiableToCommunicate()
+		{
+			if (!this.IsInitialized) throw new Exception(string.Format("The module [{0}] is not initialized.", this.Name));
+			if (!this.IsConnected) throw new Exception(string.Format("The module [{0}] is not connected.", this.Name));
 		}
 	}
 }

@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace ModuleIO.Interface.Enumerations
 {
 	public enum Direction
 	{

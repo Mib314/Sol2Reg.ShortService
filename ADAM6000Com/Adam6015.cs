@@ -16,16 +16,18 @@ namespace ADAM6000Com
 	using System;
 	using Advantech.Adam;
 
-	public class Adam6015 : Adam60Xx
+	public sealed class Adam6015 : Adam60Xx
 	{
 		public Adam6015()
 		{
 			// Cette class ne s'occupe que de l'Adam6015
 			this.Adam6000Type = Adam6000Type.Adam6015;
-
 			this.IpAddress = "192.168.200.151"; // modbus slave IP address
+		}
 
-			this.InitialyseModule();
+		public override void InitialyseModule()
+		{
+			base.InitialyseModule();
 
 			this.ChanelEnabled = new bool[this.TotalChanelAnalaogIn];
 			this.ByRangeInput = new byte[this.TotalChanelAnalaogIn];
@@ -33,12 +35,16 @@ namespace ADAM6000Com
 
 		public override void ReadData()
 		{
+			base.CheckIfModuleIsAwiableToCommunicate();
+
 			this.Count++; // increment the reading counter
 			this.RefreshChannelValue();
 		}
 
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
+			base.CheckIfModuleIsAwiableToCommunicate();
+
 			throw new NotImplementedException();
 		}
 

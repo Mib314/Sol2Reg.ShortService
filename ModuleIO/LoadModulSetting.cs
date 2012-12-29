@@ -14,14 +14,14 @@
 namespace ModuleIO
 {
 	using System;
-	using System.Collections.Generic;
 	using System.IO;
 	using System.Linq;
 	using System.Xml.Linq;
-	using ADAM6000Com;
 	using ModuleIO.Interface;
+	using ModuleIO.Interface.Enumerations;
 	using Sol2Reg.ShortService;
 
+	/// <summary>Load setting and initialise Module IO.</summary>
 	public class LoadModulSetting
 	{
 		#region Tag et properties du xml de config
@@ -44,9 +44,9 @@ namespace ModuleIO
 		private const string chanel_Offset = "Offset";
 		#endregion
 
-		public List<IModule> Modules { get; set; }
+		public IModules Modules { get; set; }
 
-		public void LoadConfig()
+		public void LoadConfig(Func<string, string, IModuleBase> initialiseModule)
 		{
 			var doc = this.ReadFile();
 
@@ -57,7 +57,7 @@ namespace ModuleIO
 				var moduleSerie = this.ReadAttribute(module_ModuleSerie, xModule);
 				var moduleType = this.ReadAttribute(module_ModuleType, xModule);
 
-				var module = this.InitialiseModule(moduleSerie, moduleType);
+				var module = initialiseModule(moduleSerie, moduleType);
 				module.Name = this.ReadAttribute(module_Name, xModule);
 				module.IpAddress = this.ReadAttribute(module_IP, xModule);
 				var i = 0;
@@ -102,33 +102,6 @@ namespace ModuleIO
 			return doc;
 		}
 
-		/// <summary>Initialises the module.</summary>
-		/// <param name="moduleSerie" >The module serie.</param>
-		/// <param name="moduleType" >Type of the module.</param>
-		/// <returns>The module initialized</returns>
-		/// <exception cref="System.ArgumentOutOfRangeException" >If moduleSerie or moduleType not exist.</exception>
-		private IModule InitialiseModule(string moduleSerie, string moduleType)
-		{
-			switch (moduleSerie)
-			{
-				case "Adam6000Type":
-				{
-					switch (moduleType)
-					{
-						case "Adam6015":
-							return new Adam6015();
-						case "Adam6066":
-							return new Adam6066();
-						default:
-							throw new ArgumentOutOfRangeException(moduleType);
-					}
-				}
-				default:
-				{
-					throw new ArgumentOutOfRangeException(moduleSerie);
-				}
-			}
-		}
 
 		/// <summary>Reads the attribute.</summary>
 		/// <param name="attributName" >Name of the attribut.</param>

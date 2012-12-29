@@ -55,6 +55,7 @@
     <Compile Include="Adam6066.cs" />
     <Compile Include="Adam60Xx.cs" />
     <Compile Include="Adam6015.cs" />
+    <Compile Include="IAdamModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

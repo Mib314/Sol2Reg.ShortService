@@ -17,7 +17,7 @@ namespace ADAM6000Com
 	using System.Linq;
 	using Advantech.Adam;
 
-	public class Adam6066 : Adam60Xx
+	public sealed class Adam6066 : Adam60Xx
 	{
 		public Adam6066()
 		{
@@ -28,15 +28,21 @@ namespace ADAM6000Com
 
 			this.IdSartForInputChanel = 1;
 			this.IdSartForOutputChanel = 17;
+		}
 
-			this.InitialyseModule();
-
+		/// <summary>Initialyses the module.</summary>
+		public override void InitialyseModule()
+		{
+			base.InitialyseModule();
 			this.ChanelEnabled = new bool[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
 			this.ByRangeInput = new byte[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
 		}
 
+		/// <summary>Read data from ADAM module to the chanels list.</summary>
 		public override void ReadData()
 		{
+			base.CheckIfModuleIsAwiableToCommunicate();
+
 			bool[] bDiData, bDoData;
 			if (
 				this.AdamModbus.Modbus().ReadCoilStatus(this.IdSartForInputChanel, this.TotalChanelDigitalIn, out bDiData) &&
@@ -59,6 +65,8 @@ namespace ADAM6000Com
 
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
+			base.CheckIfModuleIsAwiableToCommunicate();
+
 			if (chanelId < 6 ||
 				chanelId > 11) throw new ArgumentOutOfRangeException("chanelId");
 

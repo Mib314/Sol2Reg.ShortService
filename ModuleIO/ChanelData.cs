@@ -14,6 +14,7 @@
 namespace ModuleIO
 {
 	using ModuleIO.Interface;
+	using ModuleIO.Interface.Enumerations;
 
 	/// <summary>Define and store information about a chanel.</summary>
 	public class ChanelData : IChanelData

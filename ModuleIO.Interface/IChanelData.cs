@@ -13,6 +13,8 @@
 
 namespace ModuleIO.Interface
 {
+	using ModuleIO.Interface.Enumerations;
+
 	public interface IChanelData
 	{
 		/// <summary>Gets the id.</summary>
