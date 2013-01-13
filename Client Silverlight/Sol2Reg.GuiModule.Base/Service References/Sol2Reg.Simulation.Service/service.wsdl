@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Sol2RegServiceSimulation" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISol2RegService_InitilizeConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:InitilizeConnection" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_InitilizeConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InitilizeConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_CloseConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseConnection" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_CloseConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ReadData_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadData" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ReadData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_WriteData_InputMessage">
+    <wsdl:part name="parameters" element="tns:WriteData" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_WriteData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WriteDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ReadConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadConfig" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ReadConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_AddNewModule_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewModule" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_AddNewModule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewModuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_DeleteModule_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteModule" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_DeleteModule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteModuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeModuleInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeModuleInfo" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeModuleInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeModuleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeChanelValueCorrection_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChanelValueCorrection" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeChanelValueCorrection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChanelValueCorrectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeChanelInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChanelInfo" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_ChangeChanelInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeChanelInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_SaveConfigChange_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveConfigChange" />
+  </wsdl:message>
+  <wsdl:message name="ISol2RegService_SaveConfigChange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveConfigChangeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISol2RegService">
+    <wsdl:operation name="InitilizeConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/InitilizeConnection" message="tns:ISol2RegService_InitilizeConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/InitilizeConnectionResponse" message="tns:ISol2RegService_InitilizeConnection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/CloseConnection" message="tns:ISol2RegService_CloseConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/CloseConnectionResponse" message="tns:ISol2RegService_CloseConnection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadData">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/ReadData" message="tns:ISol2RegService_ReadData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/ReadDataResponse" message="tns:ISol2RegService_ReadData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteData">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/WriteData" message="tns:ISol2RegService_WriteData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/WriteDataResponse" message="tns:ISol2RegService_WriteData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/ReadConfig" message="tns:ISol2RegService_ReadConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/ReadConfigResponse" message="tns:ISol2RegService_ReadConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewModule">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/AddNewModule" message="tns:ISol2RegService_AddNewModule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/AddNewModuleResponse" message="tns:ISol2RegService_AddNewModule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteModule">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/DeleteModule" message="tns:ISol2RegService_DeleteModule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/DeleteModuleResponse" message="tns:ISol2RegService_DeleteModule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeModuleInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/ChangeModuleInfo" message="tns:ISol2RegService_ChangeModuleInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/ChangeModuleInfoResponse" message="tns:ISol2RegService_ChangeModuleInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChanelValueCorrection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/ChangeChanelValueCorrection" message="tns:ISol2RegService_ChangeChanelValueCorrection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/ChangeChanelValueCorrectionResponse" message="tns:ISol2RegService_ChangeChanelValueCorrection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChanelInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/ChangeChanelInfo" message="tns:ISol2RegService_ChangeChanelInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/ChangeChanelInfoResponse" message="tns:ISol2RegService_ChangeChanelInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveConfigChange">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISol2RegService/SaveConfigChange" message="tns:ISol2RegService_SaveConfigChange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISol2RegService/SaveConfigChangeResponse" message="tns:ISol2RegService_SaveConfigChange_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISol2RegService" type="tns:ISol2RegService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InitilizeConnection">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/InitilizeConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseConnection">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/CloseConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadData">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/ReadData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteData">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/WriteData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadConfig">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/ReadConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewModule">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/AddNewModule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteModule">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/DeleteModule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeModuleInfo">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/ChangeModuleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChanelValueCorrection">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/ChangeChanelValueCorrection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeChanelInfo">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/ChangeChanelInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveConfigChange">
+      <soap:operation soapAction="http://tempuri.org/ISol2RegService/SaveConfigChange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sol2RegServiceSimulation">
+    <wsdl:port name="BasicHttpBinding_ISol2RegService" binding="tns:BasicHttpBinding_ISol2RegService">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Direction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Input" />
+      <xs:enumeration value="Output" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Direction" nillable="true" type="tns:Direction" />
+  <xs:simpleType name="TypeOfValue">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Digital" />
+      <xs:enumeration value="Analog" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TypeOfValue" nillable="true" type="tns:TypeOfValue" />
+</xs:schema>

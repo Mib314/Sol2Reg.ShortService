@@ -17,14 +17,18 @@ namespace Sol2Reg.ShortService
 
 	partial class ShortServices : ServiceBase
 	{
-		public ShortServices()
+		private bool startSimulator;
+
+		public ShortServices(bool startSimulator)
 		{
+			// TODO: Complete member initialization
+			this.startSimulator = startSimulator;
 			this.InitializeComponent();
 		}
 
 		protected override void OnStart(string[] args)
 		{
-			// TODO: ajoutez ici le code pour démarrer votre service.
+			// Read config info and start module
 		}
 
 		protected override void OnStop()

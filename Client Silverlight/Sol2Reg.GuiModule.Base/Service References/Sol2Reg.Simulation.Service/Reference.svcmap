@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ec865aec-796f-4104-a4aa-ce73082644f9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>true</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b4a7272c-a73b-431a-bd2d-8bc9a683d859" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="38914a26-5305-471b-b4d8-a4082f2351cf" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="2eb2eb5c-79bf-44a9-a8dc-0b395c2f5bae" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" />
+    <MetadataFile FileName="Sol2Reg.ServiceData.xsd" MetadataType="Schema" ID="472951a7-964c-4d6e-b872-2e7a90bf323d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" />
+    <MetadataFile FileName="ModuleIO.Interface.Enumerations.xsd" MetadataType="Schema" ID="550455b9-09a7-441b-9c8a-ab8304ad2656" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Sol2Reg.Service/Sol2RegServiceSimulation/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" />
+  <xs:element name="InitilizeConnection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InitilizeConnectionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseConnection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseConnectionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" minOccurs="0" name="ReadDataResult" nillable="true" type="q1:ModulesData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WriteData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="chanelId" type="xs:int" />
+        <xs:element minOccurs="0" name="analogValue" nillable="true" type="xs:float" />
+        <xs:element minOccurs="0" name="digitalValue" nillable="true" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WriteDataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadConfig">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadConfigResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" minOccurs="0" name="ReadConfigResult" nillable="true" type="q2:ModulesData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddNewModule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" minOccurs="0" name="newModule" nillable="true" type="q3:ModuleData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddNewModuleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteModule">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteModuleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeModuleInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="moduleNewName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newIpAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newPort" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeModuleInfoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChanelValueCorrection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="chanelId" type="xs:int" />
+        <xs:element minOccurs="0" name="newGain" type="xs:float" />
+        <xs:element minOccurs="0" name="newOffset" type="xs:float" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChanelValueCorrectionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChanelInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="moduleName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="chanelId" type="xs:int" />
+        <xs:element minOccurs="0" name="newName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newDesctiprion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newComment" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeChanelInfoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveConfigChange">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveConfigChangeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

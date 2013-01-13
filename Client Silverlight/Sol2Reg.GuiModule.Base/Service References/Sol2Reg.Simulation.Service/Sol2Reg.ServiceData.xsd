@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sol2Reg.ServiceData" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" />
+  <xs:complexType name="ModulesData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Modules" nillable="true" type="tns:ArrayOfModuleData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModulesData" nillable="true" type="tns:ModulesData" />
+  <xs:complexType name="ArrayOfModuleData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ModuleData" nillable="true" type="tns:ModuleData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfModuleData" nillable="true" type="tns:ArrayOfModuleData" />
+  <xs:complexType name="ModuleData">
+    <xs:sequence>
+      <xs:element name="N" nillable="true" type="xs:string" />
+      <xs:element name="MS" nillable="true" type="xs:string" />
+      <xs:element name="MT" nillable="true" type="xs:string" />
+      <xs:element name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="P" type="xs:int" />
+      <xs:element minOccurs="0" name="CH" nillable="true" type="tns:ArrayOfChanelData" />
+      <xs:element minOccurs="0" name="ER" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModuleData" nillable="true" type="tns:ModuleData" />
+  <xs:complexType name="ArrayOfChanelData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChanelData" nillable="true" type="tns:ChanelData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChanelData" nillable="true" type="tns:ArrayOfChanelData" />
+  <xs:complexType name="ChanelData">
+    <xs:sequence>
+      <xs:element name="I" type="xs:int" />
+      <xs:element minOccurs="0" name="K" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COM" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" minOccurs="0" name="DIR" type="q1:Direction" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ModuleIO.Interface.Enumerations" minOccurs="0" name="TOV" type="q2:TypeOfValue" />
+      <xs:element minOccurs="0" name="VA" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="VAB" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="G" type="xs:float" />
+      <xs:element minOccurs="0" name="O" type="xs:float" />
+      <xs:element minOccurs="0" name="VD" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChanelData" nillable="true" type="tns:ChanelData" />
+</xs:schema>
