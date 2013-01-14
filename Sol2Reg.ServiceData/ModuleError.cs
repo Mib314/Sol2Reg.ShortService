@@ -11,47 +11,54 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace Sol2Reg.ServiceData
 {
 	using System;
+	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
+	[DataContract]
 	public class ModuleError : IModuleError
 	{
-		public ModuleError(string Module_Name) {}
-
 		#region IModuleError Members
 		/// <summary>Gets the name of the module.</summary>
 		/// <value>The name of the module.</value>
-		public string Module_Name { get; private set; }
+		[DataMember(Name = "MN", IsRequired = true, Order = 0)]
+		public string Module_Name { get; set; }
 
 		/// <summary>Gets the module ip address.</summary>
 		/// <value>The module ip address.</value>
-		public string Module_IpAddress { get; private set; }
+		[DataMember(Name = "IP", IsRequired = true, Order = 1)]
+		public string Module_IpAddress { get; set; }
 
 		/// <summary>Gets the module port.</summary>
 		/// <value>The module port.</value>
-		public int Module_Port { get; private set; }
+		[DataMember(Name = "PO", IsRequired = false, Order = 2)]
+		public int Module_Port { get; set; }
 
 		/// <summary>Gets the chanel_ id.</summary>
 		/// <value>The chanel_ id.</value>
-		public int? Chanel_Id { get; private set; }
+		[DataMember(Name = "CID", IsRequired = false, Order = 10)]
+		public int? Chanel_Id { get; set; }
 
 		/// <summary>Gets the chanel_ key.</summary>
 		/// <value>The chanel_ key.</value>
-		public string Chanel_Key { get; private set; }
+		[DataMember(Name = "CKE", IsRequired = false, Order = 11)]
+		public string Chanel_Key { get; set; }
 
 		/// <summary>Gets the chanel_ value.</summary>
 		/// <value>The chanel_ value.</value>
-		public string Chanel_Value { get; private set; }
+		[DataMember(Name = "CVA", IsRequired = false, Order = 12)]
+		public string Chanel_Value { get; set; }
 
 		/// <summary>Gets the error code of this error.</summary>
 		/// <value>The error code.</value>
-		public ModuleErrorCode ErrorCode { get; private set; }
+		public ModuleErrorCode ErrorCode { get; set; }
 
 		/// <summary>Gets the error time.</summary>
 		/// <value>The error time.</value>
-		public DateTime ErrorTime { get; private set; }
+		[DataMember(Name = "ET", IsRequired = true, Order = 20)]
+		public DateTime ErrorTime { get; set; }
 		#endregion
 
 		public override string ToString()

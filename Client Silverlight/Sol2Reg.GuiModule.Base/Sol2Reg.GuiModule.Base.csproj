@@ -66,21 +66,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MvvmLight.4.1.26.1\lib\SL5\GalaSoft.MvvmLight.SL5.dll</HintPath>
     </Reference>
-    <Reference Include="Go.Prism.LightCoreExtensions">
-      <HintPath>..\..\packages\Prism.LightCoreExtension.1.0\lib\sl40\Go.Prism.LightCoreExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="LightCore">
-      <HintPath>..\..\packages\LightCore.1.4.1\lib\SL35\LightCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Interactions">
-      <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Practices.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Interactivity">
-      <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Prism.MefExtensions">
       <HintPath>..\..\packages\Prism.MEFExtensions.4.1.0.0\lib\SL5\Microsoft.Practices.Prism.MefExtensions.dll</HintPath>
     </Reference>
@@ -186,7 +171,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Silverlight\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
+    <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{70ba5b70-f0a9-4d3c-83b1-ebc1f01b4302}</Project>
       <Name>Sol2Reg.ServiceData %28Client\Sol2Reg.ServiceData%29</Name>
     </ProjectReference>

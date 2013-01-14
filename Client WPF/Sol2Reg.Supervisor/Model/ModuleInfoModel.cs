@@ -29,7 +29,7 @@ namespace Sol2Reg.Supervisor.Model
 		{
 			get
 			{
-				if (IsInDesignMode) return "Module Name";
+				//if (IsInDesignMode) return "Module Name";
 				return this.moduleName;
 			}
 			set

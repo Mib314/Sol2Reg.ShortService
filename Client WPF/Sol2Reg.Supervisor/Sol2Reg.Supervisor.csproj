@@ -40,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight, Version=4.1.24.16215, Culture=neutral, PublicKeyToken=3e875cdb3903c512, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ExternDlls\Prism\Microsoft.Practices.Unity.dll</HintPath>
@@ -124,6 +125,10 @@
     <ProjectReference Include="..\..\Sol2Reg.IO.Interface\Sol2Reg.IO.Interface.csproj">
       <Project>{F4225537-D4C1-4632-954D-3650E223B78A}</Project>
       <Name>Sol2Reg.IO.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
+      <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
+      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

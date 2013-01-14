@@ -11,9 +11,10 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace Sol2Reg.ServiceData
 {
 	using System;
+	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	public interface IModuleError

@@ -15,7 +15,6 @@ namespace Sol2Reg.ServiceData
 {
 	using System.Collections.Generic;
 	using System.Runtime.Serialization;
-	using ModuleIO.Interface;
 
 	[DataContract]
 	public class ModuleData

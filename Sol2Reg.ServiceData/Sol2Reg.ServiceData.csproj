@@ -44,7 +44,11 @@
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\ModuleErrorCode.cs" />
     <Compile Include="Enumerations\TypeOfValue.cs" />
+    <Compile Include="IModuleError.cs" />
+    <Compile Include="IModuleErrors.cs" />
     <Compile Include="ModuleData.cs" />
+    <Compile Include="ModuleError.cs" />
+    <Compile Include="ModuleErrors.cs" />
     <Compile Include="ModulesData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
@@ -69,8 +70,20 @@
     <Compile Include="..\..\Sol2Reg.ServiceData\Enumerations\TypeOfValue.cs">
       <Link>Enumerations\TypeOfValue.cs</Link>
     </Compile>
+    <Compile Include="..\..\Sol2Reg.ServiceData\IModuleError.cs">
+      <Link>IModuleError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sol2Reg.ServiceData\IModuleErrors.cs">
+      <Link>IModuleErrors.cs</Link>
+    </Compile>
     <Compile Include="..\..\Sol2Reg.ServiceData\ModuleData.cs">
       <Link>ModuleData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sol2Reg.ServiceData\ModuleError.cs">
+      <Link>ModuleError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sol2Reg.ServiceData\ModuleErrors.cs">
+      <Link>ModuleErrors.cs</Link>
     </Compile>
     <Compile Include="..\..\Sol2Reg.ServiceData\ModulesData.cs">
       <Link>ModulesData.cs</Link>

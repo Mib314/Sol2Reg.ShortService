@@ -14,6 +14,7 @@
 namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
+	using Sol2Reg.ServiceData;
 
 	/// <summary>
 	/// Interface to define ModuleIO

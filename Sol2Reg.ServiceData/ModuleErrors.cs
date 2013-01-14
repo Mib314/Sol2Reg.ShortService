@@ -1,42 +1,44 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\ModuleErrors.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\ModuleErrors.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\ModuleErrors.cs.
+//     Sol2Reg.ServiceData\ModuleErrors.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\ModuleErrors.cs
-//     Created            : 29.12.2012 00:28
+//     Project \ FileName : Sol2Reg.ServiceData\ModuleErrors.cs
+//     Created            : 13.01.2013 22:37
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace Sol2Reg.ServiceData
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Runtime.Serialization;
 	using System.Text;
 	using Sol2Reg.ServiceData.Enumerations;
 
+	[DataContract]
 	public class ModuleErrors : IModuleErrors
-
 	{
 		#region IModuleErrors Members
 		/// <summary>Gets the current errors list.</summary>
 		/// <value>The current errors list.</value>
-		public IList<IModuleError> CurrentErrors { get; private set; }
+		[DataMember(Name = "Errors", IsRequired = true, Order = 0)]
+		public IList<IModuleError> Errors { get; private set; }
 
 		/// <summary>Gets the last error.</summary>
 		/// <returns>Last error.</returns>
 		public IModuleError GetLastError()
 		{
-			throw new NotImplementedException();
+			return this.Errors != null && this.Errors.Count > 0 ? this.Errors[this.Errors.Count - 1] : null;
 		}
 
 		/// <summary>Clears the errors list.</summary>
 		public void ClearErrors()
 		{
-			throw new NotImplementedException();
+			this.Errors = null;
 		}
 
 		/// <summary>Adds the specified module_ name.</summary>
@@ -47,7 +49,7 @@ namespace ModuleIO.Interface
 		/// <param name="errorTime" >The error time.</param>
 		public void Add(string module_Name, string module_IpAddress, int module_Port, ModuleErrorCode errorCode, DateTime errorTime)
 		{
-			throw new NotImplementedException();
+			this.Errors.Add(new ModuleError {Module_Name = module_Name, Module_IpAddress = module_IpAddress, Module_Port = module_Port, ErrorCode = errorCode, ErrorTime = errorTime});
 		}
 
 		/// <summary>Adds the specified module_ name.</summary>
@@ -60,7 +62,7 @@ namespace ModuleIO.Interface
 		/// <param name="errorTime" >The error time.</param>
 		public void Add(string module_Name, string module_IpAddress, int module_Port, int chanel_Id, string chanel_Key, ModuleErrorCode errorCode, DateTime errorTime)
 		{
-			throw new NotImplementedException();
+			this.Errors.Add(new ModuleError {Module_Name = module_Name, Module_IpAddress = module_IpAddress, Module_Port = module_Port, Chanel_Id = chanel_Id, Chanel_Key = chanel_Key, ErrorCode = errorCode, ErrorTime = errorTime});
 		}
 
 		/// <summary>Adds the specified module_ name.</summary>
@@ -74,26 +76,26 @@ namespace ModuleIO.Interface
 		/// <param name="errorTime" >The error time.</param>
 		public void Add(string module_Name, string module_IpAddress, int module_Port, int chanel_Id, string chanel_Key, string chanel_Value, ModuleErrorCode errorCode, DateTime errorTime)
 		{
-			throw new NotImplementedException();
+			this.Errors.Add(new ModuleError {Module_Name = module_Name, Module_IpAddress = module_IpAddress, Module_Port = module_Port, Chanel_Id = chanel_Id, Chanel_Key = chanel_Key, Chanel_Value = chanel_Value, ErrorCode = errorCode, ErrorTime = errorTime});
 		}
+		#endregion
 
 		/// <summary>
-		/// Returns a <see cref="System.String" /> that represents this instance.
+		///     Returns a <see cref="System.String" /> that represents this instance.
 		/// </summary>
 		/// <returns>
-		/// A <see cref="System.String" /> that represents this instance.
+		///     A <see cref="System.String" /> that represents this instance.
 		/// </returns>
 		public override string ToString()
 		{
-			var errors = new StringBuilder(this.CurrentErrors.Count * 202 + 1);
+			var errors = new StringBuilder(this.Errors.Count*202 + 1);
 
-			foreach (var error in this.CurrentErrors)
+			foreach (var error in this.Errors)
 			{
 				errors.AppendLine(error.ToString());
 			}
 
 			return errors.ToString();
 		}
-		#endregion
 	}
 }

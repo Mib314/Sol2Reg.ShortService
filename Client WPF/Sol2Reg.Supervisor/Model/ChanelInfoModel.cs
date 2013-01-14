@@ -13,7 +13,7 @@
 
 namespace Sol2Reg.Supervisor.Model
 {
-	using ModuleIO.Interface.Enumerations;
+	using Sol2Reg.ServiceData.Enumerations;
 	using Sol2Reg.Supervisor.Utility;
 
 	/// <summary>

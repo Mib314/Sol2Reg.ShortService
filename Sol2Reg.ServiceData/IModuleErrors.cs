@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace Sol2Reg.ServiceData
 {
 	using System;
 	using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace ModuleIO.Interface
 	{
 		/// <summary>Gets the current errors list.</summary>
 		/// <value>The current errors list.</value>
-		IList<IModuleError> CurrentErrors { get; }
+		IList<IModuleError> Errors { get; }
 
 		/// <summary>Gets the last error.</summary>
 		/// <returns>Last error.</returns>

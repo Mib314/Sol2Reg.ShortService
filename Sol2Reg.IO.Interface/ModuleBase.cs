@@ -15,6 +15,7 @@ namespace ModuleIO.Interface
 {
 	using System;
 	using System.Collections.Generic;
+	using Sol2Reg.ServiceData;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	/// <summary>Base module for ineritence.</summary>

@@ -13,7 +13,6 @@
 
 namespace Sol2Reg.GuiModule.Base.Model
 {
-	using ModuleIO.Interface.Enumerations;
 	using Sol2Reg.ServiceData.Enumerations;
 	using Sol2Reg.Supervisor.Utility;
 
@@ -73,7 +72,7 @@ namespace Sol2Reg.GuiModule.Base.Model
 
 		public float Gain
 		{
-			get { return this.IsInDesignMode ? (float) 1 : this.gain; }
+			get { return this.IsInDesignMode ? 1 : this.gain; }
 			set
 			{
 				if (value.Equals(this.gain)) return;

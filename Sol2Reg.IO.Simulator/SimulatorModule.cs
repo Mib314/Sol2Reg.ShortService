@@ -18,6 +18,7 @@ namespace ModuleSimulator
 	using System.Linq;
 	using ModuleIO.Interface;
 	using ModuleIO.Interface.Simulator;
+	using Sol2Reg.ServiceData;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	public sealed class SimulatorModule : ModuleBase, ISimulatorModule

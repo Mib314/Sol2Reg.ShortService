@@ -14,11 +14,10 @@
 namespace Sol2Reg.Supervisor.Utility
 {
 	using System.Collections.Generic;
-	using GalaSoft.MvvmLight;
 
 	/// <summary>Declare the IdViewModelBase type.</summary>
 	/// <typeparam name="TViewModel" >The type of the view model.</typeparam>
-	public abstract partial class S2RViewModelBase<TViewModel> : ViewModelBase
+	public abstract partial class S2RViewModelBase<TViewModel>
 	{
 		private const string IS_LOADING_REPORT = "IsLoadingReport";
 		private const string IS_LOADING = "IsLoading";

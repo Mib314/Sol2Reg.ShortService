@@ -41,13 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IChanel.cs" />
-    <Compile Include="IModuleErrors.cs" />
     <Compile Include="IModuleBase.cs" />
-    <Compile Include="IModuleError.cs" />
     <Compile Include="IModules.cs" />
     <Compile Include="ModuleBase.cs" />
-    <Compile Include="ModuleError.cs" />
-    <Compile Include="ModuleErrors.cs" />
     <Compile Include="Simulator\ISimulatorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

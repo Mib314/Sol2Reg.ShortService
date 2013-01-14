@@ -10,7 +10,7 @@
 //     Created            : 07.01.2013 01:26
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
-
+/*
 namespace TVKplus.Client.Infrastructure.DependencyInjection
 {
 	using System;
@@ -100,3 +100,4 @@ namespace TVKplus.Client.Infrastructure.DependencyInjection
 		#endregion
 	}
 }
+*/
