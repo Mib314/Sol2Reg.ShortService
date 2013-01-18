@@ -14,14 +14,17 @@
 namespace ModuleIO
 {
 	using System;
+	using System.ComponentModel.Composition;
 	using System.IO;
 	using System.Linq;
 	using System.Xml.Linq;
 	using ModuleIO.Interface;
+	using Sol2Reg.ServiceData;
 	using Sol2Reg.ServiceData.Enumerations;
-	using Sol2Reg.ShortService;
 
 	/// <summary>Load setting and initialise Module IO.</summary>
+	[PartCreationPolicy(CreationPolicy.Shared)]
+	[Export]
 	public class LoadModuleSetting
 	{
 		#region Tag et properties du xml de config
@@ -43,6 +46,9 @@ namespace ModuleIO
 		private const string chanel_Gain = "Gain";
 		private const string chanel_Offset = "Offset";
 		#endregion
+
+		[Import]
+		private GlobalVariables GlobalVariables { get; set; }
 
 		public IModules Modules { get; set; }
 
@@ -71,7 +77,7 @@ namespace ModuleIO
 					IChanel chanel;
 					try
 					{
-						chanel = new Chanel(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue) Enum.Parse(typeof (TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
+						chanel = new Chanel(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
 					}
 					catch (Exception)
 					{
@@ -95,7 +101,7 @@ namespace ModuleIO
 		private XDocument ReadFile()
 		{
 			// Assemble File path
-			var filePath = !string.IsNullOrWhiteSpace(GlobalVariables.ConfigFilePath) ? string.Format("{0}\\{1}", GlobalVariables.ConfigFilePath, GlobalVariables.ModuleConfigName) : GlobalVariables.ModuleConfigName;
+			var filePath = !string.IsNullOrWhiteSpace(this.GlobalVariables.ConfigFilePath) ? string.Format("{0}\\{1}", this.GlobalVariables.ConfigFilePath, this.GlobalVariables.ModuleConfigName) : this.GlobalVariables.ModuleConfigName;
 			// Check if the file exist
 			if (!File.Exists(filePath)) throw new IOException(string.Format("The config file for module '{0}' don't exist.\nCheck the path and the file name.\nThis info is saved on the app.config section <AppConfig> file with the key {1} and {2}", filePath, GlobalVariables.ConfigFilePath_Key, GlobalVariables.ModuleConfigName_Key));
 

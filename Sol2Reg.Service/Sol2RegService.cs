@@ -14,19 +14,27 @@
 namespace Sol2Reg.Service
 {
 	using System;
+	using System.ComponentModel.Composition;
 	using System.Linq;
 	using ModuleIO;
 	using ModuleIO.Interface;
 	using Sol2Reg.ServiceData;
 
-	// REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
+	/// <summary>
+	/// Sol2Reg service.
+	/// </summary>
+	[PartCreationPolicy(CreationPolicy.Shared)]
+	[Export(typeof(ISol2RegService))]
 	public class Sol2RegService : ISol2RegService
 	{
-		protected readonly IModules modules;
+		private IModules modules;
 
-		public Sol2RegService(bool isForSimulation = false)
+		[Import]
+		private InitializeModules initializeModules;
+
+		public void Initilize(bool isForSimulation = false)
 		{
-			this.modules = new InitializeModules(isForSimulation).Modules;
+			this.modules = initializeModules.Initialize(isForSimulation).Modules;
 		}
 
 		#region ISol2RegService Members

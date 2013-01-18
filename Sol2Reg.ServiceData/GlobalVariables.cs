@@ -11,22 +11,28 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ShortService
+namespace Sol2Reg.ServiceData
 {
-	using System.Configuration;
+	using System.ComponentModel.Composition;
+	using Sol2Reg.Tools;
 
-	public static class GlobalVariables
+	[PartCreationPolicy(CreationPolicy.Shared)]
+	[Export]
+	public class GlobalVariables
 	{
 		public const string ModuleConfigName_Key = "ModuleConfigName";
 		public const string ConfigFilePath_Key = "ConfigFilePath";
 
-		public static readonly string ModuleConfigName;
-		public static readonly string ConfigFilePath;
+		[Import]
+		private ConfigManager configManager;
 
-		static GlobalVariables()
+		public GlobalVariables()
 		{
-			ModuleConfigName = ConfigurationManager.AppSettings[ModuleConfigName_Key];
-			ConfigFilePath = ConfigurationManager.AppSettings[ConfigFilePath_Key];
+			this.ModuleConfigName = this.configManager.ReadAppSettings(ModuleConfigName_Key);
+			this.ConfigFilePath = this.configManager.ReadAppSettings(ConfigFilePath_Key);
 		}
+
+		public  string ConfigFilePath { get; private set; }
+		public string ModuleConfigName { get; private set; }
 	}
 }

@@ -15,7 +15,6 @@ namespace Sol2Reg.Supervisor.ViewModel
 {
 	using System.Windows;
 	using Sol2Reg.GuiModule.Base.Model;
-	using TVKplus.Client.Infrastructure.DependencyInjection;
 
 	/// <summary>
 	/// This class contains static references to all the view models in the application and provides an entry point for the bindings.

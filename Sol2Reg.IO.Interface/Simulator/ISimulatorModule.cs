@@ -26,5 +26,6 @@ namespace ModuleIO.Interface.Simulator
 		///     if set to <c>true</c> [value].
 		/// </param>
 		void InjectNewDigitalInputValue(int idChanel, bool? value);
+
 	}
 }

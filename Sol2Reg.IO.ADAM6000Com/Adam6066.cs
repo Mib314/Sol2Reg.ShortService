@@ -18,31 +18,36 @@ namespace ADAM6000Com
 	using Advantech.Adam;
 	using ModuleIO.Interface;
 
+	/// <summary>
+	/// Adam 6066 for digital input and output (220V)
+	/// </summary>
 	public sealed class Adam6066 : Adam60Xx
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Adam6066" /> class.
 		/// </summary>
-		/// <param name="modules">The modules.</param>
-		public Adam6066(IModules modules)
-			: base(modules)
+		public Adam6066()
 		{
 			// Cette class ne s'occupe que de l'Adam6066
 			this.Adam6000Type = Adam6000Type.Adam6066;
+
+			this.InitializeAdamInternValue();
 
 			this.IdSartForInputChanel = 1;
 			this.IdSartForOutputChanel = 17;
 		}
 
-		/// <summary>Initialyses the module.</summary>
-		public override void InitialyseModule()
+		/// <summary>Initialize the module.</summary>
+		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
-			base.InitialyseModule();
+			base.InitializeAdamInternValue();
 			this.ChanelEnabled = new bool[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
 			this.ByRangeInput = new byte[this.TotalChanelDigitalIn + this.TotalChanelDigitalOut];
+
+			return this.InitializeBase(modules);
 		}
 
-		/// <summary>Read data from ADAM module to the chanels list.</summary>
+		/// <summary>Read data from ADAM module to the chanel list.</summary>
 		public override void ReadData()
 		{
 			base.CheckIfModuleIsAwiableToCommunicate();

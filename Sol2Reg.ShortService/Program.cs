@@ -35,7 +35,9 @@ namespace Sol2Reg.ShortService
 
 			if (startConsole)
 			{
-				// Start in console	mode.
+				var consolAppStart = new ConsoleAppStart();
+				consolAppStart.Run(startSimulator);
+
 			}
 
 			// start in service mode

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,7 @@
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\ModuleErrorCode.cs" />
     <Compile Include="Enumerations\TypeOfValue.cs" />
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="IModuleError.cs" />
     <Compile Include="IModuleErrors.cs" />
     <Compile Include="ModuleData.cs" />
@@ -51,6 +53,12 @@
     <Compile Include="ModuleErrors.cs" />
     <Compile Include="ModulesData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sol2Reg.Tools\Sol2Reg.Tools.csproj">
+      <Project>{76A66726-2BFC-450B-9D81-1A3865F66EB1}</Project>
+      <Name>Sol2Reg.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

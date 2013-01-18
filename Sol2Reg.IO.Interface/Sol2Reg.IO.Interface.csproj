@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IChanel.cs" />
+    <Compile Include="IInitializer.cs" />
     <Compile Include="IModuleBase.cs" />
     <Compile Include="IModules.cs" />
     <Compile Include="ModuleBase.cs" />

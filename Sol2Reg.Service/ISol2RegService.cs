@@ -16,9 +16,18 @@ namespace Sol2Reg.Service
 	using System.ServiceModel;
 	using Sol2Reg.ServiceData;
 
+	/// <summary>
+	/// Sol2Reg service
+	/// </summary>
 	[ServiceContract]
 	public interface ISol2RegService
 	{
+		/// <summary>
+		/// Initilizes the specified is for simulation.
+		/// </summary>
+		/// <param name="isForSimulation">if set to <c>true</c> [is for simulation].</param>
+		void Initilize(bool isForSimulation = false);
+
 		/// <summary>Initilizes the connection.</summary>
 		/// <param name="moduleName" >Name of the module.</param>
 		[OperationContract]

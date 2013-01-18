@@ -14,15 +14,21 @@
 namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
+	using System.ComponentModel.Composition;
 
-	/// <summary>Modules liste.</summary>
+	/// <summary>
+	/// Modules liste.
+	/// </summary>
+	[InheritedExport]
 	public interface IModules : IList<IModuleBase>
 	{
-		/// <summary>Gets a value indicating whether [simulation mode].</summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether [simulation mode].
+		/// </summary>
 		/// <value>
-		///     <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
+		///   <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
 		/// </value>
-		bool SimulationMode { get; }
+		bool IsSimulationMode { get; }
 
 		/// <summary>Starts all modules connection.</summary>
 		void Start();
@@ -42,5 +48,12 @@ namespace ModuleIO.Interface
 		/// <param name="port" >The port.</param>
 		/// <param name="chanels" >The chanels.</param>
 		void AddNewModule(string name, string moduleType, string moduleSerie, string ipAddress, int port, List<IChanel> chanels);
+
+		/// <summary>
+		/// Initializes the specified is simulation mode.
+		/// </summary>
+		/// <param name="isSimulationMode">if set to <c>true</c> [is simulation mode].</param>
+		/// <returns>Modules list.</returns>
+		IModules Initialize(bool isSimulationMode = false);
 	}
 }

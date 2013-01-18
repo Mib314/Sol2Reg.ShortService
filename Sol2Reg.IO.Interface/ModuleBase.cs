@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\ModuleBase.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface\ModuleBase.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\ModuleBase.cs.
+//     Sol2Reg.IO.Interface\ModuleBase.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\ModuleBase.cs
-//     Created            : 28.12.2012 22:07
+//     Project \ FileName : Sol2Reg.IO.Interface\ModuleBase.cs
+//     Created            : 28.12.2012 23:07
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -21,13 +21,6 @@ namespace ModuleIO.Interface
 	/// <summary>Base module for ineritence.</summary>
 	public abstract class ModuleBase : IModuleBase
 	{
-		protected ModuleBase(IModules modules)
-		{
-			this.Modules = modules;
-			this.Chanels = new List<IChanel>();
-			this.Errors = new ModuleErrors();
-		}
-
 		#region Property
 		/// <summary>Gets or sets the name.</summary>
 		/// <value>The name.</value>
@@ -43,7 +36,7 @@ namespace ModuleIO.Interface
 
 		/// <summary>Gets the chanels.</summary>
 		/// <value>The chanels. Definition and current value.</value>
-		public IList<IChanel> Chanels { get; private set; }
+		public IList<IChanel> Chanels { get; set; }
 
 		/// <summary>Gets the modules parent.</summary>
 		/// <value>The modules.</value>
@@ -69,12 +62,8 @@ namespace ModuleIO.Interface
 		/// <value>The type of the module.</value>
 		public virtual string ModuleType { get; protected set; }
 
-		/// <summary>
-		/// Gets the password.
-		/// </summary>
-		/// <value>
-		/// The password.
-		/// </value>
+		/// <summary>Gets the password.</summary>
+		/// <value>The password.</value>
 		public string Password { get; protected set; }
 
 		/// <summary>Gets a value indicating whether this instance is connected.</summary>
@@ -85,8 +74,9 @@ namespace ModuleIO.Interface
 		#endregion
 
 		#region Abstract
-		/// <summary>Initialyses the module.</summary>
-		public abstract void InitialyseModule();
+
+		/// <summary>Initialize the module.</summary>
+		public abstract IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules);
 
 		/// <summary>Connect the module.</summary>
 		public abstract void Start();
@@ -103,6 +93,17 @@ namespace ModuleIO.Interface
 		/// <param name="anamlogValue" >Analog value.</param>
 		public abstract void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null);
 		#endregion
+
+		/// <summary>Initializes the specified modules.</summary>
+		/// <param name="modules" >The modules.</param>
+		/// <returns>The module base interface.</returns>
+		protected IModuleBase InitializeBase(IModules modules)
+		{
+			this.Modules = modules;
+			this.Chanels = new List<IChanel>();
+			this.Errors = new ModuleErrors();
+			return this;
+		}
 
 		/// <summary>Adds to module error a error module.</summary>
 		/// <param name="errorCode" >The error code.</param>

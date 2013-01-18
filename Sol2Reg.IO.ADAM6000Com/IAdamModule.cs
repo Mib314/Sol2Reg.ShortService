@@ -13,6 +13,9 @@
 
 namespace ADAM6000Com
 {
+	using System.ComponentModel.Composition;
+
+	[InheritedExport]
 	public interface IAdamModule
 	{
 		/// <summary>Gets the total chanel analaog in.</summary>

@@ -13,8 +13,10 @@
 
 namespace ModuleIO.Interface
 {
+	using System.ComponentModel.Composition;
 	using Sol2Reg.ServiceData.Enumerations;
 
+	[InheritedExport]
 	public interface IChanel
 	{
 		/// <summary>Gets the id.</summary>

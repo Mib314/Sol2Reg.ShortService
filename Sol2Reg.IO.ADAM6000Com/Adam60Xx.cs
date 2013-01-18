@@ -26,14 +26,13 @@ namespace ADAM6000Com
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Adam60Xx" /> class.
 		/// </summary>
-		/// <param name="modules" >The modules.</param>
-		protected Adam60Xx(IModules modules)
-			: base(modules)
+		protected Adam60Xx()
 		{
 			this.Port = 502; // modbus TCP port is 502
 			this.AdamModbus = new AdamSocket();
 			this.AdamModbus.SetTimeout(1000, 1000, 1000); // set timeout for TCP
 		}
+
 
 		#region Properties
 		/// <summary>Gets the module serie.</summary>
@@ -148,7 +147,7 @@ namespace ADAM6000Com
 			if (this.IsConnected) this.AdamModbus.Disconnect(); // disconnect slave
 		}
 
-		public override void InitialyseModule()
+		protected void InitializeAdamInternValue()
 		{
 			// Trouve le nombre de canals Analog et Digital en Input et Output.
 			this.TotalChanelAnalaogIn = AnalogInput.GetChannelTotal(this.Adam6000Type);

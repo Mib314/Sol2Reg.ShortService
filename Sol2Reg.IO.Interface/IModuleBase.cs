@@ -1,24 +1,24 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModuleBase.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface\IModuleBase.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\IModuleBase.cs.
+//     Sol2Reg.IO.Interface\IModuleBase.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\IModuleBase.cs
-//     Created            : 28.12.2012 04:20
+//     Project \ FileName : Sol2Reg.IO.Interface\IModuleBase.cs
+//     Created            : 28.12.2012 05:20
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace ModuleIO.Interface
 {
 	using System.Collections.Generic;
+	using System.ComponentModel.Composition;
 	using Sol2Reg.ServiceData;
 
-	/// <summary>
-	/// Interface to define ModuleIO
-	/// </summary>
+	/// <summary>Interface to define ModuleIO</summary>
+	[InheritedExport]
 	public interface IModuleBase
 	{
 		#region Properties
@@ -42,12 +42,8 @@ namespace ModuleIO.Interface
 		/// <value>The port.</value>
 		int Port { get; set; }
 
-		/// <summary>
-		/// Gets the password.
-		/// </summary>
-		/// <value>
-		/// The password.
-		/// </value>
+		/// <summary>Gets the password.</summary>
+		/// <value>The password.</value>
 		string Password { get; }
 
 		/// <summary>Gets a value indicating whether this instance is connected.</summary>
@@ -64,7 +60,7 @@ namespace ModuleIO.Interface
 
 		/// <summary>Gets the chanels.</summary>
 		/// <value>The chanels. Definition and current value.</value>
-		IList<IChanel> Chanels { get; }
+		IList<IChanel> Chanels { get; set; }
 
 		/// <summary>Gets the modules parent.</summary>
 		/// <value>The modules.</value>
@@ -76,8 +72,12 @@ namespace ModuleIO.Interface
 		#endregion
 
 		#region Methode
-		/// <summary>Initialyses the module.</summary>
-		void InitialyseModule();
+		/// <summary>Initialize the module.</summary>
+		/// <param name="moduleSerie" >The module serie.</param>
+		/// <param name="moduleType" >Type of the module.</param>
+		/// <param name="modules" >The modules.</param>
+		/// <returns>Self instance.</returns>
+		IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules);
 
 		/// <summary>Connect the module.</summary>
 		void Start();

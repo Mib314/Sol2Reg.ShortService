@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleSimulator
+namespace Sol2Reg.IO.Simulator
 {
 	using System;
 	using System.Collections.Generic;
@@ -31,22 +31,8 @@ namespace ModuleSimulator
 #pragma warning restore 649
 
 
-		/// <summary>
-		///     Initializes a new instance of the <see cref="SimulatorModule" /> class.
-		/// </summary>
-		/// <param name="moduleSerie" >The module serie.</param>
-		/// <param name="moduleType" >Type of the module.</param>
-		/// <param name="modules" >The modules.</param>
-		public SimulatorModule(string moduleSerie, string moduleType, IModules modules)
-			: base(modules)
-		{
-			// TODO: Complete member initialization
-			this.ModuleSerie = moduleSerie;
-			this.ModuleType = moduleType;
-		}
-
 		/// <summary>Initialyses the module.</summary>
-		public override void InitialyseModule()
+		public void InitialyseModule()
 		{
 			foreach (var chanelData in this.Chanels.OrderBy(foo => foo.Id))
 			{
@@ -75,6 +61,22 @@ namespace ModuleSimulator
 		/// <summary>Gets or sets the errors.</summary>
 		/// <value>The errors.</value>
 		public IModuleErrors ModuleErrors { get; set; }
+
+		/// <summary>
+		/// Initialize the module.
+		/// </summary>
+		/// <param name="moduleSerie">The module serie.</param>
+		/// <param name="moduleType">Type of the module.</param>
+		/// <param name="modules">The modules.</param>
+		/// <returns>
+		/// Self instance.
+		/// </returns>
+		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
+		{
+			this.ModuleSerie = moduleSerie;
+			this.ModuleType = moduleType;
+			return this.InitializeBase(modules);
+		}
 
 		/// <summary>Connect the module.</summary>
 		public override void Start()

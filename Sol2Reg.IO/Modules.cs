@@ -1,40 +1,55 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\Modules.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO\Modules.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\Modules.cs.
+//     Sol2Reg.IO\Modules.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\Modules.cs
+//     Project \ FileName : Sol2Reg.IO\Modules.cs
 //     Created            : 28.12.2012 04:43
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace ModuleIO
 {
-	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel.Composition;
 	using System.Linq;
 	using ModuleIO.Interface;
 
 	/// <summary>List of module.</summary>
+	[PartCreationPolicy(CreationPolicy.Shared)]
 	public class Modules : List<IModuleBase>, IModules
 	{
+		[Import]
+		private InitializeModules initializeModules;
+
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Modules" /> class.
 		/// </summary>
-		public Modules(bool setSimulatorMode = false)
+		public Modules()
 		{
-			this.SimulationMode = setSimulatorMode;
+			this.IsSimulationMode = false;
 		}
 
 		#region IModules Members
-		/// <summary>Gets a value indicating whether [simulation mode].</summary>
+		/// <summary>Initializes the specified is simulation mode.</summary>
+		/// <param name="isSimulationMode" >
+		///     if set to <c>true</c> [is simulation mode].
+		/// </param>
+		/// <returns>Modules list.</returns>
+		public IModules Initialize(bool isSimulationMode = false)
+		{
+			this.IsSimulationMode = isSimulationMode;
+			return this;
+		}
+
+		/// <summary>Gets or sets a value indicating whether [simulation mode].</summary>
 		/// <value>
 		///     <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
 		/// </value>
-		public bool SimulationMode { get; private set; }
+		public bool IsSimulationMode { get; private set; }
 
 		/// <summary>Starts all modules connection.</summary>
 		public void Start()
@@ -63,7 +78,7 @@ namespace ModuleIO
 			}
 		}
 
-		/// <summary>Adds the new module.</summary>
+		/// <summary>Adds a new module.</summary>
 		/// <param name="name" >The name.</param>
 		/// <param name="moduleType" >Type of the module.</param>
 		/// <param name="moduleSerie" >The module serie.</param>
@@ -72,14 +87,18 @@ namespace ModuleIO
 		/// <param name="chanels" >The chanels.</param>
 		public void AddNewModule(string name, string moduleType, string moduleSerie, string ipAddress, int port, List<IChanel> chanels)
 		{
-			throw new NotImplementedException();
+			var module = this.initializeModules.AddModule(moduleType, moduleSerie);
+			module.Name = name;
+			module.IpAddress = ipAddress;
+			module.Port = port;
+			module.Chanels = chanels;
 		}
 		#endregion
 
 		/// <summary>Sets the simulation mode.</summary>
 		internal void SetSimulationMode()
 		{
-			this.SimulationMode = true;
+			this.IsSimulationMode = true;
 		}
 
 		public void ReadData()

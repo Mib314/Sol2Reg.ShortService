@@ -22,20 +22,21 @@ namespace ADAM6000Com
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Adam6015" /> class.
 		/// </summary>
-		/// <param name="modules" >The modules.</param>
-		public Adam6015(IModules modules)
-			: base(modules)
+		public Adam6015()
 		{
 			// Cette class ne s'occupe que de l'Adam6015
 			this.Adam6000Type = Adam6000Type.Adam6015;
+			this.InitializeAdamInternValue();
 		}
 
-		public override void InitialyseModule()
+		/// <summary>Initialize the module.</summary>
+		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
-			base.InitialyseModule();
+			base.InitializeAdamInternValue();
 
 			this.ChanelEnabled = new bool[this.TotalChanelAnalaogIn];
 			this.ByRangeInput = new byte[this.TotalChanelAnalaogIn];
+			return this.InitializeBase(modules);
 		}
 
 		public override void ReadData()

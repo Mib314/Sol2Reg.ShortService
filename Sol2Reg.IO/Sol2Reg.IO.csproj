@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,10 +70,6 @@
     <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
       <Name>Sol2Reg.ServiceData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sol2Reg.ShortService\Sol2Reg.ShortService.csproj">
-      <Project>{ff42be5f-76e5-48bd-a590-0dabcc1901c9}</Project>
-      <Name>Sol2Reg.ShortService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
