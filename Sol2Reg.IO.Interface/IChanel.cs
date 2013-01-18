@@ -63,6 +63,13 @@ namespace ModuleIO.Interface
 		/// <value>The offset (default value = 0).</value>
 		float Offset { get; set; }
 
+		/// <summary>
+		/// Changes the value.
+		/// </summary>
+		/// <param name="analogValue">The analog value.</param>
+		/// <param name="digitalValue">The digital value.</param>
+		void ChangeValue(float? analogValue, bool? digitalValue);
+
 		string ToString();
 	}
 }

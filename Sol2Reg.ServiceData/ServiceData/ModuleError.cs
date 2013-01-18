@@ -11,12 +11,15 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ServiceData
+namespace Sol2Reg.ServiceData.ServiceData
 {
 	using System;
 	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
+	/// <summary>
+	/// Module error for WCF service
+	/// </summary>
 	[DataContract]
 	public class ModuleError : IModuleError
 	{

@@ -1,24 +1,27 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\Chanel.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO\Chanel.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\Chanel.cs.
+//     Sol2Reg.IO\Chanel.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\Chanel.cs
+//     Project \ FileName : Sol2Reg.IO\Chanel.cs
 //     Created            : 27.12.2012 20:05
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace ModuleIO
 {
+	using System;
 	using ModuleIO.Interface;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	/// <summary>Define and store information about a chanel.</summary>
 	public class Chanel : IChanel
 	{
+		private const float EPSILON_VALUE = (float) 0.00001;
+
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Chanel" /> class.
 		/// </summary>
@@ -26,7 +29,7 @@ namespace ModuleIO
 		/// <param name="direction" >The direction.</param>
 		/// <param name="typeOfValue" >Type of the value.</param>
 		public Chanel(int id, Direction direction, TypeOfValue typeOfValue)
-			: this(id, string.Format("Chanel [0]", id), direction, typeOfValue) {}
+			: this(id, "Chanel [0]" + id, direction, typeOfValue) {}
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Chanel" /> class.
@@ -105,6 +108,16 @@ namespace ModuleIO
 		/// <value>The offset (default value = 0).</value>
 		public float Offset { get; set; }
 
+
+		/// <summary>Changes the value.</summary>
+		/// <param name="analogValue" >The analog value.</param>
+		/// <param name="digitalValue" >The digital value.</param>
+		public void ChangeValue(float? analogValue, bool? digitalValue)
+		{
+			if (this.Gain < EPSILON_VALUE) this.ValueAnalogBrut = 0;
+			
+			this.ValueAnalogBrut = (analogValue - this.Offset)/this.Gain;
+		}
 
 		public override string ToString()
 		{

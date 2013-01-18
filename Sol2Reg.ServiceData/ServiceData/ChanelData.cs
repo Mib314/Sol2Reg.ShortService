@@ -11,12 +11,14 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ServiceData
+namespace Sol2Reg.ServiceData.ServiceData
 {
 	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
-	/// <summary>Define and store information about a chanel.</summary>
+	/// <summary>
+	/// Chanel data for WCF service.
+	/// </summary>
 	[DataContract]
 	public class ChanelData
 	{

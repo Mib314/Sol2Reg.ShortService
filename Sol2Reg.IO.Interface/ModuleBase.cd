@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ADAM6000Com.Adam6015">
+    <Position X="3.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ADAM6000Com.Adam60Xx">
+    <Position X="3" Y="0.5" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ModuleIO.Interface.ModuleBase">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADAM6000Com.Adam6066">
+    <Position X="0.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Sol2Reg.IO.Simulator.SimulatorModule">
+    <Position X="6.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ModuleIO.Interface.IModuleBase">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

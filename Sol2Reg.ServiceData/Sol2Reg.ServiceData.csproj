@@ -41,17 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChanelData.cs" />
+    <Compile Include="ServiceData\ChanelData.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\ModuleErrorCode.cs" />
     <Compile Include="Enumerations\TypeOfValue.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="IModuleError.cs" />
     <Compile Include="IModuleErrors.cs" />
-    <Compile Include="ModuleData.cs" />
-    <Compile Include="ModuleError.cs" />
-    <Compile Include="ModuleErrors.cs" />
-    <Compile Include="ModulesData.cs" />
+    <Compile Include="ServiceData\ModuleData.cs" />
+    <Compile Include="ServiceData\ModuleError.cs" />
+    <Compile Include="ServiceData\ModuleErrors.cs" />
+    <Compile Include="ServiceData\ModulesData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@
 namespace Sol2Reg.Service
 {
 	using System.ServiceModel;
-	using Sol2Reg.ServiceData;
+	using Sol2Reg.ServiceData.ServiceData;
 
 	/// <summary>
 	/// Sol2Reg service

@@ -11,11 +11,14 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ServiceData
+namespace Sol2Reg.ServiceData.ServiceData
 {
 	using System.Collections.Generic;
 	using System.Runtime.Serialization;
 
+	/// <summary>
+	/// Module data for WCF service.
+	/// </summary>
 	[DataContract]
 	public class ModuleData
 	{

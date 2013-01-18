@@ -41,7 +41,7 @@ namespace ADAM6000Com
 
 		public override void ReadData()
 		{
-			base.CheckIfModuleIsAwiableToCommunicate();
+			base.CheckIfModuleIsavailableToCommunicate();
 
 			this.Count++; // increment the reading counter
 			this.RefreshChannelValue();
@@ -49,7 +49,7 @@ namespace ADAM6000Com
 
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
-			base.CheckIfModuleIsAwiableToCommunicate();
+			base.CheckIfModuleIsavailableToCommunicate();
 
 			throw new NotImplementedException();
 		}

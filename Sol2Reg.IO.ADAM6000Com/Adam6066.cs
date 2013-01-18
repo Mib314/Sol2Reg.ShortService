@@ -50,7 +50,7 @@ namespace ADAM6000Com
 		/// <summary>Read data from ADAM module to the chanel list.</summary>
 		public override void ReadData()
 		{
-			base.CheckIfModuleIsAwiableToCommunicate();
+			base.CheckIfModuleIsavailableToCommunicate();
 
 			bool[] bDiData, bDoData;
 			if (
@@ -74,7 +74,7 @@ namespace ADAM6000Com
 
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
-			base.CheckIfModuleIsAwiableToCommunicate();
+			base.CheckIfModuleIsavailableToCommunicate();
 
 			if (chanelId < 6 ||
 				chanelId > 11) throw new ArgumentOutOfRangeException("chanelId");

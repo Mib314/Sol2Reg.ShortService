@@ -41,9 +41,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sol2Reg.Tools", "Sol2Reg.Tools\Sol2Reg.Tools.csproj", "{76A66726-2BFC-450B-9D81-1A3865F66EB1}"
 EndProject
 Global
-	GlobalSection(CodealikeProperties) = postSolution
-		SolutionGuid = e493c8f6-ad6e-42ff-8ee6-9d9dde3c3463
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -119,5 +116,11 @@ Global
 		{B5B3C9BD-4637-45DD-ACA2-BBCE7FEF3F92} = {8A6DE63F-9214-4906-A2A6-7BEBD351519B}
 		{C3C5D91E-EFEE-47C9-8AC5-7CE3ED7D029E} = {8A6DE63F-9214-4906-A2A6-7BEBD351519B}
 		{70BA5B70-F0A9-4D3C-83B1-EBC1F01B4302} = {8A6DE63F-9214-4906-A2A6-7BEBD351519B}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = e493c8f6-ad6e-42ff-8ee6-9d9dde3c3463
 	EndGlobalSection
 EndGlobal

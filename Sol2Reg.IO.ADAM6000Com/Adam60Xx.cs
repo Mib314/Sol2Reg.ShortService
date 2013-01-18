@@ -158,7 +158,7 @@ namespace ADAM6000Com
 			this.IsInitialized = true;
 		}
 
-		internal void CheckIfModuleIsAwiableToCommunicate()
+		internal void CheckIfModuleIsavailableToCommunicate()
 		{
 			if (!this.IsInitialized) throw new Exception(string.Format("The module [{0}] is not initialized.", this.Name));
 			if (!this.IsConnected) throw new Exception(string.Format("The module [{0}] is not connected.", this.Name));

@@ -115,6 +115,10 @@ namespace ModuleIO
 			if (module == null) return;
 
 			var chanel = module.Chanels.FirstOrDefault(foo => foo.Id == chanelId);
+			if (chanel == null) return;
+
+			chanel.ValueAnalog = analogValue;
+			chanel.ValueDigital = digitalValue;
 		}
 	}
 }

@@ -17,9 +17,14 @@ namespace Sol2Reg.Tools
 	using System.Configuration;
 	using System.Linq;
 
+	/// <summary>
+	/// Tools for configuration (read and write).
+	/// </summary>
+	[PartCreationPolicy(CreationPolicy.Shared)]
 	[Export]
 	public class ConfigManager
 	{
+		#region AppSettings
 		/// <summary>
 		/// Reads the app settings on config file.
 		/// </summary>
@@ -29,5 +34,11 @@ namespace Sol2Reg.Tools
 		{
 			return ConfigurationManager.AppSettings.AllKeys.FirstOrDefault(foo => foo == key);
 		}
+
+		public bool AppSettingKeyExist(string key)
+		{
+			return ConfigurationManager.AppSettings.AllKeys.Count(foo => foo == key) > 0;
+		}
+		#endregion
 	}
 }

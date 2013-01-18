@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.ServiceData
+namespace Sol2Reg.ServiceData.ServiceData
 {
 	using System;
 	using System.Collections.Generic;
