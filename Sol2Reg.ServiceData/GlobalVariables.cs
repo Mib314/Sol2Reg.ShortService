@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\Sol2Reg.ShortService\GlobalVariables.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\GlobalVariables.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     Sol2Reg.ShortService\GlobalVariables.cs.
+//     Sol2Reg.ServiceData\GlobalVariables.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : Sol2Reg.ShortService\GlobalVariables.cs
-//     Created            : 28.12.2012 02:19
+//     Project \ FileName : Sol2Reg.ServiceData\GlobalVariables.cs
+//     Created            : 16.01.2013 09:06
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -26,13 +26,19 @@ namespace Sol2Reg.ServiceData
 		[Import]
 		private ConfigManager configManager;
 
-		public GlobalVariables()
-		{
-			this.ModuleConfigName = this.configManager.ReadAppSettings(ModuleConfigName_Key);
-			this.ConfigFilePath = this.configManager.ReadAppSettings(ConfigFilePath_Key);
-		}
+		private bool isInitialized;
 
-		public  string ConfigFilePath { get; private set; }
+		public string ConfigFilePath { get; private set; }
 		public string ModuleConfigName { get; private set; }
+
+		public void Initialize()
+		{
+			if (!this.isInitialized)
+			{
+				this.ModuleConfigName = this.configManager.ReadAppSettings(ModuleConfigName_Key);
+				this.ConfigFilePath = this.configManager.ReadAppSettings(ConfigFilePath_Key);
+				this.isInitialized = true;
+			}
+		}
 	}
 }

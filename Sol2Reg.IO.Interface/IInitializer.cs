@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO.Interface
+namespace Sol2Reg.IO.Interface
 {
 	using System.ComponentModel.Composition;
 

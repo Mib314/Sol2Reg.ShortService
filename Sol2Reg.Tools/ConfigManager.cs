@@ -32,7 +32,7 @@ namespace Sol2Reg.Tools
 		/// <returns>Value of this setting.</returns>
 		public string ReadAppSettings(string key)
 		{
-			return ConfigurationManager.AppSettings.AllKeys.FirstOrDefault(foo => foo == key);
+		return this.AppSettingKeyExist(key) ? ConfigurationManager.AppSettings[key] : string.Empty;
 		}
 
 		public bool AppSettingKeyExist(string key)

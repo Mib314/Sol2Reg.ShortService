@@ -11,7 +11,7 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ADAM6000Com
+namespace Sol2Reg.IO.ADAM6000Com
 {
 	using System.ComponentModel.Composition;
 

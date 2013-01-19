@@ -11,13 +11,13 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace Sol2Reg.IO
 {
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 	using System.Linq;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 	using Sol2Reg.IO.Simulator;
 
 	/// <summary>Initialize module</summary>
@@ -25,10 +25,13 @@ namespace ModuleIO
 	[Export]
 	public class InitializeModules
 	{
-		private IInitializer simulatorInitializer;
+		[ImportMany(typeof (IInitializer))]
+		private IEnumerable<IInitializer> initializers;
 
-		[ImportMany(typeof(IInitializer))]
-		private List<IInitializer> initializers;
+		[Import]
+		private LoadModuleSetting loadModuleSetting;
+
+		private IInitializer simulatorInitializer;
 
 		/// <summary>Gets the modules.</summary>
 		/// <value>The modules.</value>
@@ -48,14 +51,15 @@ namespace ModuleIO
 		public InitializeModules Initialize(bool isForSimulator = false)
 		{
 			this.IsForSimulator = isForSimulator;
-			this.Modules = new LoadModuleSetting().LoadConfig(this.InitializeModule);
 
 			if (this.IsForSimulator)
 			{
 				this.simulatorInitializer = this.initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == InitializerSimulator.Module_Simulator);
 				if (this.simulatorInitializer == null) throw new ArgumentNullException("", "The simulator module is not present. Please add the \"Sol2Reg.IO.Simulator.DLL\" module in your application folder.");
 			}
-
+			
+			this.Modules = this.loadModuleSetting.LoadConfig(this.InitializeModule);
+			
 			return this;
 		}
 
@@ -84,11 +88,9 @@ namespace ModuleIO
 			return initializer.InitializeModule(moduleSerie, moduleType, this.Modules);
 		}
 
-		/// <summary>
-		/// Adds the module.
-		/// </summary>
-		/// <param name="moduleType">Type of the module.</param>
-		/// <param name="moduleSerie">The module serie.</param>
+		/// <summary>Adds the module.</summary>
+		/// <param name="moduleType" >Type of the module.</param>
+		/// <param name="moduleSerie" >The module serie.</param>
 		/// <returns>The module.</returns>
 		public IModuleBase AddModule(string moduleType, string moduleSerie)
 		{

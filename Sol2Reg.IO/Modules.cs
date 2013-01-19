@@ -11,12 +11,12 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace Sol2Reg.IO
 {
 	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 	using System.Linq;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 
 	/// <summary>List of module.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]

@@ -21,6 +21,8 @@ namespace Sol2Reg.ShortService
 
 		public ShortServices(bool startSimulator)
 		{
+			new BootStrap(this);
+
 			// TODO: Complete member initialization
 			this.startSimulator = startSimulator;
 			this.InitializeComponent();

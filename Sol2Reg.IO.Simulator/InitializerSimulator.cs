@@ -14,12 +14,13 @@
 namespace Sol2Reg.IO.Simulator
 {
 	using System.ComponentModel.Composition;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 
 	/// <summary>
 	/// Initializer for simulator.
 	/// </summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
+	[Export(typeof(IInitializer))]
 	public class InitializerSimulator : IInitializer
 	{
 		public const string Module_Simulator = "Simulator";

@@ -16,8 +16,8 @@ namespace Sol2Reg.Service
 	using System;
 	using System.ComponentModel.Composition;
 	using System.Linq;
-	using ModuleIO;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO;
+	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData.ServiceData;
 
 	/// <summary>

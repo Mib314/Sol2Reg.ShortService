@@ -11,16 +11,17 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ADAM6000Com
+namespace Sol2Reg.IO.ADAM6000Com
 {
 	using System;
 	using System.ComponentModel.Composition;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 
 	/// <summary>
 	/// Initializer for Adam serie 6000.
 	/// </summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
+	[Export(typeof(IInitializer))]
 	public class InitializerAdam6000 : IInitializer
 	{
 		// List of Adam serie

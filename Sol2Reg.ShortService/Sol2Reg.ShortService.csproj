@@ -95,6 +95,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
+      <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
+      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sol2Reg.Service\Sol2Reg.Service.csproj">
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>Sol2Reg.Service</Name>

@@ -11,14 +11,14 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ADAM6000Com
+namespace Sol2Reg.IO.ADAM6000Com
 {
 	using System;
 	using System.Linq;
 	using System.Net.Sockets;
 	using Advantech.Adam;
 	using Advantech.Common;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	public abstract class Adam60Xx : ModuleBase, IAdamModule

@@ -7,8 +7,8 @@
     <ProjectGuid>{554D1A8D-701B-4B6D-A679-4286850FC66E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModuleIO</RootNamespace>
-    <AssemblyName>ModuleIO</AssemblyName>
+    <RootNamespace>Sol2Reg.IO</RootNamespace>
+    <AssemblyName>Sol2Reg.IO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -70,6 +70,10 @@
     <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
       <Name>Sol2Reg.ServiceData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sol2Reg.Tools\Sol2Reg.Tools.csproj">
+      <Project>{76A66726-2BFC-450B-9D81-1A3865F66EB1}</Project>
+      <Name>Sol2Reg.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

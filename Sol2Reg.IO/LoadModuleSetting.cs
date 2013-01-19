@@ -1,26 +1,27 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO\LoadModuleSetting.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO\LoadModuleSetting.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO\LoadModuleSetting.cs.
+//     Sol2Reg.IO\LoadModuleSetting.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO\LoadModuleSetting.cs
+//     Project \ FileName : Sol2Reg.IO\LoadModuleSetting.cs
 //     Created            : 28.12.2012 04:13
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace Sol2Reg.IO
 {
 	using System;
 	using System.ComponentModel.Composition;
 	using System.IO;
 	using System.Linq;
 	using System.Xml.Linq;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData;
 	using Sol2Reg.ServiceData.Enumerations;
+	using Sol2Reg.Tools;
 
 	/// <summary>Load setting and initialise Module IO.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
@@ -48,8 +49,12 @@ namespace ModuleIO
 		#endregion
 
 		[Import]
-		private GlobalVariables GlobalVariables { get; set; }
+		private FileSystem fileSystem;
 
+		[Import]
+		private GlobalVariables globalVariables;
+
+		[Import]
 		public IModules Modules { get; set; }
 
 		public IModules LoadConfig(Func<string, string, IModuleBase> initialiseModule)
@@ -58,7 +63,11 @@ namespace ModuleIO
 
 			var modules = new Modules();
 
-			foreach (var xModule in doc.Elements(tag_Module))
+			var xModules = doc.Elements(tag_Modules).FirstOrDefault();
+
+			if (xModules == null) return null;
+
+			foreach (var xModule in xModules.Elements(tag_Module))
 			{
 				var moduleSerie = this.ReadAttribute(module_ModuleSerie, xModule);
 				var moduleType = this.ReadAttribute(module_ModuleType, xModule);
@@ -77,7 +86,7 @@ namespace ModuleIO
 					IChanel chanel;
 					try
 					{
-						chanel = new Chanel(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
+						chanel = new Chanel(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue) Enum.Parse(typeof (TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
 					}
 					catch (Exception)
 					{
@@ -92,6 +101,7 @@ namespace ModuleIO
 				}
 				modules.Add(module);
 			}
+
 			return this.Modules;
 		}
 
@@ -101,7 +111,11 @@ namespace ModuleIO
 		private XDocument ReadFile()
 		{
 			// Assemble File path
-			var filePath = !string.IsNullOrWhiteSpace(this.GlobalVariables.ConfigFilePath) ? string.Format("{0}\\{1}", this.GlobalVariables.ConfigFilePath, this.GlobalVariables.ModuleConfigName) : this.GlobalVariables.ModuleConfigName;
+			var filePath = !string.IsNullOrWhiteSpace(this.globalVariables.ConfigFilePath) ? string.Format("{0}\\{1}", this.globalVariables.ConfigFilePath, this.globalVariables.ModuleConfigName) : this.globalVariables.ModuleConfigName;
+
+			// Check if the file exist
+			if (!File.Exists(filePath)) filePath = string.Format("[0][1]", this.fileSystem.GetDLLPathForThisClass<LoadModuleSetting>(), filePath);
+
 			// Check if the file exist
 			if (!File.Exists(filePath)) throw new IOException(string.Format("The config file for module '{0}' don't exist.\nCheck the path and the file name.\nThis info is saved on the app.config section <AppConfig> file with the key {1} and {2}", filePath, GlobalVariables.ConfigFilePath_Key, GlobalVariables.ModuleConfigName_Key));
 

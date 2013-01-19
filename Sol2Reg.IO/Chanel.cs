@@ -11,10 +11,9 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ModuleIO
+namespace Sol2Reg.IO
 {
-	using System;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	/// <summary>Define and store information about a chanel.</summary>

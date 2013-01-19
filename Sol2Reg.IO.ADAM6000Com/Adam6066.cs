@@ -11,12 +11,12 @@
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace ADAM6000Com
+namespace Sol2Reg.IO.ADAM6000Com
 {
 	using System;
 	using System.Linq;
 	using Advantech.Adam;
-	using ModuleIO.Interface;
+	using Sol2Reg.IO.Interface;
 
 	/// <summary>
 	/// Adam 6066 for digital input and output (220V)
