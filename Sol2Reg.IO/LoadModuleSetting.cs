@@ -155,7 +155,6 @@ namespace Sol2Reg.IO
 				this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_NoFile, ErrorGravity.FatalApplication, new[] {this.configFileFullName, GlobalVariables.ConfigFilePath_Key, GlobalVariables.ModuleConfigName_Key});
 				return null;
 			}
-			XDocument doc;
 
 			try
 			{

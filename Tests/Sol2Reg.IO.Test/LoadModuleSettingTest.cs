@@ -68,12 +68,58 @@ namespace Sol2Reg.IO.Test
 			this.testee = new LoadModuleSetting { FileSystem = this.fileSystem.Object, GlobalVar = this.globalVariables.Object, ErrorTracking = this.errorTracking.Object, XmlLinq = this.xmlLinq, ModuleDataValidator = this.moduleDataValidator.Object};
 
 			this.SetupVariable();
+		}
+
+
+		[Fact]
+		public void LoadConfigWhenModuleDataValidThenModules()
+		{
 			this.SetupGlobalVariables(PATH, FILE);
+			this.SetupFileSystem();
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+
+			var xDoc = new XDocument();
+			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
+			xModules.Add(this.SetValidModule());
+			xDoc.Add(xModules);
+
+			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
+
+			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+
+			Assert.NotNull(result);
+			this.CheckValidModule(result);
+			this.CheckValidChanel(result);
+		}
+
+		[Fact]
+		public void LoadConfigWhenNoFolderInfoThenModules()
+		{
+			this.SetupGlobalVariables(string.Empty, FILE);
+			this.fileSystem.Setup(foo => foo.FileExists(FILE)).Returns(true);
+			
+			this.fileSystem.Setup(foo => foo.LoadXml(FILE)).Returns(new XDocument());
+			this.fileSystem.Setup(foo => foo.GetDLLPathForThisClass<LoadModuleSetting>()).Returns(PATH_DLL);
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+
+			var xDoc = new XDocument();
+			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
+			xModules.Add(this.SetValidModule());
+			xDoc.Add(xModules);
+
+			this.fileSystem.Setup(foo => foo.LoadXml(FILE)).Returns(xDoc);
+
+			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+
+			Assert.NotNull(result);
+			this.CheckValidModule(result);
+			this.CheckValidChanel(result);
 		}
 
 		[Fact]
 		public void LoadConfigWhenFileNotExistThenErrorNoFile()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem(false, false);
 			var restult = this.testee.LoadConfig(null);
 
@@ -84,6 +130,7 @@ namespace Sol2Reg.IO.Test
 		[Fact]
 		public void LoadConfigWhenFileNotExistAndDllFileExistThenNotThrowIOException()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem(false, true);
 
 			this.testee.LoadConfig(null);
@@ -92,6 +139,7 @@ namespace Sol2Reg.IO.Test
 		[Fact]
 		public void LoadConfigWhenFileNotWellForematedThenErrorFileBadFormated()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Throws<InvalidDataException>();
 
@@ -104,6 +152,7 @@ namespace Sol2Reg.IO.Test
 		[Fact]
 		public void LoadConfigWhenTagModulesNotExistThenErrorNoTagModules()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
 			var xDoc = new XDocument();
 			var xModules = new XElement("Test");
@@ -120,6 +169,7 @@ namespace Sol2Reg.IO.Test
 		[Fact]
 		public void LoadConfigWhenTagModuleNotExistThenErrorNoTagModule()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
@@ -136,6 +186,7 @@ namespace Sol2Reg.IO.Test
 		[Fact]
 		public void LoadConfigWhenModuleDataNotValidThenErrorModuleDataNotValid()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
 			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(false);
 
@@ -153,23 +204,47 @@ namespace Sol2Reg.IO.Test
 		}
 
 		[Fact]
-		public void LoadConfigWhenModuleDataValidThenModules()
+		public void LoadConfigWhenChanelDirectionIsWrongThenModulesError_ReadChanel()
 		{
+			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
 			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
 
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
 			xModules.Add(this.SetValidModule());
-			xDoc.Add(xModules);
+			xModules.Element(LoadModuleSetting.Tag_Module).Element(LoadModuleSetting.Tag_Chanel).SetAttributeValue(LoadModuleSetting.Chanel_Direction, "Dummy");
 
+			xDoc.Add(xModules);
+			
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
 
 			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
 
-			Assert.NotNull(result);
-			this.CheckValidModule(result);
-			this.CheckValidChanel(result);
+			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
+			Assert.Null(result);
+		}
+
+		[Fact]
+		public void LoadConfigWhenChanelTypeOfValueIsWrongThenModulesError_ReadChanel()
+		{
+			this.SetupGlobalVariables(PATH, FILE);
+			this.SetupFileSystem();
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+
+			var xDoc = new XDocument();
+			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
+			xModules.Add(this.SetValidModule());
+			xModules.Element(LoadModuleSetting.Tag_Module).Element(LoadModuleSetting.Tag_Chanel).SetAttributeValue(LoadModuleSetting.Chanel_TypeOfValue, "Dummy");
+
+			xDoc.Add(xModules);
+			
+			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
+
+			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+
+			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
+			Assert.Null(result);
 		}
 
 		#region Help methode
@@ -283,19 +358,16 @@ namespace Sol2Reg.IO.Test
 		/// <summary>Connect the module.</summary>
 		public override void Start()
 		{
-			throw new System.NotImplementedException();
 		}
 
 		/// <summary>Closings module connection.</summary>
 		public override void Closing()
 		{
-			throw new System.NotImplementedException();
 		}
 
 		/// <summary>Reads the data from the module IO. Place the response value to the Channels list.</summary>
 		public override void ReadData()
 		{
-			throw new System.NotImplementedException();
 		}
 
 		/// <summary>Write new info to the chanel list and change the value to the ADAM module</summary>
@@ -304,7 +376,6 @@ namespace Sol2Reg.IO.Test
 		/// <param name="anamlogValue" >Analog value.</param>
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
-			throw new System.NotImplementedException();
 		}
 	}
 }
