@@ -7,7 +7,7 @@
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.IO.Interface\ModuleBase.cs
-//     Created            : 28.12.2012 23:07
+//     Created            : 28.12.2012 22:07
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -75,7 +75,6 @@ namespace Sol2Reg.IO.Interface
 		#endregion
 
 		#region Abstract
-
 		/// <summary>Initialize the module.</summary>
 		public abstract IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules);
 

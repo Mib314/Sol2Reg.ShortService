@@ -7,7 +7,7 @@
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.IO.Simulator\InitializerSimulator.cs
-//     Created            : 16.01.2013 15:18
+//     Created            : 16.01.2013 14:18
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -16,29 +16,18 @@ namespace Sol2Reg.IO.Simulator
 	using System.ComponentModel.Composition;
 	using Sol2Reg.IO.Interface;
 
-	/// <summary>
-	/// Initializer for simulator.
-	/// </summary>
+	/// <summary>Initializer for simulator.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
-	[Export(typeof(IInitializer))]
-	public class InitializerSimulator : IInitializer
+	[Export(typeof (IInitializer))]
+	public class InitializerSimulator : InitializerBase
 	{
-		public const string Module_Simulator = "Simulator";
-
-		#region IInitializer Members
 		/// <summary>Initialyses the module.</summary>
-		/// <remarks>The <paramref name="moduleSerie"/> and <paramref name="moduleType"/> is not important for the simulator</remarks>
-		public IModuleBase InitializeModule(string moduleSerie, string moduleType, IModules modules)
+		/// <remarks>
+		///     The <paramref name="moduleSerie" /> and <paramref name="moduleType" /> is not important for the simulator
+		/// </remarks>
+		public override IModuleBase InitializeModule(string moduleSerie, string moduleType, IModules modules)
 		{
 			return new SimulatorModule().Initialize(moduleSerie, moduleType, modules);
 		}
-
-		/// <summary>Gets the module serie key.</summary>
-		/// <value>The module serie key.</value>
-		public string ModuleSerie_Key
-		{
-			get { return Module_Simulator; }
-		}
-		#endregion
 	}
 }

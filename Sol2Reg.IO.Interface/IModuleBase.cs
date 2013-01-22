@@ -7,7 +7,7 @@
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.IO.Interface\IModuleBase.cs
-//     Created            : 28.12.2012 05:20
+//     Created            : 28.12.2012 04:20
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 

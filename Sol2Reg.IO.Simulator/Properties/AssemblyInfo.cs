@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleSimulator\AssemblyInfo.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Simulator\AssemblyInfo.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleSimulator\AssemblyInfo.cs.
+//     Sol2Reg.IO.Simulator\AssemblyInfo.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleSimulator\AssemblyInfo.cs
+//     Project \ FileName : Sol2Reg.IO.Simulator\AssemblyInfo.cs
 //     Created            : 28.12.2012 11:37
 // </FileInfo>
 //  ----------------------------------------------------------------------------------

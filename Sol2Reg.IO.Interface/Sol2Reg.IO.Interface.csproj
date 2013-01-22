@@ -45,6 +45,7 @@
     <Compile Include="IInitializer.cs" />
     <Compile Include="IModuleBase.cs" />
     <Compile Include="IModules.cs" />
+    <Compile Include="InitializerBase.cs" />
     <Compile Include="ModuleBase.cs" />
     <Compile Include="Simulator\ISimulatorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,7 +53,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{1a4a2472-e210-4bd8-8c80-2a16a3e11ad9}</Project>
-      <Name>Sol2Reg.ServiceData</Name>
+      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

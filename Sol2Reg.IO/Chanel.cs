@@ -83,8 +83,8 @@ namespace Sol2Reg.IO
 		/// <value>The value analog.</value>
 		public float? ValueAnalog
 		{
-			get { return this.ValueAnalogBrut*this.Gain + this.Offset; }
-			set { this.ValueAnalogBrut = (value - this.Offset)/this.Gain; }
+			get { return this.ValueAnalogBrut * this.Gain + this.Offset; }
+			set { this.ValueAnalogBrut = (value - this.Offset) / this.Gain; }
 		}
 
 		/// <summary>Gets or sets the value analog brut.</summary>
@@ -113,9 +113,12 @@ namespace Sol2Reg.IO
 		/// <param name="digitalValue" >The digital value.</param>
 		public void ChangeValue(float? analogValue, bool? digitalValue)
 		{
-			if (this.Gain < EPSILON_VALUE) this.ValueAnalogBrut = 0;
-			
-			this.ValueAnalogBrut = (analogValue - this.Offset)/this.Gain;
+			if (this.Gain < EPSILON_VALUE)
+			{
+				this.ValueAnalogBrut = 0;
+			}
+
+			this.ValueAnalogBrut = (analogValue - this.Offset) / this.Gain;
 		}
 
 		public override string ToString()

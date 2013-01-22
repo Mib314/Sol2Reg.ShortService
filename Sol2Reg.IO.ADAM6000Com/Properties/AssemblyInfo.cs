@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ADAM6000Com\AssemblyInfo.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\AssemblyInfo.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ADAM6000Com\AssemblyInfo.cs.
+//     Sol2Reg.IO.ADAM6000Com\AssemblyInfo.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ADAM6000Com\AssemblyInfo.cs
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\AssemblyInfo.cs
 //     Created            : 17.12.2012 16:41
 // </FileInfo>
 //  ----------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModules.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface\IModules.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\IModules.cs.
+//     Sol2Reg.IO.Interface\IModules.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\IModules.cs
+//     Project \ FileName : Sol2Reg.IO.Interface\IModules.cs
 //     Created            : 28.12.2012 04:38
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -16,17 +16,13 @@ namespace Sol2Reg.IO.Interface
 	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 
-	/// <summary>
-	/// Modules liste.
-	/// </summary>
+	/// <summary>Modules liste.</summary>
 	[InheritedExport]
 	public interface IModules : IList<IModuleBase>
 	{
-		/// <summary>
-		/// Gets or sets a value indicating whether [simulation mode].
-		/// </summary>
+		/// <summary>Gets or sets a value indicating whether [simulation mode].</summary>
 		/// <value>
-		///   <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
+		///     <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
 		/// </value>
 		bool IsSimulationMode { get; }
 
@@ -49,10 +45,10 @@ namespace Sol2Reg.IO.Interface
 		/// <param name="chanels" >The chanels.</param>
 		void AddNewModule(string name, string moduleType, string moduleSerie, string ipAddress, int port, List<IChanel> chanels);
 
-		/// <summary>
-		/// Initializes the specified is simulation mode.
-		/// </summary>
-		/// <param name="isSimulationMode">if set to <c>true</c> [is simulation mode].</param>
+		/// <summary>Initializes the specified is simulation mode.</summary>
+		/// <param name="isSimulationMode" >
+		///     if set to <c>true</c> [is simulation mode].
+		/// </param>
 		/// <returns>Modules list.</returns>
 		IModules Initialize(bool isSimulationMode = false);
 	}

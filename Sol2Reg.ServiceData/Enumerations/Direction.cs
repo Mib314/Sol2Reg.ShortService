@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\Direction.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\Direction.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\Direction.cs.
+//     Sol2Reg.ServiceData\Direction.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\Direction.cs
-//     Created            : 28.12.2012 21:20
+//     Project \ FileName : Sol2Reg.ServiceData\Direction.cs
+//     Created            : 12.01.2013 16:45
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 

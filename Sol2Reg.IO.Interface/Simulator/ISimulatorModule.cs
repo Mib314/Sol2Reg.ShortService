@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\ISimulatorModule.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface\ISimulatorModule.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\ISimulatorModule.cs.
+//     Sol2Reg.IO.Interface\ISimulatorModule.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\ISimulatorModule.cs
+//     Project \ FileName : Sol2Reg.IO.Interface\ISimulatorModule.cs
 //     Created            : 28.12.2012 11:50
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -26,6 +26,5 @@ namespace ModuleIO.Interface.Simulator
 		///     if set to <c>true</c> [value].
 		/// </param>
 		void InjectNewDigitalInputValue(int idChanel, bool? value);
-
 	}
 }

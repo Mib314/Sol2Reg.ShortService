@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IGlobalVariables.cs" />
     <Compile Include="ServiceData\ChanelData.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\ModuleErrorCode.cs" />

@@ -1,20 +1,19 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IModuleError.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\IModuleError.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\IModuleError.cs.
+//     Sol2Reg.ServiceData\IModuleError.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\IModuleError.cs
-//     Created            : 28.12.2012 16:42
+//     Project \ FileName : Sol2Reg.ServiceData\IModuleError.cs
+//     Created            : 13.01.2013 22:26
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace Sol2Reg.ServiceData
 {
 	using System;
-	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
 	public interface IModuleError

@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\ModuleError.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\ModuleError.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\ModuleError.cs.
+//     Sol2Reg.ServiceData\ModuleError.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\ModuleError.cs
-//     Created            : 29.12.2012 00:28
+//     Project \ FileName : Sol2Reg.ServiceData\ModuleError.cs
+//     Created            : 18.01.2013 23:42
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -17,9 +17,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
-	/// <summary>
-	/// Module error for WCF service
-	/// </summary>
+	/// <summary>Module error for WCF service</summary>
 	[DataContract]
 	public class ModuleError : IModuleError
 	{
@@ -66,7 +64,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 
 		public override string ToString()
 		{
-			return string.Format("Mod. {0}, Ch Id {1}, Ch key {2}, value {3}.\n" , this.Module_Name, this.Chanel_Id, this.Chanel_Key, this.Chanel_Value);
+			return string.Format("Mod. {0}, Ch Id {1}, Ch key {2}, value {3}.\n", this.Module_Name, this.Chanel_Id, this.Chanel_Key, this.Chanel_Value);
 		}
 	}
 }

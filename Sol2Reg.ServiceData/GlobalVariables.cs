@@ -18,19 +18,28 @@ namespace Sol2Reg.ServiceData
 
 	[PartCreationPolicy(CreationPolicy.Shared)]
 	[Export]
-	public class GlobalVariables
+	public class GlobalVariables : IGlobalVariables
 	{
 		public const string ModuleConfigName_Key = "ModuleConfigName";
 		public const string ConfigFilePath_Key = "ConfigFilePath";
+		public const double FloatPrecision = 0.0000001;
+		public const int DefaultPort = 520;
 
 		[Import]
-		private ConfigManager configManager;
+		private IConfigManager configManager;
 
 		private bool isInitialized;
 
+		#region IGlobalVariables Members
+		/// <summary>Gets the config file path.</summary>
+		/// <value>The config file path.</value>
 		public string ConfigFilePath { get; private set; }
+
+		/// <summary>Gets the name of the module config.</summary>
+		/// <value>The name of the module config.</value>
 		public string ModuleConfigName { get; private set; }
 
+		/// <summary>Initializes this instance.</summary>
 		public void Initialize()
 		{
 			if (!this.isInitialized)
@@ -40,5 +49,6 @@ namespace Sol2Reg.ServiceData
 				this.isInitialized = true;
 			}
 		}
+		#endregion
 	}
 }

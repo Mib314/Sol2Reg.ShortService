@@ -43,6 +43,7 @@
     <Compile Include="Chanel.cs" />
     <Compile Include="InitializeModules.cs" />
     <Compile Include="LoadModuleSetting.cs" />
+    <Compile Include="ModuleDataValidator.cs" />
     <Compile Include="Modules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,7 +70,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
-      <Name>Sol2Reg.ServiceData</Name>
+      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sol2Reg.Tools\Sol2Reg.Tools.csproj">
       <Project>{76A66726-2BFC-450B-9D81-1A3865F66EB1}</Project>

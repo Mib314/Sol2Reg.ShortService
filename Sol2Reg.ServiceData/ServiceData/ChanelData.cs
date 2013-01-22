@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
 // <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\ChanelData.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
 //     Sol2Reg.ServiceData\ChanelData.cs.
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.ServiceData\ChanelData.cs
-//     Created            : 31.12.2012 16:42
+//     Created            : 18.01.2013 23:42
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -16,9 +16,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 	using System.Runtime.Serialization;
 	using Sol2Reg.ServiceData.Enumerations;
 
-	/// <summary>
-	/// Chanel data for WCF service.
-	/// </summary>
+	/// <summary>Chanel data for WCF service.</summary>
 	[DataContract]
 	public class ChanelData
 	{

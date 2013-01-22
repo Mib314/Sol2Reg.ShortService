@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\Initialzer.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\InitializerAdam6000.cs" company="iLog">
 //     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     Sol2Reg.IO.ADAM6000Com\Initialzer.cs.
+//     Sol2Reg.IO.ADAM6000Com\InitializerAdam6000.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\Initialzer.cs
-//     Created            : 16.01.2013 15:21
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\InitializerAdam6000.cs
+//     Created            : 16.01.2013 14:21
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -17,28 +17,18 @@ namespace Sol2Reg.IO.ADAM6000Com
 	using System.ComponentModel.Composition;
 	using Sol2Reg.IO.Interface;
 
-	/// <summary>
-	/// Initializer for Adam serie 6000.
-	/// </summary>
+	/// <summary>Initializer for Adam serie 6000.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
-	[Export(typeof(IInitializer))]
-	public class InitializerAdam6000 : IInitializer
+	[Export(typeof (IInitializer))]
+	public class InitializerAdam6000 : InitializerBase
 	{
-		// List of Adam serie
-		private const string MODULE_SERIE_ADAM6000 = "Adam6000Type";
-
-		/// <summary>Gets the module serie key.</summary>
-		/// <value>The module serie key.</value>
-		public string ModuleSerie_Key
-		{
-			get { return MODULE_SERIE_ADAM6000; }
-		}
-
-		#region IInitializer Members
 		/// <summary>Initialyses the module.</summary>
-		public IModuleBase InitializeModule(string moduleSerie, string moduleType, IModules modules)
+		public override IModuleBase InitializeModule(string moduleSerie, string moduleType, IModules modules)
 		{
-			if (moduleSerie != MODULE_SERIE_ADAM6000) throw new ArgumentOutOfRangeException(moduleType);
+			if (moduleSerie != this.ModuleSerie_Key)
+			{
+				throw new ArgumentOutOfRangeException(moduleType);
+			}
 			switch (moduleType)
 			{
 				case "Adam6015":
@@ -49,6 +39,5 @@ namespace Sol2Reg.IO.ADAM6000Com
 					throw new ArgumentOutOfRangeException(moduleType);
 			}
 		}
-		#endregion
 	}
 }

@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleSimulator\SimulatorModule.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Simulator\SimulatorModule.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleSimulator\SimulatorModule.cs.
+//     Sol2Reg.IO.Simulator\SimulatorModule.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleSimulator\SimulatorModule.cs
+//     Project \ FileName : Sol2Reg.IO.Simulator\SimulatorModule.cs
 //     Created            : 28.12.2012 11:37
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -38,13 +38,25 @@ namespace Sol2Reg.IO.Simulator
 			{
 				if (chanelData.Direction == Direction.Input)
 				{
-					if (chanelData.TypeOfValue == TypeOfValue.Analog) this.chanelAnalogInputState.Add(chanelData.Id, chanelData.ValueAnalogBrut);
-					else this.chanelDigitalInputState.Add(chanelData.Id, chanelData.ValueDigital);
+					if (chanelData.TypeOfValue == TypeOfValue.Analog)
+					{
+						this.chanelAnalogInputState.Add(chanelData.Id, chanelData.ValueAnalogBrut);
+					}
+					else
+					{
+						this.chanelDigitalInputState.Add(chanelData.Id, chanelData.ValueDigital);
+					}
 				}
 				else
 				{
-					if (chanelData.TypeOfValue == TypeOfValue.Analog) this.chanelAnalogOutputState.Add(chanelData.Id, chanelData.ValueAnalogBrut);
-					else this.chanelDigitalOututState.Add(chanelData.Id, chanelData.ValueDigital);
+					if (chanelData.TypeOfValue == TypeOfValue.Analog)
+					{
+						this.chanelAnalogOutputState.Add(chanelData.Id, chanelData.ValueAnalogBrut);
+					}
+					else
+					{
+						this.chanelDigitalOututState.Add(chanelData.Id, chanelData.ValueDigital);
+					}
 				}
 			}
 		}
@@ -62,15 +74,11 @@ namespace Sol2Reg.IO.Simulator
 		/// <value>The errors.</value>
 		public IModuleErrors ModuleErrors { get; set; }
 
-		/// <summary>
-		/// Initialize the module.
-		/// </summary>
-		/// <param name="moduleSerie">The module serie.</param>
-		/// <param name="moduleType">Type of the module.</param>
-		/// <param name="modules">The modules.</param>
-		/// <returns>
-		/// Self instance.
-		/// </returns>
+		/// <summary>Initialize the module.</summary>
+		/// <param name="moduleSerie" >The module serie.</param>
+		/// <param name="moduleType" >Type of the module.</param>
+		/// <param name="modules" >The modules.</param>
+		/// <returns>Self instance.</returns>
 		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
 			this.ModuleSerie = moduleSerie;
@@ -82,7 +90,10 @@ namespace Sol2Reg.IO.Simulator
 		public override void Start()
 		{
 			if (string.IsNullOrWhiteSpace(this.IpAddress) ||
-				this.Port < 1) this.IsConnected = false;
+				this.Port < 1)
+			{
+				this.IsConnected = false;
+			}
 			this.IsConnected = true;
 		}
 
@@ -99,12 +110,18 @@ namespace Sol2Reg.IO.Simulator
 			foreach (var chanelData in this.chanelAnalogInputState)
 			{
 				var chanelToChange = this.Chanels.FirstOrDefault(foo => foo.Id == chanelData.Key);
-				if (chanelToChange != null) chanelToChange.ValueAnalogBrut = chanelData.Value;
+				if (chanelToChange != null)
+				{
+					chanelToChange.ValueAnalogBrut = chanelData.Value;
+				}
 			}
 			foreach (var chanelData in this.chanelDigitalInputState)
 			{
 				var chanelToChange = this.Chanels.FirstOrDefault(foo => foo.Id == chanelData.Key);
-				if (chanelToChange != null) chanelToChange.ValueDigital = chanelData.Value;
+				if (chanelToChange != null)
+				{
+					chanelToChange.ValueDigital = chanelData.Value;
+				}
 			}
 		}
 
@@ -116,8 +133,14 @@ namespace Sol2Reg.IO.Simulator
 		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
 		{
 			// Write new value for output chanel.
-			if (this.chanelAnalogOutputState.ContainsKey(chanelId)) this.chanelAnalogOutputState[chanelId] = anamlogValue;
-			else if (this.chanelDigitalOututState.ContainsKey(chanelId)) this.chanelDigitalOututState[chanelId] = digitalValue;
+			if (this.chanelAnalogOutputState.ContainsKey(chanelId))
+			{
+				this.chanelAnalogOutputState[chanelId] = anamlogValue;
+			}
+			else if (this.chanelDigitalOututState.ContainsKey(chanelId))
+			{
+				this.chanelDigitalOututState[chanelId] = digitalValue;
+			}
 
 			throw new IndexOutOfRangeException("chanelId");
 		}
@@ -129,8 +152,14 @@ namespace Sol2Reg.IO.Simulator
 		/// <exception cref="System.NotImplementedException" ></exception>
 		public void InjectNewAnalogInputValue(int idChanel, float? value)
 		{
-			if (this.chanelAnalogInputState.ContainsKey(idChanel)) this.chanelAnalogInputState[idChanel] = value;
-			else throw new ArgumentOutOfRangeException("idChanel", "This chanel is not a Analog Input channel");
+			if (this.chanelAnalogInputState.ContainsKey(idChanel))
+			{
+				this.chanelAnalogInputState[idChanel] = value;
+			}
+			else
+			{
+				throw new ArgumentOutOfRangeException("idChanel", "This chanel is not a Analog Input channel");
+			}
 		}
 
 		/// <summary>Injects the new digital input value.</summary>
@@ -141,8 +170,14 @@ namespace Sol2Reg.IO.Simulator
 		/// <exception cref="System.NotImplementedException" ></exception>
 		public void InjectNewDigitalInputValue(int idChanel, bool? value)
 		{
-			if (this.chanelDigitalInputState.ContainsKey(idChanel)) this.chanelDigitalInputState[idChanel] = value;
-			else throw new ArgumentOutOfRangeException("idChanel", "This chanel is not a Analog Input channel");
+			if (this.chanelDigitalInputState.ContainsKey(idChanel))
+			{
+				this.chanelDigitalInputState[idChanel] = value;
+			}
+			else
+			{
+				throw new ArgumentOutOfRangeException("idChanel", "This chanel is not a Analog Input channel");
+			}
 		}
 	}
 }

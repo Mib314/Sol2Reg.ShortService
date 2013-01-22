@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
 // <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\ModuleData.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
 //     Sol2Reg.ServiceData\ModuleData.cs.
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.ServiceData\ModuleData.cs
-//     Created            : 31.12.2012 16:20
+//     Created            : 18.01.2013 23:42
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -16,9 +16,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 	using System.Collections.Generic;
 	using System.Runtime.Serialization;
 
-	/// <summary>
-	/// Module data for WCF service.
-	/// </summary>
+	/// <summary>Module data for WCF service.</summary>
 	[DataContract]
 	public class ModuleData
 	{

@@ -14,14 +14,15 @@
 namespace Sol2Reg.IO
 {
 	using System;
+	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
-	using System.IO;
 	using System.Linq;
 	using System.Xml.Linq;
 	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData;
 	using Sol2Reg.ServiceData.Enumerations;
 	using Sol2Reg.Tools;
+	using Sol2Reg.Tools.Error;
 
 	/// <summary>Load setting and initialise Module IO.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
@@ -29,80 +30,109 @@ namespace Sol2Reg.IO
 	public class LoadModuleSetting
 	{
 		#region Tag et properties du xml de config
-		private const string tag_Modules = "Modules";
-		private const string tag_Module = "Module";
-		private const string tag_Chanel = "Chanel";
-		private const string module_Name = "Name";
-		private const string module_IP = "IP";
-		private const string module_Port = "Port";
-		private const string module_ModuleSerie = "ModuleSerie";
-		private const string module_ModuleType = "ModuleType";
-		private const string chanel_Id = "Id";
-		private const string chanel_Key = "Key";
-		private const string chanel_Direction = "Direction";
-		private const string chanel_ValueType = "TypeOfValue";
-		private const string chanel_Description = "Description";
-		private const string chanel_Comment = "Comment";
+		public const string Tag_Modules = "Modules";
+		public const string Tag_Module = "Module";
+		public const string Tag_Chanel = "Chanel";
+		public const string Module_Name = "Name";
+		public const string Module_IP = "IP";
+		public const string Module_Port = "Port";
+		public const string Module_ModuleSerie = "ModuleSerie";
+		public const string Module_ModuleType = "ModuleType";
+		public const string Chanel_Id = "Id";
+		public const string Chanel_Key = "Key";
+		public const string Chanel_Direction = "Direction";
+		public const string Chanel_TypeOfValue = "TypeOfValue";
+		public const string Chanel_Description = "Description";
+		public const string Chanel_Comment = "Comment";
 
-		private const string chanel_Gain = "Gain";
-		private const string chanel_Offset = "Offset";
+		public const string Chanel_Gain = "Gain";
+		public const string Chanel_Offset = "Offset";
 		#endregion
 
-		[Import]
-		private FileSystem fileSystem;
+		private string configFileFullName;
 
 		[Import]
-		private GlobalVariables globalVariables;
+		public IFileSystem FileSystem { get; set; }
 
 		[Import]
-		public IModules Modules { get; set; }
+		public IGlobalVariables GlobalVar { get; set; }
+
+		[Import]
+		public ErrorTracking ErrorTracking { get; set; }
+
+		[Import]
+		public XmlLinq XmlLinq { get; set; }
+
+		[Import]
+		public ModuleDataValidator ModuleDataValidator { get; set; }
 
 		public IModules LoadConfig(Func<string, string, IModuleBase> initialiseModule)
 		{
 			var doc = this.ReadFile();
+			if (doc == null)
+			{
+				return null;
+			}
 
 			var modules = new Modules();
 
-			var xModules = doc.Elements(tag_Modules).FirstOrDefault();
+			var xModules = doc.Elements(Tag_Modules).FirstOrDefault();
 
-			if (xModules == null) return null;
-
-			foreach (var xModule in xModules.Elements(tag_Module))
+			if (xModules == null)
 			{
-				var moduleSerie = this.ReadAttribute(module_ModuleSerie, xModule);
-				var moduleType = this.ReadAttribute(module_ModuleType, xModule);
+				this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_NoTagModules, ErrorGravity.FatalApplication, new[] {this.configFileFullName});
+				return null;
+			}
+
+			if (!xModules.Elements(Tag_Module).Any())
+			{
+				this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_NoTagModule, ErrorGravity.FatalApplication, new[] {this.configFileFullName});
+				return null;
+			}
+
+			foreach (var xModule in xModules.Elements(Tag_Module))
+			{
+				var moduleSerie = this.XmlLinq.ReadAttribute(Module_ModuleSerie, xModule);
+				var moduleType = this.XmlLinq.ReadAttribute(Module_ModuleType, xModule);
 
 				var module = initialiseModule(moduleSerie, moduleType);
-				module.Name = this.ReadAttribute(module_Name, xModule);
-				module.IpAddress = this.ReadAttribute(module_IP, xModule);
-				var i = 0;
-				if (ConvertToInt(this.ReadAttribute(module_Port, xModule), ref i)) module.Port = i;
+				module.Name = this.XmlLinq.ReadAttribute(Module_Name, xModule);
+				module.IpAddress = this.XmlLinq.ReadAttribute(Module_IP, xModule);
+				module.Port = this.XmlLinq.ReadAttribute(Module_Port, xModule, GlobalVariables.DefaultPort);
+
+				module.Chanels = new List<IChanel>();
 
 				// Load Chanel for this module.
-				foreach (var xChanel in xModule.Elements(tag_Chanel))
+				foreach (var xChanel in xModule.Elements(Tag_Chanel))
 				{
-					var id = -1;
-					ConvertToInt(this.ReadAttribute(chanel_Id, xChanel), ref id);
 					IChanel chanel;
 					try
 					{
-						chanel = new Chanel(this.ReadAttribute(chanel_Id, xChanel, -1), this.ReadAttribute(chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.ReadAttribute(chanel_Direction, xChanel)), (TypeOfValue) Enum.Parse(typeof (TypeOfValue), this.ReadAttribute(chanel_ValueType, xChanel)));
+						chanel = new Chanel(this.XmlLinq.ReadAttribute(Chanel_Id, xChanel, -1), this.XmlLinq.ReadAttribute(Chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.XmlLinq.ReadAttribute(Chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.XmlLinq.ReadAttribute(Chanel_TypeOfValue, xChanel)));
 					}
-					catch (Exception)
+					catch (Exception exception)
 					{
-						throw new ArgumentNullException(string.Format("Not valide requiered argument to create Chanel id {0} in module name {1}", this.ReadAttribute(chanel_Id, xChanel, -1), module.Name));
+						this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication, exception, new[] {this.configFileFullName, module.Name});
+						return null;
 					}
-					chanel.Gain = this.ReadAttribute(chanel_Gain, xChanel, 1);
-					chanel.Offset = this.ReadAttribute(chanel_Offset, xChanel, 0);
-					chanel.Description = this.ReadAttribute(chanel_Description, xChanel);
-					chanel.Comment = this.ReadAttribute(chanel_Comment, xChanel);
+					chanel.Gain = this.XmlLinq.ReadAttribute(Chanel_Gain, xChanel, (float)1);
+					chanel.Offset = this.XmlLinq.ReadAttribute(Chanel_Offset, xChanel, (float)0);
+					chanel.Description = this.XmlLinq.ReadAttribute(Chanel_Description, xChanel);
+					chanel.Comment = this.XmlLinq.ReadAttribute(Chanel_Comment, xChanel);
 
 					module.Chanels.Add(chanel);
 				}
+
+				if (!this.ModuleDataValidator.ValidatData(module))
+				{
+					this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication, new [] {module.Name});
+					return null;
+				}
+
 				modules.Add(module);
 			}
 
-			return this.Modules;
+			return modules;
 		}
 
 		/// <summary>Reads the config file.</summary>
@@ -111,59 +141,33 @@ namespace Sol2Reg.IO
 		private XDocument ReadFile()
 		{
 			// Assemble File path
-			var filePath = !string.IsNullOrWhiteSpace(this.globalVariables.ConfigFilePath) ? string.Format("{0}\\{1}", this.globalVariables.ConfigFilePath, this.globalVariables.ModuleConfigName) : this.globalVariables.ModuleConfigName;
+			this.configFileFullName = !string.IsNullOrWhiteSpace(this.GlobalVar.ConfigFilePath) ? string.Format("{0}\\{1}", this.GlobalVar.ConfigFilePath, this.GlobalVar.ModuleConfigName) : this.GlobalVar.ModuleConfigName;
 
 			// Check if the file exist
-			if (!File.Exists(filePath)) filePath = string.Format("[0][1]", this.fileSystem.GetDLLPathForThisClass<LoadModuleSetting>(), filePath);
-
-			// Check if the file exist
-			if (!File.Exists(filePath)) throw new IOException(string.Format("The config file for module '{0}' don't exist.\nCheck the path and the file name.\nThis info is saved on the app.config section <AppConfig> file with the key {1} and {2}", filePath, GlobalVariables.ConfigFilePath_Key, GlobalVariables.ModuleConfigName_Key));
-
-			var doc = XDocument.Load(filePath);
-			return doc;
-		}
-
-
-		/// <summary>Reads the attribute.</summary>
-		/// <param name="attributName" >Name of the attribut.</param>
-		/// <param name="element" >The element.</param>
-		/// <param name="defaultValue" >The default value.</param>
-		/// <returns>String value.</returns>
-		private string ReadAttribute(string attributName, XElement element, string defaultValue = "")
-		{
-			if (!element.HasAttributes) return string.Empty;
-
-			var attribut = element.Attributes().FirstOrDefault(foo => foo.Name == attributName);
-			if (attribut == null) return defaultValue;
-
-			return attribut.Value;
-		}
-
-		/// <summary>Reads the attribute.</summary>
-		/// <param name="attributName" >Name of the attribut.</param>
-		/// <param name="element" >The element.</param>
-		/// <param name="defaultValue" >The default value.</param>
-		/// <returns>Integer value</returns>
-		private int ReadAttribute(string attributName, XElement element, int defaultValue)
-		{
-			var i = 0;
-			if (ConvertToInt(this.ReadAttribute(attributName, element, string.Empty), ref i)) return i;
-			return defaultValue;
-		}
-
-		/// <summary>Converts to int.</summary>
-		/// <param name="value" >The value.</param>
-		/// <param name="valueToAssigne" >The value to assigne.</param>
-		/// <returns>the integer value</returns>
-		private static bool ConvertToInt(string value, ref int valueToAssigne)
-		{
-			int tempValue;
-			if (int.TryParse(value, out tempValue))
+			if (!this.FileSystem.FileExists(this.configFileFullName))
 			{
-				valueToAssigne = tempValue;
-				return true;
+				this.configFileFullName = string.Format("{0}{1}", this.FileSystem.GetDLLPathForThisClass<LoadModuleSetting>(), this.GlobalVar.ModuleConfigName);
 			}
-			return false;
+
+			// Check if the file exist
+			if (!this.FileSystem.FileExists(this.configFileFullName))
+			{
+				this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_NoFile, ErrorGravity.FatalApplication, new[] {this.configFileFullName, GlobalVariables.ConfigFilePath_Key, GlobalVariables.ModuleConfigName_Key});
+				return null;
+			}
+			XDocument doc;
+
+			try
+			{
+				return this.FileSystem.LoadXml(this.configFileFullName);
+			}
+			catch (Exception exception)
+			{
+				this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_FileBadFormated, ErrorGravity.FatalApplication, exception, new[] {this.configFileFullName});
+
+				return null;
+			}
 		}
+
 	}
 }

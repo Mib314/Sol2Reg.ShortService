@@ -7,7 +7,7 @@
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.ServiceData\ModuleErrors.cs
-//     Created            : 13.01.2013 22:37
+//     Created            : 18.01.2013 23:42
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -88,7 +88,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 		/// </returns>
 		public override string ToString()
 		{
-			var errors = new StringBuilder(this.Errors.Count*202 + 1);
+			var errors = new StringBuilder(this.Errors.Count * 202 + 1);
 
 			foreach (var error in this.Errors)
 			{

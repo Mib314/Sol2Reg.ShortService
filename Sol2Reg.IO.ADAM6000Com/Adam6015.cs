@@ -1,19 +1,18 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ADAM6000Com\Adam6015.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\Adam6015.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ADAM6000Com\Adam6015.cs.
+//     Sol2Reg.IO.ADAM6000Com\Adam6015.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ADAM6000Com\Adam6015.cs
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\Adam6015.cs
 //     Created            : 17.12.2012 16:41
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
 namespace Sol2Reg.IO.ADAM6000Com
 {
-	using System;
 	using Advantech.Adam;
 	using Sol2Reg.IO.Interface;
 
@@ -51,7 +50,7 @@ namespace Sol2Reg.IO.ADAM6000Com
 		{
 			base.CheckIfModuleIsavailableToCommunicate();
 
-			throw new NotImplementedException();
+			// throw new NotImplementedException();
 		}
 
 		private void RefreshChannelValue()
@@ -67,7 +66,7 @@ namespace Sol2Reg.IO.ADAM6000Com
 				{
 					// Convertit chaque chanel de la valeur brut en une valeur util
 					chanelData.ValueAnalog =
-						(AnalogInput.GetScaledValue(this.Adam6000Type, this.ByRangeInput[chanelData.Id], iData[chanelData.Id])*chanelData.Gain) +
+						(AnalogInput.GetScaledValue(this.Adam6000Type, this.ByRangeInput[chanelData.Id], iData[chanelData.Id]) * chanelData.Gain) +
 						chanelData.Offset;
 				}
 				// check if the value is not over tem range (ReadCoilStatus).
@@ -78,7 +77,10 @@ namespace Sol2Reg.IO.ADAM6000Com
 				{
 					foreach (var chanelData in this.Chanels)
 					{
-						if (bBurn[chanelData.Id]) chanelData.ValueAnalog = float.MinValue;
+						if (bBurn[chanelData.Id])
+						{
+							chanelData.ValueAnalog = float.MinValue;
+						}
 					}
 				}
 				//}

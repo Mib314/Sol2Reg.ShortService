@@ -7,7 +7,7 @@
 // </summary>
 // <FileInfo>
 //     Project \ FileName : Sol2Reg.ServiceData\ModulesData.cs
-//     Created            : 18.01.2013 22:18
+//     Created            : 18.01.2013 23:42
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
@@ -16,9 +16,7 @@ namespace Sol2Reg.ServiceData.ServiceData
 	using System.Collections.Generic;
 	using System.Runtime.Serialization;
 
-	/// <summary>
-	/// List of module data for WCF service.
-	/// </summary>
+	/// <summary>List of module data for WCF service.</summary>
 	[DataContract]
 	public class ModulesData
 	{

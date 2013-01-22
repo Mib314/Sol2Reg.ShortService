@@ -67,7 +67,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
       <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
-      <Name>Sol2Reg.ServiceData</Name>
+      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

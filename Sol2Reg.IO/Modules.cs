@@ -112,10 +112,16 @@ namespace Sol2Reg.IO
 		public void WriteData(string moduleName, int chanelId, float? analogValue, bool? digitalValue)
 		{
 			var module = this.FirstOrDefault(foo => foo.Name == moduleName);
-			if (module == null) return;
+			if (module == null)
+			{
+				return;
+			}
 
 			var chanel = module.Chanels.FirstOrDefault(foo => foo.Id == chanelId);
-			if (chanel == null) return;
+			if (chanel == null)
+			{
+				return;
+			}
 
 			chanel.ValueAnalog = analogValue;
 			chanel.ValueDigital = digitalValue;

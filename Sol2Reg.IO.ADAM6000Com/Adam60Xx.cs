@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ADAM6000Com\Adam60Xx.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\Adam60Xx.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ADAM6000Com\Adam60Xx.cs.
+//     Sol2Reg.IO.ADAM6000Com\Adam60Xx.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ADAM6000Com\Adam60Xx.cs
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\Adam60Xx.cs
 //     Created            : 18.12.2012 00:18
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -32,7 +32,6 @@ namespace Sol2Reg.IO.ADAM6000Com
 			this.AdamModbus = new AdamSocket();
 			this.AdamModbus.SetTimeout(1000, 1000, 1000); // set timeout for TCP
 		}
-
 
 		#region Properties
 		/// <summary>Gets the module serie.</summary>
@@ -120,10 +119,19 @@ namespace Sol2Reg.IO.ADAM6000Com
 
 		public override void Start()
 		{
-			if (this.IsConnected) return;
+			if (this.IsConnected)
+			{
+				return;
+			}
 			var lastError = this.AdamModbus.LastError;
-			if (this.AdamModbus.Connect(this.IpAddress, ProtocolType.Tcp, this.Port)) this.Count = 0; // reset the reading counter
-			else base.AddModuleError((ModuleErrorCode) this.AdamModbus.LastError);
+			if (this.AdamModbus.Connect(this.IpAddress, ProtocolType.Tcp, this.Port))
+			{
+				this.Count = 0; // reset the reading counter
+			}
+			else
+			{
+				base.AddModuleError((ModuleErrorCode) this.AdamModbus.LastError);
+			}
 			try
 			{
 				if (this.TotalChanelAnalaogIn > 0)
@@ -131,8 +139,14 @@ namespace Sol2Reg.IO.ADAM6000Com
 					foreach (var chanelData in this.Chanels.Where(foo => foo.Direction == Direction.Input))
 					{
 						byte byRange;
-						if (this.AdamModbus.AnalogInput().GetInputRange(chanelData.Id, out byRange)) this.ByRangeInput[chanelData.Id] = byRange;
-						else this.AddModuleError(chanelData, (ModuleErrorCode) this.AdamModbus.LastError);
+						if (this.AdamModbus.AnalogInput().GetInputRange(chanelData.Id, out byRange))
+						{
+							this.ByRangeInput[chanelData.Id] = byRange;
+						}
+						else
+						{
+							this.AddModuleError(chanelData, (ModuleErrorCode) this.AdamModbus.LastError);
+						}
 					}
 				}
 			}
@@ -144,7 +158,10 @@ namespace Sol2Reg.IO.ADAM6000Com
 
 		public override void Closing()
 		{
-			if (this.IsConnected) this.AdamModbus.Disconnect(); // disconnect slave
+			if (this.IsConnected)
+			{
+				this.AdamModbus.Disconnect(); // disconnect slave
+			}
 		}
 
 		protected void InitializeAdamInternValue()
@@ -160,8 +177,14 @@ namespace Sol2Reg.IO.ADAM6000Com
 
 		internal void CheckIfModuleIsavailableToCommunicate()
 		{
-			if (!this.IsInitialized) throw new Exception(string.Format("The module [{0}] is not initialized.", this.Name));
-			if (!this.IsConnected) throw new Exception(string.Format("The module [{0}] is not connected.", this.Name));
+			if (!this.IsInitialized)
+			{
+				throw new Exception(string.Format("The module [{0}] is not initialized.", this.Name));
+			}
+			if (!this.IsConnected)
+			{
+				throw new Exception(string.Format("The module [{0}] is not connected.", this.Name));
+			}
 		}
 	}
 }

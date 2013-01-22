@@ -25,13 +25,13 @@ namespace Sol2Reg.IO
 	[Export]
 	public class InitializeModules
 	{
+		private IInitializer simulatorInitializer;
+
 		[ImportMany(typeof (IInitializer))]
-		private IEnumerable<IInitializer> initializers;
+		public IEnumerable<IInitializer> Initializers { get; set; }
 
 		[Import]
-		private LoadModuleSetting loadModuleSetting;
-
-		private IInitializer simulatorInitializer;
+		public LoadModuleSetting LoadModuleSetting { get; set; }
 
 		/// <summary>Gets the modules.</summary>
 		/// <value>The modules.</value>
@@ -54,12 +54,15 @@ namespace Sol2Reg.IO
 
 			if (this.IsForSimulator)
 			{
-				this.simulatorInitializer = this.initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == InitializerSimulator.Module_Simulator);
-				if (this.simulatorInitializer == null) throw new ArgumentNullException("", "The simulator module is not present. Please add the \"Sol2Reg.IO.Simulator.DLL\" module in your application folder.");
+				this.simulatorInitializer = this.Initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == typeof (InitializerSimulator).ToString());
+				if (this.simulatorInitializer == null)
+				{
+					throw new ArgumentNullException("", "The simulator module is not present. Please add the \"Sol2Reg.IO.Simulator.DLL\" module in your application folder.");
+				}
 			}
-			
-			this.Modules = this.loadModuleSetting.LoadConfig(this.InitializeModule);
-			
+
+			this.Modules = this.LoadModuleSetting.LoadConfig(this.InitializeModule);
+
 			return this;
 		}
 
@@ -81,9 +84,12 @@ namespace Sol2Reg.IO
 
 		private IModuleBase InitialiseModuleProductive(string moduleSerie, string moduleType)
 		{
-			var initializer = this.initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == moduleSerie);
+			var initializer = this.Initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == moduleSerie);
 
-			if (initializer == null) throw new ArgumentNullException("", string.Format("The {0} module is not present. Please add this DLL module in your application folder.", moduleSerie));
+			if (initializer == null)
+			{
+				throw new ArgumentNullException("", string.Format("The {0} module is not present. Please add this DLL module in your application folder.", moduleSerie));
+			}
 
 			return initializer.InitializeModule(moduleSerie, moduleType, this.Modules);
 		}

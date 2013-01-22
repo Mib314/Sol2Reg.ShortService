@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ADAM6000Com\IAdamModule.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\IAdamModule.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ADAM6000Com\IAdamModule.cs.
+//     Sol2Reg.IO.ADAM6000Com\IAdamModule.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ADAM6000Com\IAdamModule.cs
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\IAdamModule.cs
 //     Created            : 28.12.2012 22:09
 // </FileInfo>
 //  ----------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\IChanel.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface\IChanel.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\IChanel.cs.
+//     Sol2Reg.IO.Interface\IChanel.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\IChanel.cs
+//     Project \ FileName : Sol2Reg.IO.Interface\IChanel.cs
 //     Created            : 28.12.2012 04:22
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -63,11 +63,9 @@ namespace Sol2Reg.IO.Interface
 		/// <value>The offset (default value = 0).</value>
 		float Offset { get; set; }
 
-		/// <summary>
-		/// Changes the value.
-		/// </summary>
-		/// <param name="analogValue">The analog value.</param>
-		/// <param name="digitalValue">The digital value.</param>
+		/// <summary>Changes the value.</summary>
+		/// <param name="analogValue" >The analog value.</param>
+		/// <param name="digitalValue" >The digital value.</param>
 		void ChangeValue(float? analogValue, bool? digitalValue);
 
 		string ToString();

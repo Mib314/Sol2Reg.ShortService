@@ -1,13 +1,13 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ModuleIO.Interface\ModuleErrorCode.cs" company="iLog">
-//     Copyright © iLog, 2012 . All rights reserved.
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.ServiceData\ModuleErrorCode.cs" company="iLog">
+//     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     ModuleIO.Interface\ModuleErrorCode.cs.
+//     Sol2Reg.ServiceData\ModuleErrorCode.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ModuleIO.Interface\ModuleErrorCode.cs
-//     Created            : 28.12.2012 21:20
+//     Project \ FileName : Sol2Reg.ServiceData\ModuleErrorCode.cs
+//     Created            : 12.01.2013 16:45
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 

@@ -20,24 +20,22 @@ namespace Sol2Reg.Service
 	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData.ServiceData;
 
-	/// <summary>
-	/// Sol2Reg service.
-	/// </summary>
+	/// <summary>Sol2Reg service.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
-	[Export(typeof(ISol2RegService))]
+	[Export(typeof (ISol2RegService))]
 	public class Sol2RegService : ISol2RegService
 	{
-		private IModules modules;
-
 		[Import]
 		private InitializeModules initializeModules;
 
-		public void Initilize(bool isForSimulation = false)
-		{
-			this.modules = initializeModules.Initialize(isForSimulation).Modules;
-		}
+		private IModules modules;
 
 		#region ISol2RegService Members
+		public void Initilize(bool isForSimulation = false)
+		{
+			this.modules = this.initializeModules.Initialize(isForSimulation).Modules;
+		}
+
 		/// <summary>Initilizes the connection.</summary>
 		/// <param name="moduleName" >Name of the module.</param>
 		public void InitilizeConnection(string moduleName)
@@ -81,7 +79,10 @@ namespace Sol2Reg.Service
 		{
 			var module = this.modules.FirstOrDefault(foo => foo.Name == moduleName);
 
-			if (module != null) module.WriteData(chanelId, digitalValue, analogValue);
+			if (module != null)
+			{
+				module.WriteData(chanelId, digitalValue, analogValue);
+			}
 		}
 
 		/// <summary>Reads the config in memory.</summary>

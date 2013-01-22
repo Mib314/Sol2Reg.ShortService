@@ -1,12 +1,12 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\ADAM6000Com\Adam6066.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.ADAM6000Com\Adam6066.cs" company="iLog">
 //     Copyright © iLog, 2012 . All rights reserved.
 // </copyright>
 // <summary>
-//     ADAM6000Com\Adam6066.cs.
+//     Sol2Reg.IO.ADAM6000Com\Adam6066.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : ADAM6000Com\Adam6066.cs
+//     Project \ FileName : Sol2Reg.IO.ADAM6000Com\Adam6066.cs
 //     Created            : 18.12.2012 00:18
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
@@ -18,13 +18,11 @@ namespace Sol2Reg.IO.ADAM6000Com
 	using Advantech.Adam;
 	using Sol2Reg.IO.Interface;
 
-	/// <summary>
-	/// Adam 6066 for digital input and output (220V)
-	/// </summary>
+	/// <summary>Adam 6066 for digital input and output (220V)</summary>
 	public sealed class Adam6066 : Adam60Xx
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Adam6066" /> class.
+		///     Initializes a new instance of the <see cref="Adam6066" /> class.
 		/// </summary>
 		public Adam6066()
 		{
@@ -77,19 +75,30 @@ namespace Sol2Reg.IO.ADAM6000Com
 			base.CheckIfModuleIsavailableToCommunicate();
 
 			if (chanelId < 6 ||
-				chanelId > 11) throw new ArgumentOutOfRangeException("chanelId");
+				chanelId > 11)
+			{
+				throw new ArgumentOutOfRangeException("chanelId");
+			}
 
 			// Les chanels en Out commence par 17 (voir doc ADAM 6000 page 243).
 			int iOnOff, iStart = this.IdSartForOutputChanel + chanelId - this.TotalChanelDigitalIn;
 
 			var chanel = this.Chanels.FirstOrDefault(foo => foo.Id == chanelId);
-			if (chanel == null) throw new ArgumentOutOfRangeException("chanelId");
-
+			if (chanel == null)
+			{
+				throw new ArgumentOutOfRangeException("chanelId");
+			}
 
 			iOnOff = chanel.ValueDigital ?? false ? 0 : 1;
 
-			if (this.AdamModbus.Modbus().ForceSingleCoil(iStart, iOnOff)) chanel.ValueDigital = !chanel.ValueDigital;
-			else throw new Exception(string.Format("Module {0}, Chanel {1} cant assigne his digital value.", this.Adam6000Type, chanel.Id));
+			if (this.AdamModbus.Modbus().ForceSingleCoil(iStart, iOnOff))
+			{
+				chanel.ValueDigital = !chanel.ValueDigital;
+			}
+			else
+			{
+				throw new Exception(string.Format("Module {0}, Chanel {1} cant assigne his digital value.", this.Adam6000Type, chanel.Id));
+			}
 		}
 	}
 }

@@ -28,8 +28,14 @@ namespace Sol2Reg.ShortService
 			{
 				foreach (var arg in args)
 				{
-					if (arg.ToLower() == "c") startConsole = true;
-					else if (arg.ToLower() == "s") startSimulator = true;
+					if (arg.ToLower() == "c")
+					{
+						startConsole = true;
+					}
+					else if (arg.ToLower() == "s")
+					{
+						startSimulator = true;
+					}
 				}
 			}
 
@@ -37,7 +43,6 @@ namespace Sol2Reg.ShortService
 			{
 				var consolAppStart = new ConsoleAppStart();
 				consolAppStart.Run(startSimulator);
-
 			}
 
 			// start in service mode
