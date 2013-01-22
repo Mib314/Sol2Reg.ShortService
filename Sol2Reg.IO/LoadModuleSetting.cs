@@ -66,6 +66,9 @@ namespace Sol2Reg.IO
 		[Import]
 		public ModuleDataValidator ModuleDataValidator { get; set; }
 
+		[Import]
+		public IModules Modules { get; set; }
+
 		public IModules LoadConfig(Func<string, string, IModuleBase> initialiseModule)
 		{
 			var doc = this.ReadFile();
@@ -73,8 +76,6 @@ namespace Sol2Reg.IO
 			{
 				return null;
 			}
-
-			var modules = new Modules();
 
 			var xModules = doc.Elements(Tag_Modules).FirstOrDefault();
 
@@ -108,15 +109,15 @@ namespace Sol2Reg.IO
 					IChanel chanel;
 					try
 					{
-						chanel = new Chanel(this.XmlLinq.ReadAttribute(Chanel_Id, xChanel, -1), this.XmlLinq.ReadAttribute(Chanel_Key, xChanel), (Direction)Enum.Parse(typeof(Direction), this.XmlLinq.ReadAttribute(Chanel_Direction, xChanel)), (TypeOfValue)Enum.Parse(typeof(TypeOfValue), this.XmlLinq.ReadAttribute(Chanel_TypeOfValue, xChanel)));
+						chanel = new Chanel(this.XmlLinq.ReadAttribute(Chanel_Id, xChanel, -1), this.XmlLinq.ReadAttribute(Chanel_Key, xChanel), (Direction) Enum.Parse(typeof (Direction), this.XmlLinq.ReadAttribute(Chanel_Direction, xChanel)), (TypeOfValue) Enum.Parse(typeof (TypeOfValue), this.XmlLinq.ReadAttribute(Chanel_TypeOfValue, xChanel)));
 					}
 					catch (Exception exception)
 					{
 						this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication, exception, new[] {this.configFileFullName, module.Name});
 						return null;
 					}
-					chanel.Gain = this.XmlLinq.ReadAttribute(Chanel_Gain, xChanel, (float)1);
-					chanel.Offset = this.XmlLinq.ReadAttribute(Chanel_Offset, xChanel, (float)0);
+					chanel.Gain = this.XmlLinq.ReadAttribute(Chanel_Gain, xChanel, (float) 1);
+					chanel.Offset = this.XmlLinq.ReadAttribute(Chanel_Offset, xChanel, (float) 0);
 					chanel.Description = this.XmlLinq.ReadAttribute(Chanel_Description, xChanel);
 					chanel.Comment = this.XmlLinq.ReadAttribute(Chanel_Comment, xChanel);
 
@@ -125,14 +126,14 @@ namespace Sol2Reg.IO
 
 				if (!this.ModuleDataValidator.ValidatData(module))
 				{
-					this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication, new [] {module.Name});
+					this.ErrorTracking.Add(ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication, new[] {module.Name});
 					return null;
 				}
 
-				modules.Add(module);
+				this.Modules.ModuleList.Add(module);
 			}
 
-			return modules;
+			return this.Modules;
 		}
 
 		/// <summary>Reads the config file.</summary>
@@ -167,6 +168,5 @@ namespace Sol2Reg.IO
 				return null;
 			}
 		}
-
 	}
 }

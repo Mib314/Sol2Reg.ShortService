@@ -39,7 +39,7 @@ namespace Sol2Reg.IO.Interface.Test
 
 			Assert.Equal(this.testee.ModuleSerie, this.moduleSerie);
 			Assert.Equal(this.testee.ModuleType, this.moduleType);
-			Assert.Equal(this.testee.Modules.Count, this.modules.Count);
+			Assert.Equal(this.testee.Modules.ModuleList.Count, this.modules.ModuleList.Count);
 		}
 	}
 }

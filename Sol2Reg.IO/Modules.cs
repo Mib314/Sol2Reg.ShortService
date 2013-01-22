@@ -20,7 +20,7 @@ namespace Sol2Reg.IO
 
 	/// <summary>List of module.</summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
-	public class Modules : List<IModuleBase>, IModules
+	public class Modules :  IModules
 	{
 		[Import]
 		private InitializeModules initializeModules;
@@ -31,6 +31,7 @@ namespace Sol2Reg.IO
 		public Modules()
 		{
 			this.IsSimulationMode = false;
+			this.ModuleList = new List<IModuleBase>();
 		}
 
 		#region IModules Members
@@ -45,6 +46,10 @@ namespace Sol2Reg.IO
 			return this;
 		}
 
+		/// <summary>Gets or sets the module list.</summary>
+		/// <value>The module list.</value>
+		public IList<IModuleBase> ModuleList { get; set; }
+
 		/// <summary>Gets or sets a value indicating whether [simulation mode].</summary>
 		/// <value>
 		///     <c>true</c> if [simulation mode]; otherwise, <c>false</c>.
@@ -54,7 +59,7 @@ namespace Sol2Reg.IO
 		/// <summary>Starts all modules connection.</summary>
 		public void Start()
 		{
-			foreach (var module in this)
+			foreach (var module in this.ModuleList)
 			{
 				module.Start();
 			}
@@ -63,7 +68,7 @@ namespace Sol2Reg.IO
 		/// <summary>Closes all modules connection.</summary>
 		public void Closing()
 		{
-			foreach (var module in this)
+			foreach (var module in this.ModuleList)
 			{
 				module.Closing();
 			}
@@ -72,7 +77,7 @@ namespace Sol2Reg.IO
 		/// <summary>Reads the data from all modules IO. Place the response value to the Channels list.</summary>
 		void IModules.ReadData()
 		{
-			foreach (var module in this)
+			foreach (var module in this.ModuleList)
 			{
 				module.ReadData();
 			}
@@ -103,7 +108,7 @@ namespace Sol2Reg.IO
 
 		public void ReadData()
 		{
-			foreach (var module in this)
+			foreach (var module in this.ModuleList)
 			{
 				module.ReadData();
 			}
@@ -111,7 +116,7 @@ namespace Sol2Reg.IO
 
 		public void WriteData(string moduleName, int chanelId, float? analogValue, bool? digitalValue)
 		{
-			var module = this.FirstOrDefault(foo => foo.Name == moduleName);
+			var module = this.ModuleList.FirstOrDefault(foo => foo.Name == moduleName);
 			if (module == null)
 			{
 				return;

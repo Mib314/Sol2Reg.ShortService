@@ -59,7 +59,7 @@ namespace Sol2Reg.Service
 			//Ask to read data to evry module IO.
 			this.modules.ReadData();
 			// Scan evry module to copy data.
-			foreach (var module in this.modules)
+			foreach (var module in this.modules.ModuleList)
 			{
 				//Transform chanels => ChanelData to transfert by WCF.
 				var chanelsData = module.Chanels.Select(chanel => new ChanelData {Id = chanel.Id, Key = chanel.Key, ValueAnalog = chanel.ValueAnalog, ValueDigital = chanel.ValueDigital}).ToList();
@@ -77,7 +77,7 @@ namespace Sol2Reg.Service
 		/// <param name="digitalValue" >The digital value.</param>
 		public void WriteData(string moduleName, int chanelId, float? analogValue, bool? digitalValue)
 		{
-			var module = this.modules.FirstOrDefault(foo => foo.Name == moduleName);
+			var module = this.modules.ModuleList.FirstOrDefault(foo => foo.Name == moduleName);
 
 			if (module != null)
 			{
@@ -92,7 +92,7 @@ namespace Sol2Reg.Service
 			var modulesData = new ModulesData();
 
 			// Scan evry module to copy data.
-			foreach (var module in this.modules)
+			foreach (var module in this.modules.ModuleList)
 			{
 				//Transform chanels => ChanelData to transfert by WCF.
 				var chanelsData = module.Chanels.Select(chanel => new ChanelData {Id = chanel.Id, Key = chanel.Key, ValueAnalog = chanel.ValueAnalog, ValueDigital = chanel.ValueDigital, ValueAnalogBrut = chanel.ValueAnalogBrut, Gain = chanel.Gain, Offset = chanel.Offset, TypeOfValue = chanel.TypeOfValue, Direction = chanel.Direction, Description = chanel.Description, Comment = chanel.Comment}).ToList();

@@ -18,8 +18,13 @@ namespace Sol2Reg.IO.Interface
 
 	/// <summary>Modules liste.</summary>
 	[InheritedExport]
-	public interface IModules : IList<IModuleBase>
+	public interface IModules
 	{
+
+		/// <summary>Gets or sets the module list.</summary>
+		/// <value>The module list.</value>
+		IList<IModuleBase> ModuleList { get; set; }
+
 		/// <summary>Gets or sets a value indicating whether [simulation mode].</summary>
 		/// <value>
 		///     <c>true</c> if [simulation mode]; otherwise, <c>false</c>.

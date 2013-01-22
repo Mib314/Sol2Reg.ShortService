@@ -13,6 +13,7 @@
 
 namespace Sol2Reg.IO.Test
 {
+	using System.Collections.Generic;
 	using System.IO;
 	using System.Xml.Linq;
 	using Moq;
@@ -50,10 +51,12 @@ namespace Sol2Reg.IO.Test
 		private readonly Mock<IFileSystem> fileSystem;
 		private readonly Mock<IGlobalVariables> globalVariables;
 		private readonly Mock<ModuleDataValidator> moduleDataValidator;
-
-		private readonly XmlLinq xmlLinq;
+		private readonly Mock<IModules> modules;
 
 		private readonly LoadModuleSetting testee;
+		private readonly XmlLinq xmlLinq;
+		private FackInitializeModules fackInitializeModules;
+		private IModuleBase moduleBase;
 		private string pathDll_File;
 		private string path_File;
 
@@ -63,9 +66,11 @@ namespace Sol2Reg.IO.Test
 			this.globalVariables = new Mock<IGlobalVariables>();
 			this.errorTracking = new Mock<ErrorTracking>();
 			this.moduleDataValidator = new Mock<ModuleDataValidator>();
+			this.modules = new Mock<IModules>();
+
 			this.xmlLinq = new XmlLinq();
 
-			this.testee = new LoadModuleSetting { FileSystem = this.fileSystem.Object, GlobalVar = this.globalVariables.Object, ErrorTracking = this.errorTracking.Object, XmlLinq = this.xmlLinq, ModuleDataValidator = this.moduleDataValidator.Object};
+			this.testee = new LoadModuleSetting {FileSystem = this.fileSystem.Object, GlobalVar = this.globalVariables.Object, ErrorTracking = this.errorTracking.Object, XmlLinq = this.xmlLinq, ModuleDataValidator = this.moduleDataValidator.Object, Modules = this.modules.Object};
 
 			this.SetupVariable();
 		}
@@ -76,7 +81,7 @@ namespace Sol2Reg.IO.Test
 		{
 			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
-			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(It.IsAny<IModuleBase>())).Returns(true);
 
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
@@ -85,7 +90,7 @@ namespace Sol2Reg.IO.Test
 
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
 
-			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			Assert.NotNull(result);
 			this.CheckValidModule(result);
@@ -97,10 +102,10 @@ namespace Sol2Reg.IO.Test
 		{
 			this.SetupGlobalVariables(string.Empty, FILE);
 			this.fileSystem.Setup(foo => foo.FileExists(FILE)).Returns(true);
-			
+
 			this.fileSystem.Setup(foo => foo.LoadXml(FILE)).Returns(new XDocument());
 			this.fileSystem.Setup(foo => foo.GetDLLPathForThisClass<LoadModuleSetting>()).Returns(PATH_DLL);
-			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(It.IsAny<IModuleBase>())).Returns(true);
 
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
@@ -109,7 +114,9 @@ namespace Sol2Reg.IO.Test
 
 			this.fileSystem.Setup(foo => foo.LoadXml(FILE)).Returns(xDoc);
 
-			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+			//this.SetModulesWithValidModule();
+
+			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			Assert.NotNull(result);
 			this.CheckValidModule(result);
@@ -125,15 +132,6 @@ namespace Sol2Reg.IO.Test
 
 			this.CheckError(ErrorIdList.ConfigModuleIO_NoFile, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
-		}
-
-		[Fact]
-		public void LoadConfigWhenFileNotExistAndDllFileExistThenNotThrowIOException()
-		{
-			this.SetupGlobalVariables(PATH, FILE);
-			this.SetupFileSystem(false, true);
-
-			this.testee.LoadConfig(null);
 		}
 
 		[Fact]
@@ -188,7 +186,10 @@ namespace Sol2Reg.IO.Test
 		{
 			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
-			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(false);
+
+			this.SetModulesWithValidModule();
+
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(It.IsAny<IModuleBase>())).Returns(false);
 
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
@@ -197,7 +198,7 @@ namespace Sol2Reg.IO.Test
 
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
 
-			var restult = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+			var restult = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			this.CheckError(ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
@@ -208,18 +209,25 @@ namespace Sol2Reg.IO.Test
 		{
 			this.SetupGlobalVariables(PATH, FILE);
 			this.SetupFileSystem();
-			this.moduleDataValidator.Setup(foo => foo.ValidatData(null)).Returns(true);
+			this.moduleDataValidator.Setup(foo => foo.ValidatData(It.IsAny<IModuleBase>())).Returns(true);
 
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
 			xModules.Add(this.SetValidModule());
-			xModules.Element(LoadModuleSetting.Tag_Module).Element(LoadModuleSetting.Tag_Chanel).SetAttributeValue(LoadModuleSetting.Chanel_Direction, "Dummy");
-
+			var modu = xModules.Element(LoadModuleSetting.Tag_Module);
+			if (modu != null)
+			{
+				var chanel = modu.Element(LoadModuleSetting.Tag_Chanel);
+				if (chanel != null)
+				{
+					chanel.SetAttributeValue(LoadModuleSetting.Chanel_Direction, "DummyValue");
+				}
+			}
 			xDoc.Add(xModules);
-			
+
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
 
-			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
 			Assert.Null(result);
@@ -235,13 +243,21 @@ namespace Sol2Reg.IO.Test
 			var xDoc = new XDocument();
 			var xModules = new XElement(LoadModuleSetting.Tag_Modules);
 			xModules.Add(this.SetValidModule());
-			xModules.Element(LoadModuleSetting.Tag_Module).Element(LoadModuleSetting.Tag_Chanel).SetAttributeValue(LoadModuleSetting.Chanel_TypeOfValue, "Dummy");
+			var modu = xModules.Element(LoadModuleSetting.Tag_Module);
+			if (modu != null)
+			{
+				var chanel = modu.Element(LoadModuleSetting.Tag_Chanel);
+				if (chanel != null)
+				{
+					chanel.SetAttributeValue(LoadModuleSetting.Chanel_TypeOfValue, "DummyValue");
+				}
+			}
 
 			xDoc.Add(xModules);
-			
+
 			this.fileSystem.Setup(foo => foo.LoadXml(this.path_File)).Returns(xDoc);
 
-			var result = this.testee.LoadConfig(new FackInitializeModules().InitializeModule);
+			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
 			Assert.Null(result);
@@ -252,6 +268,8 @@ namespace Sol2Reg.IO.Test
 		{
 			this.path_File = string.Format("{0}\\{1}", PATH, FILE);
 			this.pathDll_File = string.Format("{0}{1}", PATH_DLL, FILE);
+			this.fackInitializeModules = new FackInitializeModules();
+			this.modules.Setup(foo => foo.ModuleList).Returns(new List<IModuleBase>());
 		}
 
 		private void SetupFileSystem(bool pathFileResponse = true, bool pathDllFileResponse = true)
@@ -282,7 +300,10 @@ namespace Sol2Reg.IO.Test
 			module.SetAttributeValue(LoadModuleSetting.Module_ModuleType, MODULE_TYPE);
 			module.SetAttributeValue(LoadModuleSetting.Module_IP, MODULE_IP);
 			module.SetAttributeValue(LoadModuleSetting.Module_Port, MODULE_PORT);
-			if (addchanel) module.Add(this.SetValidChanel());
+			if (addchanel)
+			{
+				module.Add(this.SetValidChanel());
+			}
 			return module;
 		}
 
@@ -308,7 +329,7 @@ namespace Sol2Reg.IO.Test
 
 		private void CheckValidModule(IModules resultModules, int positionModule = 0)
 		{
-			var module = resultModules[positionModule];
+			var module = resultModules.ModuleList[positionModule];
 			Assert.NotNull(module);
 			Assert.Equal(MODULE_NAME, module.Name);
 			Assert.Equal(MODULE_SERIE, module.ModuleSerie);
@@ -319,7 +340,7 @@ namespace Sol2Reg.IO.Test
 
 		private void CheckValidChanel(IModules resultModules, int positionModule = 0, int positionChanel = 0)
 		{
-			var module = resultModules[positionModule];
+			var module = resultModules.ModuleList[positionModule];
 			Assert.NotNull(module);
 			var chanel = module.Chanels[positionChanel];
 			Assert.NotNull(chanel);
@@ -332,16 +353,36 @@ namespace Sol2Reg.IO.Test
 			Assert.Equal(CHANEL_DESCRIPTION, chanel.Description);
 			Assert.Equal(CHANEL_COMMENT, chanel.Comment);
 		}
+
+		private void SetModulesWithValidModule()
+		{
+			this.moduleBase = this.fackInitializeModules.ModuleBase.Initialize(MODULE_SERIE, MODULE_TYPE, this.fackInitializeModules.Modules);
+			this.moduleBase.IpAddress = MODULE_IP;
+			this.moduleBase.Name = MODULE_NAME;
+			this.moduleBase.Port = MODULE_PORT;
+			this.moduleBase.Chanels = new List<IChanel>
+									  {
+										  new Chanel(CHANEL_ID, CHANEL_KEY, CHANEL_DIRECTION, CHANEL_TYPE_OF_VALUE) {Gain = CHANEL_GAIN, Offset = CHANEL_OFFSET}
+									  };
+			this.modules.Setup(foo => foo.ModuleList).Returns(new List<IModuleBase> {this.moduleBase});
+		}
 		#endregion
 	}
 
 	public class FackInitializeModules : InitializeModules
 	{
+		public FackInitializeModules()
+		{
+			this.ModuleBase = new ModuleTest();
+		}
+
+		public IModuleBase ModuleBase { get; private set; }
+
 		public IModuleBase InitializeModule(string moduleSerie, string moduleType)
 		{
 			var modules = new Modules();
-			var moduleBase = new ModuleTest().Initialize(moduleSerie, moduleType, modules);
-			return moduleBase;
+			this.ModuleBase = new ModuleTest().Initialize(moduleSerie, moduleType, modules);
+			return this.ModuleBase;
 		}
 	}
 
@@ -356,26 +397,18 @@ namespace Sol2Reg.IO.Test
 		}
 
 		/// <summary>Connect the module.</summary>
-		public override void Start()
-		{
-		}
+		public override void Start() {}
 
 		/// <summary>Closings module connection.</summary>
-		public override void Closing()
-		{
-		}
+		public override void Closing() {}
 
 		/// <summary>Reads the data from the module IO. Place the response value to the Channels list.</summary>
-		public override void ReadData()
-		{
-		}
+		public override void ReadData() {}
 
 		/// <summary>Write new info to the chanel list and change the value to the ADAM module</summary>
 		/// <param name="chanelId" >Chanel Id.</param>
 		/// <param name="digitalValue" >Digital value (true/false).</param>
 		/// <param name="anamlogValue" >Analog value.</param>
-		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null)
-		{
-		}
+		public override void WriteData(int chanelId, bool? digitalValue, float? anamlogValue = null) {}
 	}
 }
