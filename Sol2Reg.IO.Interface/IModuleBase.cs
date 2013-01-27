@@ -27,12 +27,12 @@ namespace Sol2Reg.IO.Interface
 		string Name { get; set; }
 
 		/// <summary>Gets the module serie.</summary>
-		/// <value>The module serie.</value>
+		/// <value>The module serie. (A serie have more model)</value>
 		string ModuleSerie { get; }
 
 		/// <summary>Gets the type of the module.</summary>
 		/// <value>The type of the module.</value>
-		string ModuleType { get; }
+		string ModuleModel { get; }
 
 		/// <summary>Gets or sets the ip address.</summary>
 		/// <value>The ip address.</value>

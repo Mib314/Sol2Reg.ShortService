@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EAA7C8DA-10C5-431F-B9F0-BDD679D4D74B}</ProjectGuid>
+    <ProjectGuid>{01B30A2B-021C-4457-8E57-280F3C52FF95}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sol2Reg.IO.Test</RootNamespace>
-    <AssemblyName>Sol2Reg.IO.Test</AssemblyName>
+    <RootNamespace>Sol2Reg.Test.Tools</RootNamespace>
+    <AssemblyName>Sol2Reg.Test.Tools</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,15 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\..\..\ExternDlls\Fluents\Fluent Assertion\FluentAssertions.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
-      <HintPath>..\..\..\ExternDlls\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+      <HintPath>..\Sol2Reg.IO.Test\bin\Debug\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit">
       <HintPath>D:\Projects\XUnit\xunit-1.9.1\xunit.dll</HintPath>
     </Reference>
@@ -54,43 +49,20 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise />
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="InitializeModulesTest.cs" />
-    <Compile Include="LoadModuleSettingTest.cs" />
-    <Compile Include="ModuleBaseForTest.cs" />
-    <Compile Include="ModulesValidForTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sol2Reg.IO.ADAM6000Com\Sol2Reg.IO.ADAM6000Com.csproj">
-      <Project>{5E6A9BF5-35DF-459E-9742-EDB8E1902689}</Project>
-      <Name>Sol2Reg.IO.ADAM6000Com</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Sol2Reg.IO.Interface\Sol2Reg.IO.Interface.csproj">
-      <Project>{F4225537-D4C1-4632-954D-3650E223B78A}</Project>
-      <Name>Sol2Reg.IO.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Sol2Reg.IO.Simulator\Sol2Reg.IO.Simulator.csproj">
-      <Project>{7B0FBB41-000D-41F5-B8D2-2FB6F895E1D5}</Project>
-      <Name>Sol2Reg.IO.Simulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Sol2Reg.IO\Sol2Reg.IO.csproj">
-      <Project>{554d1a8d-701b-4b6d-a679-4286850fc66e}</Project>
-      <Name>Sol2Reg.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Sol2Reg.ServiceData\Sol2Reg.ServiceData.csproj">
-      <Project>{1A4A2472-E210-4BD8-8C80-2A16A3E11AD9}</Project>
-      <Name>Sol2Reg.ServiceData %28Server\Sol2Reg.ServiceData%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Sol2Reg.Tools\Sol2Reg.Tools.csproj">
       <Project>{76A66726-2BFC-450B-9D81-1A3865F66EB1}</Project>
       <Name>Sol2Reg.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sol2Reg.Test.Tools\Sol2Reg.Test.Tools.csproj">
-      <Project>{01B30A2B-021C-4457-8E57-280F3C52FF95}</Project>
-      <Name>Sol2Reg.Test.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

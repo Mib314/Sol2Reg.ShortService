@@ -56,6 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AccessPrivateWrapper.cs" />
     <Compile Include="ErrorTrackingSimulation.cs" />
     <Compile Include="ErrorTrackingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

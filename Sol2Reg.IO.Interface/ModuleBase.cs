@@ -61,7 +61,7 @@ namespace Sol2Reg.IO.Interface
 
 		/// <summary>Gets the type of the module.</summary>
 		/// <value>The type of the module.</value>
-		public virtual string ModuleType { get; protected set; }
+		public virtual string ModuleModel { get; protected set; }
 
 		/// <summary>Gets the password.</summary>
 		/// <value>The password.</value>

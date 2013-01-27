@@ -1,29 +1,28 @@
 ﻿// ----------------------------------------------------------------------------------
-// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Interface.Test\Implement_ModuleBase.cs" company="iLog">
+// <copyright file="Sol2Reg.ShortService\Sol2Reg.IO.Test\ModuleBaseForTest.cs" company="iLog">
 //     Copyright © iLog, 2013 . All rights reserved.
 // </copyright>
 // <summary>
-//     Sol2Reg.IO.Interface.Test\Implement_ModuleBase.cs.
+//     Sol2Reg.IO.Test\ModuleBaseForTest.cs.
 // </summary>
 // <FileInfo>
-//     Project \ FileName : Sol2Reg.IO.Interface.Test\Implement_ModuleBase.cs
-//     Created            : 20.01.2013 21:37
+//     Project \ FileName : Sol2Reg.IO.Test\ModuleBaseForTest.cs
+//     Created            : 25.01.2013 20:00
 // </FileInfo>
 //  ----------------------------------------------------------------------------------
 
-namespace Sol2Reg.IO.Interface.Test
+namespace Sol2Reg.IO.Test
 {
 	using System;
+	using Sol2Reg.IO.Interface;
 
-	internal class Implement_ModuleBase : ModuleBase
+	public class ModuleBaseForTest : ModuleBase
 	{
+
 		/// <summary>Initialize the module.</summary>
 		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
-			this.ModuleSerie = moduleSerie;
-			this.ModuleModel = moduleType;
-			this.InitializeBase(modules);
-			return this;
+			return new ModuleTest();
 		}
 
 		/// <summary>Connect the module.</summary>
@@ -53,4 +52,6 @@ namespace Sol2Reg.IO.Interface.Test
 			throw new NotImplementedException();
 		}
 	}
+}
+
 }

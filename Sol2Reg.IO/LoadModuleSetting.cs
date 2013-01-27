@@ -37,7 +37,7 @@ namespace Sol2Reg.IO
 		public const string Module_IP = "IP";
 		public const string Module_Port = "Port";
 		public const string Module_ModuleSerie = "ModuleSerie";
-		public const string Module_ModuleType = "ModuleType";
+		public const string Module_ModuleType = "ModuleModel";
 		public const string Chanel_Id = "Id";
 		public const string Chanel_Key = "Key";
 		public const string Chanel_Direction = "Direction";
@@ -96,7 +96,9 @@ namespace Sol2Reg.IO
 				var moduleSerie = this.XmlLinq.ReadAttribute(Module_ModuleSerie, xModule);
 				var moduleType = this.XmlLinq.ReadAttribute(Module_ModuleType, xModule);
 
+				//Start the initializer for this moduletype.
 				var module = initialiseModule(moduleSerie, moduleType);
+				
 				module.Name = this.XmlLinq.ReadAttribute(Module_Name, xModule);
 				module.IpAddress = this.XmlLinq.ReadAttribute(Module_IP, xModule);
 				module.Port = this.XmlLinq.ReadAttribute(Module_Port, xModule, GlobalVariables.DefaultPort);

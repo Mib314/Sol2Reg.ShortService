@@ -68,7 +68,7 @@ namespace Sol2Reg.IO.Simulator
 
 		/// <summary>Gets the type of the module.</summary>
 		/// <value>The type of the module.</value>
-		public override string ModuleType { get; protected set; }
+		public override string ModuleModel { get; protected set; }
 
 		/// <summary>Gets or sets the errors.</summary>
 		/// <value>The errors.</value>
@@ -82,7 +82,7 @@ namespace Sol2Reg.IO.Simulator
 		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
 			this.ModuleSerie = moduleSerie;
-			this.ModuleType = moduleType;
+			this.ModuleModel = moduleType;
 			return this.InitializeBase(modules);
 		}
 

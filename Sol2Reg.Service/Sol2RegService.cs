@@ -65,7 +65,7 @@ namespace Sol2Reg.Service
 				var chanelsData = module.Chanels.Select(chanel => new ChanelData {Id = chanel.Id, Key = chanel.Key, ValueAnalog = chanel.ValueAnalog, ValueDigital = chanel.ValueDigital}).ToList();
 
 				// Add to module liste
-				modulesData.Modules.Add(new ModuleData {Name = module.Name, IpAddress = module.IpAddress, ModuleType = module.ModuleType, ModuleSerie = module.ModuleSerie, Chanels = chanelsData});
+				modulesData.Modules.Add(new ModuleData {Name = module.Name, IpAddress = module.IpAddress, ModuleType = module.ModuleModel, ModuleSerie = module.ModuleSerie, Chanels = chanelsData});
 			}
 			return modulesData;
 		}
@@ -98,7 +98,7 @@ namespace Sol2Reg.Service
 				var chanelsData = module.Chanels.Select(chanel => new ChanelData {Id = chanel.Id, Key = chanel.Key, ValueAnalog = chanel.ValueAnalog, ValueDigital = chanel.ValueDigital, ValueAnalogBrut = chanel.ValueAnalogBrut, Gain = chanel.Gain, Offset = chanel.Offset, TypeOfValue = chanel.TypeOfValue, Direction = chanel.Direction, Description = chanel.Description, Comment = chanel.Comment}).ToList();
 
 				// Add to module liste
-				modulesData.Modules.Add(new ModuleData {Name = module.Name, IpAddress = module.IpAddress, ModuleType = module.ModuleType, ModuleSerie = module.ModuleSerie, Chanels = chanelsData});
+				modulesData.Modules.Add(new ModuleData {Name = module.Name, IpAddress = module.IpAddress, ModuleType = module.ModuleModel, ModuleSerie = module.ModuleSerie, Chanels = chanelsData});
 			}
 			return modulesData;
 		}

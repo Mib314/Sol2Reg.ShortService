@@ -5,7 +5,7 @@
 			IP = "192.168.0.151"
 			Port = "502"
 			ModuleSerie = "Adam6000Type"
-			ModuleType = "Adam6015"
+			ModuleModel = "Adam6015"
 			Password = "000000" >
 		<Chanel Id = "0"
 				Key = "TS1"
@@ -52,7 +52,7 @@
 			IP = "192.168.0.150"
 			Port = "502"
 			ModuleSerie = "Adam6000Type"
-			ModuleType = "Adam6066"
+			ModuleModel = "Adam6066"
 			Password = "000000" >
 		<Chanel Id = "0"
 				Key = "0"

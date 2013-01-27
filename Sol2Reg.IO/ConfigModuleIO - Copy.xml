@@ -51,7 +51,7 @@
 			IP = "192.168.0.150"
 			Port = "502"
 			ModuleSerie = "Adam6000Type"
-			ModuleType = "Adam6066" >
+			ModuleModel = "Adam6066" >
 		<Chanel Id = "0"
 				Key = "0"
 				Direction = "Input"

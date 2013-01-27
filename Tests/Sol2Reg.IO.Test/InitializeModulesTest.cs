@@ -13,48 +13,64 @@
 
 namespace Sol2Reg.IO.Test
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Linq;
-	using FluentAssertions;
 	using Moq;
 	using Sol2Reg.IO.ADAM6000Com;
 	using Sol2Reg.IO.Interface;
 	using Sol2Reg.IO.Simulator;
+	using Sol2Reg.Test.Tools;
+	using Sol2Reg.Tools.Error;
 	using Xunit;
 
 	public class InitializeModulesTest
 	{
 		private readonly IList<Mock<IInitializer>> initializers;
 		private readonly Mock<LoadModuleSetting> loadModuleSetting;
+		private Mock<ErrorTracking> errorTracking;
+		private Mock<IModules> modules;
+		private IList<Mock<IModuleBase>> moduleList;
+
+		//private readonly IModules modules;
+
 		private readonly InitializeModules testee;
 
 		public InitializeModulesTest()
 		{
+			//this.modules = new ModulesValidForTest().GetModules();
+			this.modules = new Mock<IModules>();
+			this.moduleList = new List<Mock<IModuleBase>>();
 			this.initializers = new List<Mock<IInitializer>>();
 			this.loadModuleSetting = new Mock<LoadModuleSetting>();
+			this.errorTracking = new Mock<ErrorTracking>();
 
-			this.testee = new InitializeModules {LoadModuleSetting = this.loadModuleSetting.Object};
+			this.testee = new InitializeModules {LoadModuleSetting = this.loadModuleSetting.Object, ErrorTracking = this.errorTracking.Object};
 		}
 
 		[Fact]
-		public void InitializeWhenIsForSimulatorAndSimulatorExistThenNotThrowArgumentNullException()
-		{
-			this.SetInitializerForSimulator();
-
-			Action action = () => this.testee.Initialize(true);
-
-			action.ShouldNotThrow<ArgumentNullException>();
-		}
-
-		[Fact]
-		public void InitializeWhenIsNotForSimulatorAndSimulatorExistThenArgumentNullException()
+		public void InitializeWhenIsForSimulatorAndNoSimulatorThenError_NoSimulatorInitializer()
 		{
 			this.SetInitializerForSimulator(false);
 
-			Action action = () => this.testee.Initialize(true);
+			this.testee.Initialize(true);
 
-			action.ShouldThrow<ArgumentNullException>();
+			ToolsForError.CheckError(this.errorTracking,ErrorIdList.InitilizeModule_NoSimulatorInitializer, ErrorGravity.FatalApplication);
+		}
+
+		[Fact]
+		public void InitializeWhenIsNotForSimulatorAndSimulatorNotExistThenArgumentNullException()
+		{
+			this.SetInitializerForSimulator();
+
+			var dd = new ModuleBaseForTest();
+
+			this.modules.Setup(foo => foo.ModuleList).Returns(moduleList);
+
+			this.loadModuleSetting.Object.LoadConfig((x, y) => dd.Initialize(x, y, this.modules.Object));
+
+			this.testee.Initialize(true);
+
+			ToolsForError.CheckNoError(this.errorTracking);
 		}
 
 		#region internal function
@@ -80,6 +96,8 @@ namespace Sol2Reg.IO.Test
 			var init = this.initializers.Select(initializer => initializer.Object).ToList();
 			this.testee.Initializers = init;
 		}
+
+
 		#endregion
 	}
 }

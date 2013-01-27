@@ -34,9 +34,8 @@ namespace Sol2Reg.Tools.Error
 		/// <summary>The config module Io => No tag module</summary>
 		/// <remarks>Parameter : 1 (Config file name)</remarks>
 		ConfigModuleIO_NoTagModule = 111,
-		/// <summary>
-		/// The config module Io => module data not valid
-		/// </summary>
+
+		/// <summary>The config module Io => module data not valid</summary>
 		/// <remarks>Parameter : 1 (Module name)</remarks>
 		ConfigModuleIO_ModuleDataNotValid = 120,
 
@@ -45,5 +44,15 @@ namespace Sol2Reg.Tools.Error
 		ConfigModuleIO_ReadChanel = 130,
 		#endregion
 
+		#region InitilizeModule
+		/// <summary>The initilize module_ no simulation initializer</summary>
+		/// <remarks>Parameter : 0</remarks>
+		InitilizeModule_NoSimulatorInitializer = 200,
+		/// <summary>
+		/// The initilize module_ no productive initializer
+		/// </summary>
+		/// <remarks>Parameter : 2 (Config file name, module name)</remarks>
+		InitilizeModule_NoProductiveInitializer = 201,
+		#endregion
 	}
 }

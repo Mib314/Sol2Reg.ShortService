@@ -19,7 +19,7 @@ namespace Sol2Reg.IO.Test
 	using Moq;
 	using Sol2Reg.IO.Interface;
 	using Sol2Reg.ServiceData;
-	using Sol2Reg.ServiceData.Enumerations;
+	using Sol2Reg.Test.Tools;
 	using Sol2Reg.Tools;
 	using Sol2Reg.Tools.Error;
 	using Xunit;
@@ -30,21 +30,6 @@ namespace Sol2Reg.IO.Test
 		private const string FILE = "FILETEST";
 		private const string PATH_DLL = "PathDLL\\";
 
-		private const string MODULE_NAME = "MesureTemp";
-		private const string MODULE_SERIE = "Adam6000";
-		private const string MODULE_TYPE = "Adam6015";
-		private const string MODULE_IP = "192.168.200.150";
-		private const int MODULE_PORT = 520;
-
-		private const int CHANEL_ID = 1;
-		private const string CHANEL_KEY = "KEY";
-		private const Direction CHANEL_DIRECTION = Direction.Input;
-		private const TypeOfValue CHANEL_TYPE_OF_VALUE = TypeOfValue.Analog;
-		private const float CHANEL_GAIN = 1;
-		private const float CHANEL_OFFSET = 0;
-		private const string CHANEL_DESCRIPTION = "Chanel_Description";
-		private const string CHANEL_COMMENT = "Chanel_Comment";
-
 		private readonly Mock<ErrorTracking> errorTracking;
 
 
@@ -52,6 +37,7 @@ namespace Sol2Reg.IO.Test
 		private readonly Mock<IGlobalVariables> globalVariables;
 		private readonly Mock<ModuleDataValidator> moduleDataValidator;
 		private readonly Mock<IModules> modules;
+		private readonly ModulesValidForTest modulesValidForTest;
 
 		private readonly LoadModuleSetting testee;
 		private readonly XmlLinq xmlLinq;
@@ -62,6 +48,7 @@ namespace Sol2Reg.IO.Test
 
 		public LoadModuleSettingTest()
 		{
+			this.modulesValidForTest = new ModulesValidForTest();
 			this.fileSystem = new Mock<IFileSystem>();
 			this.globalVariables = new Mock<IGlobalVariables>();
 			this.errorTracking = new Mock<ErrorTracking>();
@@ -92,9 +79,10 @@ namespace Sol2Reg.IO.Test
 
 			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
+			ToolsForError.CheckNoError(this.errorTracking);
 			Assert.NotNull(result);
-			this.CheckValidModule(result);
-			this.CheckValidChanel(result);
+			ModulesValidForTest.CheckValidModule(result);
+			ModulesValidForTest.CheckValidChanel(result);
 		}
 
 		[Fact]
@@ -119,8 +107,8 @@ namespace Sol2Reg.IO.Test
 			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
 			Assert.NotNull(result);
-			this.CheckValidModule(result);
-			this.CheckValidChanel(result);
+			ModulesValidForTest.CheckValidModule(result);
+			ModulesValidForTest.CheckValidChanel(result);
 		}
 
 		[Fact]
@@ -130,7 +118,7 @@ namespace Sol2Reg.IO.Test
 			this.SetupFileSystem(false, false);
 			var restult = this.testee.LoadConfig(null);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_NoFile, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_NoFile, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
 		}
 
@@ -143,7 +131,7 @@ namespace Sol2Reg.IO.Test
 
 			var restult = this.testee.LoadConfig(null);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_FileBadFormated, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_FileBadFormated, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
 		}
 
@@ -160,7 +148,7 @@ namespace Sol2Reg.IO.Test
 
 			var restult = this.testee.LoadConfig(null);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_NoTagModules, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_NoTagModules, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
 		}
 
@@ -177,7 +165,7 @@ namespace Sol2Reg.IO.Test
 
 			var restult = this.testee.LoadConfig(null);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_NoTagModule, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_NoTagModule, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
 		}
 
@@ -200,7 +188,7 @@ namespace Sol2Reg.IO.Test
 
 			var restult = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_ModuleDataNotValid, ErrorGravity.FatalApplication);
 			Assert.Null(restult);
 		}
 
@@ -229,7 +217,7 @@ namespace Sol2Reg.IO.Test
 
 			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
 			Assert.Null(result);
 		}
 
@@ -259,7 +247,7 @@ namespace Sol2Reg.IO.Test
 
 			var result = this.testee.LoadConfig(this.fackInitializeModules.InitializeModule);
 
-			this.CheckError(ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
+			ToolsForError.CheckError(this.errorTracking, ErrorIdList.ConfigModuleIO_ReadChanel, ErrorGravity.FatalApplication);
 			Assert.Null(result);
 		}
 
@@ -295,11 +283,11 @@ namespace Sol2Reg.IO.Test
 		private XElement SetValidModule(bool addchanel = true)
 		{
 			var module = new XElement(LoadModuleSetting.Tag_Module);
-			module.SetAttributeValue(LoadModuleSetting.Module_Name, MODULE_NAME);
-			module.SetAttributeValue(LoadModuleSetting.Module_ModuleSerie, MODULE_SERIE);
-			module.SetAttributeValue(LoadModuleSetting.Module_ModuleType, MODULE_TYPE);
-			module.SetAttributeValue(LoadModuleSetting.Module_IP, MODULE_IP);
-			module.SetAttributeValue(LoadModuleSetting.Module_Port, MODULE_PORT);
+			module.SetAttributeValue(LoadModuleSetting.Module_Name, ModulesValidForTest.Module_Name);
+			module.SetAttributeValue(LoadModuleSetting.Module_ModuleSerie, ModulesValidForTest.Module_Serie);
+			module.SetAttributeValue(LoadModuleSetting.Module_ModuleType, ModulesValidForTest.Module_Type);
+			module.SetAttributeValue(LoadModuleSetting.Module_IP, ModulesValidForTest.Module_IP);
+			module.SetAttributeValue(LoadModuleSetting.Module_Port, ModulesValidForTest.Module_Port);
 			if (addchanel)
 			{
 				module.Add(this.SetValidChanel());
@@ -310,60 +298,23 @@ namespace Sol2Reg.IO.Test
 		private XElement SetValidChanel()
 		{
 			var chanel = new XElement(LoadModuleSetting.Tag_Chanel);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Id, CHANEL_ID);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Key, CHANEL_KEY);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Direction, CHANEL_DIRECTION);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_TypeOfValue, CHANEL_TYPE_OF_VALUE);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Gain, CHANEL_GAIN);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Offset, CHANEL_OFFSET);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Description, CHANEL_DESCRIPTION);
-			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Comment, CHANEL_COMMENT);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Id, ModulesValidForTest.Chanel_Id);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Key, ModulesValidForTest.Chanel_Key);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Direction, ModulesValidForTest.Chanel_Direction);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_TypeOfValue, ModulesValidForTest.Chanel_Type_Of_Value);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Gain, ModulesValidForTest.Chanel_Gain);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Offset, ModulesValidForTest.Chanel_Offset);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Description, ModulesValidForTest.Chanel_Description);
+			chanel.SetAttributeValue(LoadModuleSetting.Chanel_Comment, ModulesValidForTest.Chanel_Comment);
 			return chanel;
-		}
-
-		private void CheckError(ErrorIdList error, ErrorGravity errorGravity = ErrorGravity.Error, int errorPosition = 0)
-		{
-			Assert.Equal(error, this.errorTracking.Object.Errors[errorPosition].Id);
-			Assert.Equal(errorGravity, this.errorTracking.Object.Errors[errorPosition].Gravity);
-		}
-
-		private void CheckValidModule(IModules resultModules, int positionModule = 0)
-		{
-			var module = resultModules.ModuleList[positionModule];
-			Assert.NotNull(module);
-			Assert.Equal(MODULE_NAME, module.Name);
-			Assert.Equal(MODULE_SERIE, module.ModuleSerie);
-			Assert.Equal(MODULE_TYPE, module.ModuleType);
-			Assert.Equal(MODULE_IP, module.IpAddress);
-			Assert.Equal(MODULE_PORT, module.Port);
-		}
-
-		private void CheckValidChanel(IModules resultModules, int positionModule = 0, int positionChanel = 0)
-		{
-			var module = resultModules.ModuleList[positionModule];
-			Assert.NotNull(module);
-			var chanel = module.Chanels[positionChanel];
-			Assert.NotNull(chanel);
-			Assert.Equal(CHANEL_ID, chanel.Id);
-			Assert.Equal(CHANEL_KEY, chanel.Key);
-			Assert.Equal(CHANEL_DIRECTION, chanel.Direction);
-			Assert.Equal(CHANEL_TYPE_OF_VALUE, chanel.TypeOfValue);
-			Assert.Equal(CHANEL_GAIN, chanel.Gain);
-			Assert.Equal(CHANEL_OFFSET, chanel.Offset);
-			Assert.Equal(CHANEL_DESCRIPTION, chanel.Description);
-			Assert.Equal(CHANEL_COMMENT, chanel.Comment);
 		}
 
 		private void SetModulesWithValidModule()
 		{
-			this.moduleBase = this.fackInitializeModules.ModuleBase.Initialize(MODULE_SERIE, MODULE_TYPE, this.fackInitializeModules.Modules);
-			this.moduleBase.IpAddress = MODULE_IP;
-			this.moduleBase.Name = MODULE_NAME;
-			this.moduleBase.Port = MODULE_PORT;
-			this.moduleBase.Chanels = new List<IChanel>
-									  {
-										  new Chanel(CHANEL_ID, CHANEL_KEY, CHANEL_DIRECTION, CHANEL_TYPE_OF_VALUE) {Gain = CHANEL_GAIN, Offset = CHANEL_OFFSET}
-									  };
+			this.moduleBase = this.fackInitializeModules.ModuleBase.Initialize(ModulesValidForTest.Module_Serie, ModulesValidForTest.Module_Type, this.fackInitializeModules.Modules);
+
+			ModulesValidForTest.GetModulesValid(this.moduleBase);
+
 			this.modules.Setup(foo => foo.ModuleList).Returns(new List<IModuleBase> {this.moduleBase});
 		}
 		#endregion
@@ -392,7 +343,7 @@ namespace Sol2Reg.IO.Test
 		public override IModuleBase Initialize(string moduleSerie, string moduleType, IModules modules)
 		{
 			this.ModuleSerie = moduleSerie;
-			this.ModuleType = moduleType;
+			this.ModuleModel = moduleType;
 			return this;
 		}
 

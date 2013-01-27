@@ -13,14 +13,16 @@
 
 namespace Sol2Reg.IO
 {
-	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel.Composition;
 	using System.Linq;
 	using Sol2Reg.IO.Interface;
 	using Sol2Reg.IO.Simulator;
+	using Sol2Reg.Tools.Error;
 
-	/// <summary>Initialize module</summary>
+	/// <summary>
+	/// Initialize module
+	/// </summary>
 	[PartCreationPolicy(CreationPolicy.Shared)]
 	[Export]
 	public class InitializeModules
@@ -32,6 +34,9 @@ namespace Sol2Reg.IO
 
 		[Import]
 		public LoadModuleSetting LoadModuleSetting { get; set; }
+
+		[Import]
+		public ErrorTracking ErrorTracking { get; set; }
 
 		/// <summary>Gets the modules.</summary>
 		/// <value>The modules.</value>
@@ -47,7 +52,6 @@ namespace Sol2Reg.IO
 		/// <param name="isForSimulator" >
 		///     if set to <c>true</c> [is for simulator].
 		/// </param>
-		/// <exception cref="System.ArgumentNullException" >The simulator module is not present. Please add the \Sol2Reg.IO.Simulator\ DLL module in your application folder.</exception>
 		public InitializeModules Initialize(bool isForSimulator = false)
 		{
 			this.IsForSimulator = isForSimulator;
@@ -57,38 +61,46 @@ namespace Sol2Reg.IO
 				this.simulatorInitializer = this.Initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == typeof (InitializerSimulator).ToString());
 				if (this.simulatorInitializer == null)
 				{
-					throw new ArgumentNullException("", "The simulator module is not present. Please add the \"Sol2Reg.IO.Simulator.DLL\" module in your application folder.");
+					this.ErrorTracking.Add(ErrorIdList.InitilizeModule_NoSimulatorInitializer, ErrorGravity.FatalApplication);
+					return null;
 				}
+				// Load config module settings. 
+				this.Modules = this.LoadModuleSetting.LoadConfig(this.InitialiseModuleSimulator);
 			}
-
-			this.Modules = this.LoadModuleSetting.LoadConfig(this.InitializeModule);
-
+			else
+			{
+				// Load config module settings. 
+				this.Modules = this.LoadModuleSetting.LoadConfig(this.InitialiseModuleProductive);
+			}
 			return this;
 		}
 
-
-		/// <summary>Initialises the module.</summary>
-		/// <param name="moduleSerie" >The module serie.</param>
-		/// <param name="moduleType" >Type of the module.</param>
-		/// <returns>The module initialized</returns>
-		/// <exception cref="System.ArgumentOutOfRangeException" >If moduleSerie or moduleType not exist.</exception>
-		private IModuleBase InitializeModule(string moduleSerie, string moduleType)
-		{
-			return this.IsForSimulator ? this.InitialiseModuleSimulator(moduleSerie, moduleType) : this.InitialiseModuleProductive(moduleSerie, moduleType);
-		}
-
+		/// <summary>
+		/// Initialises the module simulator.
+		/// </summary>
+		/// <param name="moduleSerie">The module serie.</param>
+		/// <param name="moduleType">Type of the module.</param>
+		/// <returns>Modules.</returns>
 		private IModuleBase InitialiseModuleSimulator(string moduleSerie, string moduleType)
 		{
 			return this.simulatorInitializer.InitializeModule(moduleSerie, moduleType, this.Modules);
 		}
 
+		/// <summary>
+		/// Initialises the module productive.
+		/// Find in the Initializer for this Module serie and initialise the module.
+		/// </summary>
+		/// <param name="moduleSerie">The module serie.</param>
+		/// <param name="moduleType">Type of the module.</param>
+		/// <returns>The moduleBase implementation for this ModuleSerie.</returns>
 		private IModuleBase InitialiseModuleProductive(string moduleSerie, string moduleType)
 		{
 			var initializer = this.Initializers.FirstOrDefault(foo => foo.ModuleSerie_Key == moduleSerie);
 
 			if (initializer == null)
 			{
-				throw new ArgumentNullException("", string.Format("The {0} module is not present. Please add this DLL module in your application folder.", moduleSerie));
+				this.ErrorTracking.Add(ErrorIdList.InitilizeModule_NoProductiveInitializer, ErrorGravity.FatalApplication);
+				return null;
 			}
 
 			return initializer.InitializeModule(moduleSerie, moduleType, this.Modules);

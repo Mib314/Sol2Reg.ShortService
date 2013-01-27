@@ -44,7 +44,7 @@ namespace Sol2Reg.IO.ADAM6000Com
 
 		/// <summary>Gets the type of the module.</summary>
 		/// <value>The type of the module.</value>
-		public override string ModuleType
+		public override string ModuleModel
 		{
 			get { return this.Adam6000Type.ToString(); }
 			protected set { }
